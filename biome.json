@@ -13,7 +13,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"recommended": true,
 			"complexity": {
 				"noBannedTypes": "error",
 				"noExtraBooleanCast": "error",
@@ -42,7 +42,7 @@
 				"noUnsafeFinally": "error",
 				"noUnsafeOptionalChaining": "error",
 				"noUnusedLabels": "error",
-				"noUnusedVariables": "error",
+				"noUnusedVariables": "warn",
 				"useArrayLiterals": "off",
 				"useExhaustiveDependencies": "warn",
 				"useHookAtTopLevel": "error",
@@ -50,7 +50,7 @@
 				"useValidForDirection": "error",
 				"useYield": "error"
 			},
-			"style": { "noNamespace": "error", "useAsConstAssertion": "error" },
+			"style": { "noNamespace": "error", "useAsConstAssertion": "error", "useImportType": "warn" },
 			"suspicious": {
 				"noAsyncPromiseExecutor": "error",
 				"noCatchAssign": "error",
@@ -63,7 +63,7 @@
 				"noDuplicateObjectKeys": "error",
 				"noDuplicateParameters": "error",
 				"noEmptyBlockStatements": "error",
-				"noExplicitAny": "error",
+				"noExplicitAny": "off",
 				"noExtraNonNullAssertion": "error",
 				"noFallthroughSwitchClause": "error",
 				"noFunctionAssign": "error",
@@ -87,7 +87,7 @@
 			"jsxQuoteStyle": "double",
 			"quoteProperties": "asNeeded",
 			"trailingCommas": "all",
-			"semicolons": "asNeeded",
+			"semicolons": "always",
 			"arrowParentheses": "always",
 			"bracketSpacing": true,
 			"bracketSameLine": true,
