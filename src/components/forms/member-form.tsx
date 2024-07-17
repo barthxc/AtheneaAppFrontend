@@ -5,6 +5,7 @@ import { useToast } from "../ui/use-toast";
 import { MemberFormView } from "./views";
 import type { MemberFormValues, Role } from "@/types";
 import { memberFormSchema } from "@/schemas";
+import { ERROR_MESSAGES } from "@/constants";
 
 interface MemberFormProps {
 	initialData: any | null;
@@ -47,14 +48,14 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData, roles }) =>
 			//   router.push(`/dashboard/products`);
 			toast({
 				variant: "destructive",
-				title: "Uh oh! Something went wrong.",
-				description: "There was a problem with your request.",
+				title: ERROR_MESSAGES.GENERIC.SOMETHING_WENT_WRONG,
+				description: ERROR_MESSAGES.GENERIC.PROBLEM_WITH_REQUEST,
 			});
 		} catch (error: any) {
 			toast({
 				variant: "destructive",
-				title: "Uh oh! Something went wrong.",
-				description: "There was a problem with your request.",
+				title: ERROR_MESSAGES.GENERIC.SOMETHING_WENT_WRONG,
+				description: ERROR_MESSAGES.GENERIC.PROBLEM_WITH_REQUEST,
 			});
 		} finally {
 			setLoading(false);
