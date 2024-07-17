@@ -52,8 +52,8 @@ export const MemberFormView = ({
 						<FormField
 							formControl={form.control}
 							name="name"
-							label="Name"
-							render={({ field }) => <Input disabled={loading} placeholder="Member name" {...field} />}
+							label="Nombre"
+							render={({ field }) => <Input disabled={loading} placeholder="Nombre del socio" {...field} />}
 						/>
 
 						<FormField
@@ -68,7 +68,7 @@ export const MemberFormView = ({
 									defaultValue={field.value}>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue defaultValue={field.value} placeholder="Select a role" />
+											<SelectValue defaultValue={field.value} placeholder="Selecciona un rol" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
