@@ -8,15 +8,15 @@ import { calendarFormSchema } from "@/schemas";
 import type { CalendarFormValues, Category } from "@/types";
 import { ERROR_MESSAGES } from "@/constants";
 
-interface ProductFormProps {
+interface CalendarFormProps {
 	initialData: any | null;
 	categories: Category[];
 }
 
-export const CalendarForm: React.FC<ProductFormProps> = ({ initialData, categories }) => {
+export const CalendarForm: React.FC<CalendarFormProps> = ({ initialData, categories }) => {
 	//   const params = useParams();
 	//   const router = useRouter();
-	const [open, setOpen] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { toast } = useToast();
 	// const toastMessage = initialData ? "Product updated." : "Product created.";
@@ -33,6 +33,9 @@ export const CalendarForm: React.FC<ProductFormProps> = ({ initialData, categori
 		resolver: zodResolver(calendarFormSchema),
 		defaultValues,
 	});
+
+	const openModal = () => setShowModal(true);
+	const closeModal = () => setShowModal(false);
 
 	const onSubmit = async (data: CalendarFormValues) => {
 		try {
@@ -71,7 +74,7 @@ export const CalendarForm: React.FC<ProductFormProps> = ({ initialData, categori
 			// console.error(error)
 		} finally {
 			setLoading(false);
-			setOpen(false);
+			closeModal();
 		}
 	};
 
@@ -80,8 +83,9 @@ export const CalendarForm: React.FC<ProductFormProps> = ({ initialData, categori
 			initialData={initialData}
 			loading={loading}
 			categories={categories}
-			open={open}
-			setOpen={setOpen}
+			showModal={showModal}
+			openModal={openModal}
+			closeModal={closeModal}
 			form={form}
 			onSubmit={onSubmit}
 			onDelete={onDelete}

@@ -12,15 +12,17 @@ import {
 	Separator,
 } from "@/components/ui";
 import { Trash } from "lucide-react";
-import { FormField } from "../form-field";
+import { FormField } from "@/components/forms";
 import type { MemberFormViewProps } from "@/types";
+import { ConfirmModal } from "@/components/modal";
 
 export const MemberFormView = ({
 	initialData,
 	loading,
 	roles,
-	open,
-	setOpen,
+	showModal,
+	openModal,
+	closeModal,
 	form,
 	onSubmit,
 	onDelete,
@@ -40,7 +42,7 @@ export const MemberFormView = ({
 			<div className="flex items-center justify-between">
 				<Heading title={title} description={description} />
 				{initialData && (
-					<Button disabled={loading} variant="destructive" size="sm" onClick={() => setOpen(true)}>
+					<Button disabled={loading} variant="destructive" size="sm" onClick={openModal}>
 						<Trash className="h-4 w-4" />
 					</Button>
 				)}
@@ -87,6 +89,18 @@ export const MemberFormView = ({
 					</Button>
 				</form>
 			</Form>
+
+			{/* Modal de confirmación de eliminación */}
+			{showModal && (
+				<ConfirmModal
+					title="¿Seguro que quieres eliminar este socio?"
+					variant="destructive"
+					onCancel={closeModal}
+					onConfirm={onDelete}
+					confirmButtonLabel="Eliminar socio"
+					isConfirmButtonDisabled={loading}
+				/>
+			)}
 		</>
 	);
 };

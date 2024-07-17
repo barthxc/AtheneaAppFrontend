@@ -16,7 +16,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData, roles }) =>
 	//   const params = useParams();
 	//   const router = useRouter();
 	const { toast } = useToast();
-	const [open, setOpen] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	// const toastMessage = initialData ? "Socio actualizado." : "Socio creado.";
 
@@ -34,6 +34,9 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData, roles }) =>
 		resolver: zodResolver(memberFormSchema),
 		defaultValues,
 	});
+
+	const openModal = () => setShowModal(true);
+	const closeModal = () => setShowModal(false);
 
 	const onSubmit = async (data: MemberFormValues) => {
 		try {
@@ -72,7 +75,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData, roles }) =>
 			// console.error(error)
 		} finally {
 			setLoading(false);
-			setOpen(false);
+			closeModal();
 		}
 	};
 
@@ -81,8 +84,9 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData, roles }) =>
 			initialData={initialData}
 			roles={roles}
 			loading={loading}
-			open={open}
-			setOpen={setOpen}
+			showModal={showModal}
+			openModal={openModal}
+			closeModal={closeModal}
 			form={form}
 			onSubmit={onSubmit}
 			onDelete={onDelete}

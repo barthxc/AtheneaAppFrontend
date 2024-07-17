@@ -14,21 +14,23 @@ import {
 import { Trash } from "lucide-react";
 
 import type { CalendarFormViewProps } from "@/types";
-import { FormField } from "../form-field";
+import { FormField } from "@/components/forms";
+import { ConfirmModal } from "@/components/modal";
 
 export const CalendarFormView = ({
 	initialData,
 	loading,
 	categories,
-	open,
-	setOpen,
+	showModal,
+	openModal,
+	closeModal,
 	form,
 	onSubmit,
 	onDelete,
 }: CalendarFormViewProps) => {
-	const title = initialData ? "Edit product" : "Gestión del calendario";
-	const description = initialData ? "Edit a product." : "yeah";
-	const action = initialData ? "Save changes" : "Create";
+	const title = initialData ? "Editar calendario" : "Gestión del calendario";
+	const description = initialData ? "Edita el calendario." : "Gestiona el calendario.";
+	const action = initialData ? "Guardar" : "Crear";
 
 	return (
 		<>
@@ -41,7 +43,7 @@ export const CalendarFormView = ({
 			<div className="flex items-center justify-between">
 				<Heading title={title} description={description} />
 				{initialData && (
-					<Button disabled={loading} variant="destructive" size="sm" onClick={() => setOpen(true)}>
+					<Button disabled={loading} variant="destructive" size="sm" onClick={openModal}>
 						<Trash className="h-4 w-4" />
 					</Button>
 				)}
@@ -105,6 +107,18 @@ export const CalendarFormView = ({
 					</Button>
 				</form>
 			</Form>
+
+			{/* Modal de confirmación de eliminación */}
+			{showModal && (
+				<ConfirmModal
+					title="¿Seguro que quieres eliminar este calendario?"
+					variant="destructive"
+					onCancel={closeModal}
+					onConfirm={onDelete}
+					confirmButtonLabel="Eliminar calendario"
+					isConfirmButtonDisabled={loading}
+				/>
+			)}
 		</>
 	);
 };

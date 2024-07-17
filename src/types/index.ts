@@ -55,8 +55,9 @@ export interface Role {
 export interface FormViewProps {
 	initialData: any | null;
 	loading: boolean;
-	open: boolean;
-	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	showModal: boolean;
+	openModal(): void;
+	closeModal(): void;
 	onSubmit(data: FieldValues): Promise<void>;
 	onDelete(): Promise<void>;
 }
