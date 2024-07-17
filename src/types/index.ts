@@ -1,6 +1,6 @@
 import type { Icons } from "@/components/icons";
-import type { calendarFormSchema } from "@/schemas";
-import type { UseFormReturn } from "react-hook-form";
+import type { calendarFormSchema, memberFormSchema } from "@/schemas";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
 export enum ValidRoles {
@@ -47,15 +47,28 @@ export interface Category {
 	name: string;
 }
 
-export type CalendarFormValues = z.infer<typeof calendarFormSchema>;
+export interface Role {
+	_id: string;
+	name: string;
+}
 
-export interface CalendarFormViewProps {
+export interface FormViewProps {
 	initialData: any | null;
 	loading: boolean;
-	categories: Category[];
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	form: UseFormReturn<CalendarFormValues>;
-	onSubmit(data: CalendarFormValues): Promise<void>;
+	onSubmit(data: FieldValues): Promise<void>;
 	onDelete(): Promise<void>;
+}
+
+export type CalendarFormValues = z.infer<typeof calendarFormSchema>;
+export interface CalendarFormViewProps extends FormViewProps {
+	categories: Category[];
+	form: UseFormReturn<CalendarFormValues>;
+}
+
+export type MemberFormValues = z.infer<typeof memberFormSchema>;
+export interface MemberFormViewProps extends FormViewProps {
+	roles: Role[];
+	form: UseFormReturn<MemberFormValues>;
 }

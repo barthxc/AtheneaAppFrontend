@@ -1,8 +1,8 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const calendarFormSchema = z.object({
-	name: z.string().min(3, { message: "Product Name must be at least 3 characters" }),
-	description: z.string().min(3, { message: "Product description must be at least 3 characters" }),
+	name: z.string().min(3, { message: "El nombre del producto debe tener al menos 3 caracteres" }),
+	description: z.string().min(3, { message: "La descripción del producto debe tener al menos 3 caracteres" }),
 	price: z.coerce.number(),
-	category: z.string().min(1, { message: "Please select a category" }),
-})
+	category: z.string().min(1, { message: "Por favor, selecciona una categoría" }),
+});

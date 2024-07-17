@@ -12,23 +12,22 @@ import {
 	Separator,
 } from "@/components/ui";
 import { Trash } from "lucide-react";
-
-import type { CalendarFormViewProps } from "@/types";
 import { FormField } from "../form-field";
+import type { MemberFormViewProps } from "@/types";
 
-export const CalendarFormView = ({
+export const MemberFormView = ({
 	initialData,
 	loading,
-	categories,
+	roles,
 	open,
 	setOpen,
 	form,
 	onSubmit,
 	onDelete,
-}: CalendarFormViewProps) => {
-	const title = initialData ? "Edit product" : "Gestión del calendario";
-	const description = initialData ? "Edit a product." : "yeah";
-	const action = initialData ? "Save changes" : "Create";
+}: MemberFormViewProps) => {
+	const title = initialData ? "Editar socio" : "Crear socio";
+	const description = initialData ? "Edita el socio" : "Agrega un nuevo socio";
+	const action = initialData ? "Guardar" : "Crear";
 
 	return (
 		<>
@@ -46,9 +45,7 @@ export const CalendarFormView = ({
 					</Button>
 				)}
 			</div>
-
 			<Separator />
-
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
 					<div className="gap-8 md:grid md:grid-cols-3">
@@ -56,27 +53,13 @@ export const CalendarFormView = ({
 							formControl={form.control}
 							name="name"
 							label="Name"
-							render={({ field }) => <Input disabled={loading} placeholder="Product name" {...field} />}
+							render={({ field }) => <Input disabled={loading} placeholder="Member name" {...field} />}
 						/>
 
 						<FormField
 							formControl={form.control}
-							name="description"
-							label="Description"
-							render={({ field }) => <Input disabled={loading} placeholder="Product description" {...field} />}
-						/>
-
-						<FormField
-							formControl={form.control}
-							name="price"
-							label="Price"
-							render={({ field }) => <Input type="number" disabled={loading} {...field} />}
-						/>
-
-						<FormField
-							formControl={form.control}
-							name="category"
-							label="Category"
+							name="role"
+							label="Role"
 							render={({ field }) => (
 								<Select
 									disabled={loading}
@@ -85,13 +68,13 @@ export const CalendarFormView = ({
 									defaultValue={field.value}>
 									<FormControl>
 										<SelectTrigger>
-											<SelectValue defaultValue={field.value} placeholder="Select a category" />
+											<SelectValue defaultValue={field.value} placeholder="Select a role" />
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										{categories.map((category) => (
-											<SelectItem key={category._id} value={category._id}>
-												{category.name}
+										{roles.map((role) => (
+											<SelectItem key={role._id} value={role._id}>
+												{role.name}
 											</SelectItem>
 										))}
 									</SelectContent>
@@ -99,7 +82,6 @@ export const CalendarFormView = ({
 							)}
 						/>
 					</div>
-
 					<Button disabled={loading} className="ml-auto" type="submit">
 						{action}
 					</Button>
