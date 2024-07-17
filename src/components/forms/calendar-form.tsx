@@ -6,6 +6,7 @@ import { useToast } from "../ui/use-toast";
 import { CalendarFormView } from "./views";
 import { calendarFormSchema } from "@/schemas";
 import type { CalendarFormValues, Category } from "@/types";
+import { ERROR_MESSAGES } from "@/constants";
 
 interface ProductFormProps {
 	initialData: any | null;
@@ -46,14 +47,14 @@ export const CalendarForm: React.FC<ProductFormProps> = ({ initialData, categori
 			//   router.push(`/dashboard/products`);
 			toast({
 				variant: "destructive",
-				title: "Uh oh! Something went wrong.",
-				description: "There was a problem with your request.",
+				title: ERROR_MESSAGES.GENERIC.SOMETHING_WENT_WRONG,
+				description: ERROR_MESSAGES.GENERIC.PROBLEM_WITH_REQUEST,
 			});
 		} catch (error: any) {
 			toast({
 				variant: "destructive",
-				title: "Uh oh! Something went wrong.",
-				description: "There was a problem with your request.",
+				title: ERROR_MESSAGES.GENERIC.SOMETHING_WENT_WRONG,
+				description: ERROR_MESSAGES.GENERIC.PROBLEM_WITH_REQUEST,
 			});
 		} finally {
 			setLoading(false);
