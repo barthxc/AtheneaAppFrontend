@@ -10,6 +10,25 @@ export enum ValidRoles {
   user = "user",
 }
 
+export enum Status {
+  alta = "alta",
+  baja = "baja",
+  exitud = "exitud",
+}
+
+export enum StreetType {
+  avenida = "avenida",
+  barriada = "barriada",
+  plaza = "plaza",
+  calle = "calle",
+  via = "via",
+}
+
+export enum PaymentMethod {
+  caja = "caja",
+  banco = "banco",
+}
+
 export interface NavItem {
   title: string;
   href?: string;
