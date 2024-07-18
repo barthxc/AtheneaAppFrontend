@@ -36,19 +36,6 @@ export enum MemberPaymentMethod {
 	banco = "banco",
 }
 
-export enum StreetType {
-	avenida = "avenida",
-	barriada = "barriada",
-	plaza = "plaza",
-	calle = "calle",
-	via = "via",
-}
-
-export enum PaymentMethod {
-	caja = "caja",
-	banco = "banco",
-}
-
 export interface NavItem {
 	title: string;
 	href?: string;

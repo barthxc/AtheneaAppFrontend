@@ -33,7 +33,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {
 				identificationNumber: "",
 				status: MemberStatus.alta,
 				email: "",
-				birthDate: new Date(),
+				birthDate: "",
 				hasDisability: MemberHasDisability.no,
 				gradeDisability: 0,
 				observations: "",

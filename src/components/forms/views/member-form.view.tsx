@@ -13,7 +13,13 @@ import {
 } from "@/components/ui";
 import { Trash } from "lucide-react";
 import { FormField } from "@/components/forms";
-import { PaymentMethod, MemberStatus, StreetType, type MemberFormViewProps } from "@/types";
+import {
+	MemberPaymentMethod,
+	MemberStatus,
+	MemberStreetType,
+	type MemberFormViewProps,
+	MemberHasDisability,
+} from "@/types";
 import { ConfirmModal } from "@/components/modal";
 import { useEffect } from "react";
 
@@ -54,7 +60,7 @@ export const MemberFormView = ({
 			</div>
 			<Separator />
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-5xl space-y-8">
+				<form onSubmit={form.handleSubmit(onSubmit, (x) => console.log(x))} className="w-full max-w-5xl space-y-8">
 					<div className="flex flex-col gap-4">
 						{/* INFORMACIÓN DEL SOCIO */}
 						<p className="text-2xl font-bold ">Información de Socio</p>
@@ -106,8 +112,8 @@ export const MemberFormView = ({
 							<FormField
 								formControl={form.control}
 								name="birthDate"
-								label="Fecha de Nac"
-								render={({ field }) => <Input disabled={loading} placeholder="Fecha Nac." type="date" {...field} />}
+								label="Fecha de Nac."
+								render={({ field }) => <Input disabled={loading} placeholder="Fecha Nac." {...field} />}
 							/>
 
 							{/* <FormField
@@ -135,12 +141,18 @@ export const MemberFormView = ({
 										defaultValue={field.value}>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue defaultValue={"no"} placeholder="NO" />
+												<SelectValue
+													defaultValue={MemberHasDisability.no}
+													placeholder={MemberHasDisability.no.toUpperCase()}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value="si">SI</SelectItem>
-											<SelectItem value="no">NO</SelectItem>
+											{Object.values(MemberHasDisability).map((hasDisability) => (
+												<SelectItem key={hasDisability} value={hasDisability}>
+													{hasDisability.toUpperCase()}
+												</SelectItem>
+											))}
 										</SelectContent>
 									</Select>
 								)}
@@ -197,11 +209,14 @@ export const MemberFormView = ({
 										defaultValue={field.value}>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue defaultValue={StreetType.calle} placeholder={StreetType.calle.toUpperCase()} />
+												<SelectValue
+													defaultValue={MemberStreetType.calle}
+													placeholder={MemberStreetType.calle.toUpperCase()}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											{Object.values(StreetType).map((streetType) => (
+											{Object.values(MemberStreetType).map((streetType) => (
 												<SelectItem key={streetType} value={streetType}>
 													{streetType.toUpperCase()}
 												</SelectItem>
@@ -271,11 +286,14 @@ export const MemberFormView = ({
 										defaultValue={field.value}>
 										<FormControl>
 											<SelectTrigger>
-												<SelectValue defaultValue={PaymentMethod.caja} placeholder={PaymentMethod.caja.toUpperCase()} />
+												<SelectValue
+													defaultValue={MemberPaymentMethod.caja}
+													placeholder={MemberPaymentMethod.caja.toUpperCase()}
+												/>
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											{Object.values(PaymentMethod).map((paymentMethod) => (
+											{Object.values(MemberPaymentMethod).map((paymentMethod) => (
 												<SelectItem key={paymentMethod} value={paymentMethod}>
 													{paymentMethod.toUpperCase()}
 												</SelectItem>
