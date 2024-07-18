@@ -3,4 +3,4 @@ export const ERROR_MESSAGES = {
 		SOMETHING_WENT_WRONG: "Uh oh! Something went wrong.",
 		PROBLEM_WITH_REQUEST: "There was a problem with your request.",
 	},
-};
+} as const;
