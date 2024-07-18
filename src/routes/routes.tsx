@@ -12,43 +12,43 @@ import Calendar from "@/pages/Calendar";
 import NewMember from "@/pages/NewMember";
 
 export const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <AuthenticationPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-      {
-        path: "members",
-        element: <Members />,
-      },
-      {
-        path: "member/new",
-        element: <NewMember />,
-      },
-      {
-        path: "member/:id",
-        element: <NewMember />,
-      },
-      {
-        path: "kanban",
-        element: <Kanban />,
-      },
-      {
-        path: "calendar",
-        element: <Calendar />,
-      },
-    ],
-    errorElement: <NotFound />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+	{
+		path: "/",
+		element: <AuthenticationPage />,
+	},
+	{
+		path: "/dashboard",
+		element: <DashboardLayout />,
+		children: [
+			{
+				path: "",
+				element: <Home />,
+			},
+			{
+				path: "members",
+				element: <Members />,
+			},
+			{
+				path: "members/new",
+				element: <NewMember />,
+			},
+			{
+				path: "members/:id",
+				element: <NewMember />,
+			},
+			{
+				path: "kanban",
+				element: <Kanban />,
+			},
+			{
+				path: "calendar",
+				element: <Calendar />,
+			},
+		],
+		errorElement: <NotFound />,
+	},
+	{
+		path: "*",
+		element: <NotFound />,
+	},
 ]);
