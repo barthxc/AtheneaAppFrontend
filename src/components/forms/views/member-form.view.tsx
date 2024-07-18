@@ -33,7 +33,7 @@ export const MemberFormView = ({
 }: MemberFormViewProps) => {
   const title = initialData ? "Editar socio" : "Crear socio";
   const description = initialData ? "Edita el socio" : "Agrega un nuevo socio";
-  const action = initialData ? "Guardar" : "Crear";
+  const action = initialData ? "Guardar Socio" : "Crear Socio";
 
   return (
     <>
@@ -144,6 +144,7 @@ export const MemberFormView = ({
                   <Input
                     disabled={loading}
                     placeholder="Fecha Nac."
+                    type="date"
                     {...field}
                   />
                 )}
@@ -459,7 +460,10 @@ export const MemberFormView = ({
             </div>
           </div>
 
-          <Button disabled={loading} className="ml-auto" type="submit">
+          <Button
+            disabled={loading}
+            className="ml-auto h-12 text-base"
+            type="submit">
             {action}
           </Button>
         </form>

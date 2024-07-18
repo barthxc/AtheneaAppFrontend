@@ -3,6 +3,8 @@ import type { calendarFormSchema, memberFormSchema } from "@/schemas";
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
+export type AuthStatus = "authorized" | "unauthorized" | "pending";
+
 export enum ValidRoles {
   admin = "admin",
   treasure = "treasure",
