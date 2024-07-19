@@ -2,7 +2,7 @@ import { AuthService } from "@/services/auth.service";
 import type { AuthStatus } from "@/types";
 import { User } from "@/types/user.interface";
 import { create, StateCreator } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 export interface AuthState {
   status: AuthStatus;
@@ -10,10 +10,12 @@ export interface AuthState {
   user?: User;
 
   loginUser: (email: string, password: string) => Promise<void>;
+  checkAuthStatus: () => Promise<void>;
+  logoutUser: () => void;
 }
 
 const storeApi: StateCreator<AuthState> = (set) => ({
-  status: "authorized",
+  status: "pending",
   token: undefined,
   user: undefined,
 
@@ -24,8 +26,28 @@ const storeApi: StateCreator<AuthState> = (set) => ({
       set({ status: "authorized", token, user });
     } catch (error) {
       set({ status: "unauthorized", token: undefined, user: undefined });
+      throw "Unauthorized";
     }
+  },
+
+  checkAuthStatus: async () => {
+    try {
+      const { token, ...user } = await AuthService.checkAuthstatus();
+      set({ status: "authorized", token, user });
+    } catch (error) {
+      set({ status: "unauthorized", token: undefined, user: undefined });
+    }
+  },
+
+  logoutUser: () => {
+    set({ status: "unauthorized", token: undefined, user: undefined });
   },
 });
 
-export const useAuthStore = create<AuthState>()(devtools(storeApi));
+export const useAuthStore = create<AuthState>()(
+  devtools(
+    persist(storeApi, {
+      name: "auth-athenea",
+    })
+  )
+);

@@ -12,6 +12,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 
 //TODO CREAR authStore
@@ -25,6 +26,7 @@ type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
   const loginUser = useAuthStore((state) => state.loginUser);
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   //   const login = useAuthStore((state) => state.login);
@@ -39,16 +41,20 @@ export default function UserAuthForm() {
 
   const onSubmit = async (data: UserFormValue) => {
     const { email, password } = data;
-    loginUser(email, password);
-    console.log(email, password);
     setLoading(true);
+    try {
+      await loginUser(email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      console.log("No se pudo autenticar");
+    }
+    setLoading(false);
     // await login(data.email, data.password);
 
     // if (response.status === 23232) {
     //   Toast;
     // }
 
-    setLoading(false);
     // signIn('credentials', {
     //   email: data.email,
     //   password: data.password,

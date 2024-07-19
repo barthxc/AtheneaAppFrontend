@@ -21,7 +21,6 @@ export class AuthService {
         email,
         password,
       });
-      console.log(data);
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -31,6 +30,16 @@ export class AuthService {
 
       console.log(error);
       throw new Error("Unable to login");
+    }
+  };
+
+  static checkAuthstatus = async (): Promise<LoginResponse> => {
+    try {
+      const { data } = await atheneaApi.get("/auth/check-auth-status");
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw new Error("UnAuthorized");
     }
   };
 }

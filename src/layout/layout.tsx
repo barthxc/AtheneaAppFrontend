@@ -1,8 +1,22 @@
+import { useAuthStore } from "@/stores/authStore";
 import Header from "./header";
 import Sidebar from "./sidebar";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
+  const authStatus = useAuthStore((state) => state.status);
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  if (authStatus === "pending") {
+    checkAuthStatus();
+  }
+
+  if (authStatus === "unauthorized") {
+    return <Navigate to="/" />;
+  }
+
+  console.log(authStatus);
+
   return (
     <>
       <Header />

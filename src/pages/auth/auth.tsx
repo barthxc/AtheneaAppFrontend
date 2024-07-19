@@ -1,9 +1,10 @@
 // import { Metadata } from 'next';
 // import Link from 'next/link';
 import UserAuthForm from "@/components/forms/user-auth-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/stores/authStore";
 
 // export const metadata: Metadata = {
 //   title: 'Autenticación',
@@ -11,6 +12,17 @@ import { cn } from "@/lib/utils";
 // };
 
 export default function AuthenticationPage() {
+  const authStatus = useAuthStore((state) => state.status);
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  if (authStatus === "pending") {
+    checkAuthStatus();
+  }
+
+  if (authStatus === "authorized") {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       {/* <Link
