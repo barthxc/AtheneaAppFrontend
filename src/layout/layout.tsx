@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/Auth/stores/AuthStore";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import { Navigate, Outlet } from "react-router-dom";

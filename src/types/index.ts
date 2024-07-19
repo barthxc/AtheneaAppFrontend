@@ -1,16 +1,8 @@
+import { ValidRoles } from "@/Auth/types/enums";
 import type { Icons } from "@/components/icons";
 import type { calendarFormSchema, memberFormSchema } from "@/schemas";
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
-
-export type AuthStatus = "authorized" | "unauthorized" | "pending";
-
-export enum ValidRoles {
-  admin = "admin",
-  treasure = "treasure",
-  president = "president",
-  user = "user",
-}
 
 export enum MemberStatus {
   alta = "alta",

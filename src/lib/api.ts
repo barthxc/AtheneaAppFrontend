@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/stores/authStore";
+import { useAuthStore } from "@/Auth/stores/AuthStore";
 import axios from "axios";
 const atheneaApi = axios.create({
   baseURL: "https://athenea-app-backend.vercel.app/api",
