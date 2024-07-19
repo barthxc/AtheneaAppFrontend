@@ -2,6 +2,7 @@ import { atheneaApi } from "@/lib/api";
 import type { ValidRoles } from "@/types";
 import { AxiosError } from "axios";
 
+//! Extends from User (?)
 export interface LoginResponse {
   id: string;
   email: string;

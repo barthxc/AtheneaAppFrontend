@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/stores/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,6 +24,8 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
+  const loginUser = useAuthStore((state) => state.loginUser);
+
   const [loading, setLoading] = useState(false);
   //   const login = useAuthStore((state) => state.login);
   const defaultValues = {
@@ -35,6 +38,9 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
+    const { email, password } = data;
+    loginUser(email, password);
+    console.log(email, password);
     setLoading(true);
     // await login(data.email, data.password);
 
