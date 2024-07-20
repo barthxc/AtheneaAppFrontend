@@ -1,7 +1,8 @@
-import { AuthService } from "../services/auth.service";
 import { create, type StateCreator } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { AuthState } from "../types/auth.interface";
+
+import type { AuthState } from "@/features/auth/types";
+import { AuthService } from "@/features/auth/services";
 
 const storeApi: StateCreator<AuthState> = (set) => ({
 	status: "pending",

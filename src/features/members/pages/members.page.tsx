@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { columns } from "@/features/core/components/tables/members-tables/columns";
-import EmployeeTable from "@/features/core/components/tables/members-tables/member-table";
-import { buttonVariants } from "@/features/core/components/ui/button";
-import { Heading } from "@/features/core/components/ui/heading";
-import { Separator } from "@/features/core/components/ui/separator";
+import { Link, useParams } from "react-router-dom";
+import { Plus } from "lucide-react";
+
 import type { Employee } from "@/features/core/constants/data";
 import { cn } from "@/features/core/lib/utils";
-import { Plus } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { columns, MemberTable } from "@/features/core/components/tables";
+import { buttonVariants, Heading, Separator } from "@/features/core/components/ui";
 
 export function MembersPage() {
 	const {
@@ -62,7 +60,7 @@ export function MembersPage() {
 			</div>
 			<Separator />
 
-			<EmployeeTable
+			<MemberTable
 				searchKey="country"
 				pageNo={Number(page)}
 				columns={columns}

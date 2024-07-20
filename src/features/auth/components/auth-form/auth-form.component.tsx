@@ -1,13 +1,23 @@
-import { Button } from "@/features/core/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/features/core/components/ui/form";
-import { Input } from "@/features/core/components/ui/input";
-import { useAuthStore } from "@/features/auth/stores/auth.store";
-import { zodResolver } from "@hookform/resolvers/zod";
+import type { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import type * as z from "zod";
-import { Toaster, useToast } from "@/features/core/components/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+	Button,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+	Input,
+	Toaster,
+	useToast,
+} from "@/features/core/components/ui";
+
+import { useAuthStore } from "@/features/auth/stores";
 import { authSchema } from "@/features/auth/schemas";
 
 //TODO CREAR authStore
@@ -34,8 +44,7 @@ export function AuthForm() {
 		const { email, password } = data;
 		setLoading(true);
 		try {
-			const res = await loginUser(email, password);
-			console.log({ res });
+			await loginUser(email, password);
 			navigate("/dashboard");
 		} catch (error: any) {
 			/*

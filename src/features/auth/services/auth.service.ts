@@ -1,7 +1,9 @@
 import { AxiosError } from "axios";
 
 import { atheneaApi } from "@/features/core/lib/api";
+
 import type { ValidRoles } from "@/features/auth/types";
+import { ERROR_MESSAGES } from "@/features/core/constants";
 
 //! Extends from User (?)
 export interface LoginResponse {
@@ -24,12 +26,11 @@ export class AuthService {
 			return data;
 		} catch (error) {
 			if (error instanceof AxiosError) {
-				console.log("AuthService Error:", error);
 				throw error.code;
 				// throw new Error(error.response?.data);
 			}
 
-			throw "UNKNOWN";
+			throw ERROR_MESSAGES.REQUEST.UNKNOWN;
 		}
 	};
 

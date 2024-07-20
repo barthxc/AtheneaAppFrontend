@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
 	pageSizeOptions?: number[];
 }
 
-const EmployeeTable: React.FC<DataTableProps<any, any>> = ({
+export const MemberTable: React.FC<DataTableProps<any, any>> = ({
 	columns,
 	data,
 	searchKey,
@@ -178,5 +178,3 @@ const EmployeeTable: React.FC<DataTableProps<any, any>> = ({
 		</>
 	);
 };
-
-export default EmployeeTable;

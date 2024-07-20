@@ -3,9 +3,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useToast } from "@/features/core/components/ui";
-import { MemberFormView } from "@/features/members/components";
-
 import { ERROR_MESSAGES } from "@/features/core/constants";
+
 import {
 	type MemberFormProps,
 	type MemberFormValues,
@@ -14,6 +13,7 @@ import {
 	MemberStatus,
 	MemberStreetType,
 } from "@/features/members/types";
+import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
 
 export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {

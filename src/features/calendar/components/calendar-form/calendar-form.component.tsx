@@ -1,13 +1,13 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useToast } from "../../../core/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CalendarFormView } from "./calendar-form-view.component";
-import { calendarFormSchema } from "../../schemas/calendar-form.schema";
-
-import type { CalendarFormValues } from "../../types/calendar.type";
+import { useToast } from "@/features/core/components/ui";
 import { ERROR_MESSAGES } from "@/features/core/constants";
+
+import { CalendarFormView } from "@/features/calendar/components";
+import { calendarFormSchema } from "@/features/calendar/schemas";
+import type { CalendarFormValues } from "@/features/calendar/types";
 
 interface CalendarFormProps {
 	initialData: any | null;

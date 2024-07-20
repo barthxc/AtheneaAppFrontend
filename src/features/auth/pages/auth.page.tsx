@@ -1,11 +1,13 @@
 // ? WHAT? 😳 Next isn't even installed
 // import { Metadata } from 'next';
 // import Link from 'next/link';
-import { AuthForm } from "@/features/auth/components";
 import { /*Link,*/ Navigate } from "react-router-dom";
-import { buttonVariants } from "@/features/core/components/ui/button";
+
 import { cn } from "@/features/core/lib/utils";
-import { useAuthStore } from "@/features/auth/stores/auth.store";
+import { buttonVariants } from "@/features/core/components/ui";
+
+import { AuthForm } from "@/features/auth/components";
+import { useAuthStore } from "@/features/auth/stores";
 
 // export const metadata: Metadata = {
 //   title: 'Autenticación',

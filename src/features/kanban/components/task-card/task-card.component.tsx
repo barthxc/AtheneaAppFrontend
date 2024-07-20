@@ -4,6 +4,7 @@ import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
 
 import { Badge, Button, Card, CardContent, CardHeader } from "@/features/core/components/ui";
+
 import type { TaskCardProps, TaskDragData } from "@/features/kanban/types";
 
 // export interface Task {

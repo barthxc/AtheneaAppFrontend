@@ -2,7 +2,6 @@ import type { UniqueIdentifier } from "@dnd-kit/core";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { useRef, useState } from "react";
 
-import { useTaskStore } from "@/features/kanban/stores";
 import {
 	AlertDialog,
 	AlertDialogCancel,
@@ -20,6 +19,8 @@ import {
 	Input,
 	useToast,
 } from "@/features/core/components/ui";
+
+import { useTaskStore } from "@/features/kanban/stores";
 
 export function ColumnActions({
 	title,

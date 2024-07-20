@@ -1,9 +1,10 @@
-import { Button, Form, Heading, Input, Separator } from "@/features/core/components/ui";
 import { Trash } from "lucide-react";
 
+import { Button, Form, Heading, Input, Separator } from "@/features/core/components/ui";
 import { FormField } from "@/features/core/components/forms";
 import { ConfirmModal } from "@/features/core/components/modal";
 import { CalendarDateRangePicker } from "@/features/core/components/date-range-picker";
+
 import type { CalendarFormViewProps } from "@/features/calendar/types";
 
 export const CalendarFormView = ({
