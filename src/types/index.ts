@@ -1,6 +1,6 @@
 import { ValidRoles } from "@/Auth/types/enums";
 import type { Icons } from "@/components/icons";
-import type { calendarFormSchema, memberFormSchema } from "@/schemas";
+import type { memberFormSchema } from "@/schemas";
 import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 
@@ -60,11 +60,6 @@ export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
 
-export interface Category {
-  _id: string;
-  name: string;
-}
-
 export interface FormViewProps {
   initialData: any | null;
   loading: boolean;
@@ -73,12 +68,6 @@ export interface FormViewProps {
   closeModal(): void;
   onSubmit(data: FieldValues): Promise<void>;
   onDelete(): Promise<void>;
-}
-
-export type CalendarFormValues = z.infer<typeof calendarFormSchema>;
-export interface CalendarFormViewProps extends FormViewProps {
-  categories: Category[];
-  form: UseFormReturn<CalendarFormValues>;
 }
 
 export type MemberFormValues = z.infer<typeof memberFormSchema>;

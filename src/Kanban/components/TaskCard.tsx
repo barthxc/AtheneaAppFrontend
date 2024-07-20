@@ -1,29 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Task } from "@/lib/taskStore";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui";
+import { TaskCardProps, TaskDragData } from "../types/interfaces";
 
 // export interface Task {
 //   id: UniqueIdentifier;
 //   columnId: ColumnId;
 //   content: string;
 // }
-
-interface TaskCardProps {
-  task: Task;
-  isOverlay?: boolean;
-}
-
-export type TaskType = "Task";
-
-export interface TaskDragData {
-  type: TaskType;
-  task: Task;
-}
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
   const {

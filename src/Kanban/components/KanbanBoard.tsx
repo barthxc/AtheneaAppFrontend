@@ -1,8 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-
-import { Task, useTaskStore } from "@/lib/taskStore";
-import { hasDraggableData } from "@/lib/utils";
+import { useTaskStore } from "../stores/taskStore";
+import { KanbanService } from "../services/KanbanService";
 import {
   Announcements,
   DndContext,
@@ -17,10 +16,11 @@ import {
   type DragStartEvent,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import type { Column } from "./board-column";
-import { BoardColumn, BoardContainer } from "./board-column";
-import NewSectionDialog from "./new-section-dialog";
-import { TaskCard } from "./task-card";
+import type { Column } from "../types/interfaces";
+import { BoardColumn, BoardContainer } from "./BoardColumn";
+import NewSectionDialog from "./NewSectionDialog";
+import { TaskCard } from "./TaskCard";
+import { Task } from "../types";
 // import { coordinateGetter } from "./multipleContainersKeyboardPreset";
 
 const defaultCols = [
@@ -97,7 +97,7 @@ export function KanbanBoard() {
 
   const announcements: Announcements = {
     onDragStart({ active }) {
-      if (!hasDraggableData(active)) return;
+      if (!KanbanService.hasDraggableData(active)) return;
       if (active.data.current?.type === "Column") {
         const startColumnIdx = columnsId.findIndex((id) => id === active.id);
         const startColumn = columns[startColumnIdx];
@@ -116,7 +116,11 @@ export function KanbanBoard() {
       }
     },
     onDragOver({ active, over }) {
-      if (!hasDraggableData(active) || !hasDraggableData(over)) return;
+      if (
+        !KanbanService.hasDraggableData(active) ||
+        !KanbanService.hasDraggableData(over)
+      )
+        return;
 
       if (
         active.data.current?.type === "Column" &&
@@ -147,7 +151,10 @@ export function KanbanBoard() {
       }
     },
     onDragEnd({ active, over }) {
-      if (!hasDraggableData(active) || !hasDraggableData(over)) {
+      if (
+        !KanbanService.hasDraggableData(active) ||
+        !KanbanService.hasDraggableData(over)
+      ) {
         pickedUpTaskColumn.current = null;
         return;
       }
@@ -183,7 +190,7 @@ export function KanbanBoard() {
     },
     onDragCancel({ active }) {
       pickedUpTaskColumn.current = null;
-      if (!hasDraggableData(active)) return;
+      if (!KanbanService.hasDraggableData(active)) return;
       return `Dragging ${active.data.current?.type} cancelled.`;
     },
   };
@@ -234,7 +241,7 @@ export function KanbanBoard() {
   );
 
   function onDragStart(event: DragStartEvent) {
-    if (!hasDraggableData(event.active)) return;
+    if (!KanbanService.hasDraggableData(event.active)) return;
     const data = event.active.data.current;
     if (data?.type === "Column") {
       setActiveColumn(data.column);
@@ -257,7 +264,7 @@ export function KanbanBoard() {
     const activeId = active.id;
     const overId = over.id;
 
-    if (!hasDraggableData(active)) return;
+    if (!KanbanService.hasDraggableData(active)) return;
 
     const activeData = active.data.current;
 
@@ -282,7 +289,11 @@ export function KanbanBoard() {
 
     if (activeId === overId) return;
 
-    if (!hasDraggableData(active) || !hasDraggableData(over)) return;
+    if (
+      !KanbanService.hasDraggableData(active) ||
+      !KanbanService.hasDraggableData(over)
+    )
+      return;
 
     const activeData = active.data.current;
     const overData = over.data.current;

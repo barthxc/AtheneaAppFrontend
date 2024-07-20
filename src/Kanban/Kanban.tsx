@@ -1,6 +1,6 @@
-import { KanbanBoard } from "@/components/kanban/kanban-board";
-import NewTaskDialog from "@/components/kanban/new-task-dialog";
+import { KanbanBoard } from "./components/KanbanBoard";
 import { Heading } from "@/components/ui/heading";
+import NewTaskDialog from "./components/NewTaskDialog";
 
 export default function Kanban() {
   return (

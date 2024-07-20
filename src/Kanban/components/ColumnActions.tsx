@@ -19,9 +19,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import { useTaskStore } from "@/lib/taskStore";
+import { useTaskStore } from "../stores/taskStore";
 import { UniqueIdentifier } from "@dnd-kit/core";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui";
 
 export function ColumnActions({
   title,

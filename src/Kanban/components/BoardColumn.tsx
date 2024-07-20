@@ -1,32 +1,14 @@
-import { Task } from "@/lib/taskStore";
-import { useDndContext, type UniqueIdentifier } from "@dnd-kit/core";
+import { useDndContext } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
 import { useMemo } from "react";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { ColumnActions } from "./column-action";
-import { TaskCard } from "./task-card";
-
-export interface Column {
-  id: UniqueIdentifier;
-  title: string;
-}
-
-export type ColumnType = "Column";
-
-export interface ColumnDragData {
-  type: ColumnType;
-  column: Column;
-}
-
-interface BoardColumnProps {
-  column: Column;
-  tasks: Task[];
-  isOverlay?: boolean;
-}
+import { Button } from "@/components/ui";
+import { Card, CardContent, CardHeader } from "@/components/ui";
+import { ColumnActions } from "./ColumnActions";
+import { TaskCard } from "./TaskCard";
+import { ColumnDragData, BoardColumnProps } from "../types/interfaces";
 
 export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
   const tasksIds = useMemo(() => {

@@ -1,7 +1,5 @@
-import { CalendarDateRangePicker } from "@/components/date-range-picker";
 import { Overview } from "@/components/overview";
 // import { RecentSales } from "@/components/recent-sales";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -26,10 +24,6 @@ export default function Home() {
           <h2 className="text-3xl font-bold tracking-tight">
             Hola, Bienvenido 👋
           </h2>
-          <div className="hidden items-center space-x-2 md:flex">
-            <CalendarDateRangePicker />
-            <Button>Download</Button>
-          </div>
         </div>
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>

@@ -1,33 +1,10 @@
 import { create } from "zustand";
 import { v4 as uuid } from "uuid";
 import { persist } from "zustand/middleware";
-import { Column } from "@/components/kanban/board-column";
+import { Column } from "../types/interfaces";
 //TODO VERIFICAR (?)
 import { UniqueIdentifier } from "@dnd-kit/core";
-
-export type Status = "TODO" | "IN_PROGRESS" | "DONE";
-
-const defaultCols = [
-  {
-    id: "TODO" as const,
-    title: "Todo",
-  },
-] satisfies Column[];
-
-export type ColumnId = (typeof defaultCols)[number]["id"];
-
-export type Task = {
-  id: string;
-  title: string;
-  description?: string;
-  status: Status;
-};
-
-export type State = {
-  tasks: Task[];
-  columns: Column[];
-  draggedTask: string | null;
-};
+import { Task, State, defaultCols } from "../types";
 
 export type Actions = {
   addTask: (title: string, description?: string) => void;
