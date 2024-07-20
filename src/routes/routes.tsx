@@ -5,10 +5,10 @@ import DashboardLayout from "@/layout/layout";
 import Kanban from "@/Kanban/Kanban";
 import { createBrowserRouter } from "react-router-dom";
 import NotFound from "@/pages/not-found";
-import Members from "@/pages/Members";
+import Members from "@/Members/pages/Members";
 import { EmployeeTable } from "@/components/tables/members-tables/member-table";
 import Calendar from "@/Calendar/Calendar";
-import NewMember from "@/pages/NewMember";
+import NewMember from "@/Members/pages/NewMember";
 import AuthPage from "@/Auth/Auth";
 
 export const routes = createBrowserRouter([

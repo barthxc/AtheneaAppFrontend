@@ -1,32 +1,6 @@
 import { ValidRoles } from "@/Auth/types/enums";
 import type { Icons } from "@/components/icons";
-import type { memberFormSchema } from "@/schemas";
-import type { FieldValues, UseFormReturn } from "react-hook-form";
-import type { z } from "zod";
-
-export enum MemberStatus {
-  alta = "alta",
-  baja = "baja",
-  exitud = "exitud",
-}
-
-export enum MemberHasDisability {
-  si = "si",
-  no = "no",
-}
-
-export enum MemberStreetType {
-  avenida = "avenida",
-  barriada = "barriada",
-  plaza = "plaza",
-  calle = "calle",
-  via = "via",
-}
-
-export enum MemberPaymentMethod {
-  caja = "caja",
-  banco = "banco",
-}
+import type { FieldValues } from "react-hook-form";
 
 export interface NavItem {
   title: string;
@@ -68,9 +42,4 @@ export interface FormViewProps {
   closeModal(): void;
   onSubmit(data: FieldValues): Promise<void>;
   onDelete(): Promise<void>;
-}
-
-export type MemberFormValues = z.infer<typeof memberFormSchema>;
-export interface MemberFormViewProps extends FormViewProps {
-  form: UseFormReturn<MemberFormValues>;
 }

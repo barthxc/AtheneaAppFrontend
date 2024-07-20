@@ -72,7 +72,7 @@ const Members: React.FC<MembersProps> = () => {
       <Separator />
 
       <EmployeeTable
-        searchKey="country" // Aquí puedes cambiar el valor según tus necesidades
+        searchKey="country"
         pageNo={Number(page)}
         columns={columns}
         totalUsers={totalUsers}
