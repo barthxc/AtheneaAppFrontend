@@ -76,8 +76,8 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {
   const closeModal = () => setShowModal(false);
 
   const onSubmit = async (data: MemberFormValues) => {
-    MemberService.createMember(data);
     try {
+      MemberService.createMember(data);
       setLoading(true);
       if (initialData) {
         // await axios.post(`/api/products/edit-product/${initialData._id}`, data);

@@ -1,6 +1,6 @@
 export enum ValidRoles {
-	admin = "admin",
-	treasure = "treasure",
-	president = "president",
-	user = "user",
+  admin = "admin",
+  treasure = "treasure",
+  president = "president",
+  user = "user",
 }

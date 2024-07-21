@@ -5,8 +5,8 @@ export enum MemberStatus {
 }
 
 export enum MemberIsDisabled {
-  si = "si",
-  no = "no",
+  si = "SI",
+  no = "NO",
 }
 
 export enum MemberStreetType {

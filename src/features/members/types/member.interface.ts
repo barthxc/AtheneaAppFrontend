@@ -5,9 +5,14 @@ import type { FormViewProps } from "@/features/core/types";
 import type { MemberFormValues } from "@/features/members/types";
 
 export interface MemberFormProps {
-	initialData: MemberFormValues | null;
+  initialData: MemberFormValues | null;
 }
 
 export interface MemberFormViewProps extends FormViewProps {
-	form: UseFormReturn<MemberFormValues>;
+  form: UseFormReturn<MemberFormValues>;
+}
+
+export interface CreateMemberResponse {
+  id: string;
+  memberId: string;
 }
