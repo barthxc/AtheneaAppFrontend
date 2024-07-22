@@ -5,6 +5,7 @@ export interface AuthState {
   status: AuthStatus;
   token?: string;
   user?: User;
+  userRole?: ValidRoles[];
 
   loginUser: (email: string, password: string) => Promise<void>;
   checkAuthStatus: () => Promise<void>;

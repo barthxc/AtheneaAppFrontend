@@ -8,14 +8,20 @@ const storeApi: StateCreator<AuthState> = (set) => ({
   status: "pending",
   token: undefined,
   user: undefined,
+  userRole: [],
 
   loginUser: async (email: string, password: string) => {
     console.log(email, password);
     try {
       const { token, ...user } = await AuthService.login(email, password);
-      set({ status: "authorized", token, user });
+      set({ status: "authorized", token, user, userRole: user.roles });
     } catch (error) {
-      set({ status: "unauthorized", token: undefined, user: undefined });
+      set({
+        status: "unauthorized",
+        token: undefined,
+        user: undefined,
+        userRole: [],
+      });
       // throw "Unauthorized";
       throw error;
     }
@@ -24,14 +30,19 @@ const storeApi: StateCreator<AuthState> = (set) => ({
   checkAuthStatus: async () => {
     try {
       const { token, ...user } = await AuthService.checkAuthstatus();
-      set({ status: "authorized", token, user });
+      set({ status: "authorized", token, user, userRole: user.roles });
     } catch (error) {
       set({ status: "unauthorized", token: undefined, user: undefined });
     }
   },
 
   logoutUser: () => {
-    set({ status: "unauthorized", token: undefined, user: undefined });
+    set({
+      status: "unauthorized",
+      token: undefined,
+      user: undefined,
+      userRole: [],
+    });
   },
 });
 

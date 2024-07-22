@@ -8,14 +8,19 @@ import type {
   MembersInfoResponse,
   UpdateMemberResponse,
 } from "@/features/members/types";
+
+import { MemberIsDisabled } from "@/features/members/types";
+
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class MemberService {
-  //DEBERÍA - Devuelve id + memberNumber: Por ahora devuelve CreateMemberResponse
+  static convertIsDisabledToBoolean = (value: MemberIsDisabled): boolean => {
+    return value === MemberIsDisabled.si;
+  };
 
   static createMember = async (member: MemberFormValues) => {
     const memberPrepared = {
       ...member,
-      isDisabled: member.isDisabled, //if isDisabled = si then true  : false
+      isDisabled: this.convertIsDisabledToBoolean(member.isDisabled),
     };
     try {
       const { data } = await atheneaApi.post<CreateMemberResponse>(
@@ -73,30 +78,29 @@ export class MemberService {
 
   static membersInfo = async () => {
     try {
-      const { data } = await atheneaApi.get<MembersInfoResponse>("/members-info");
+      const { data } = await atheneaApi.get<MembersInfoResponse>(
+        "/members-info"
+      );
       return data;
     } catch (error) {
       throw new Error(error.response?.data);
     }
-  }
-
-    static updateMembersInfo = async ()=>{
-      
-      try {
-        const { data } = await atheneaApi.get<MembersInfoResponse>("/members-info/update");
-        return data;
-      } catch (error) {
-        
-      }
-    }
-
-
   };
 
-  //! Backend just should work for Admin-Roles
-  static async removeMember(id) {}
+  static updateMembersInfo = async () => {
+    try {
+      const { data } = await atheneaApi.get<MembersInfoResponse>(
+        "/members-info/update"
+      );
+      return data;
+    } catch (error) {}
+  };
 
-  static async getPDfMemberById(id) {}
+  static removeMember = async (id) => {};
 
-  static async getPdfMembersBank() {}
+  static getPDfMemberById = async (id) => {};
 
+  static getPdfMembersBank = async () => {};
+}
+
+//! Backend just should work for Admin-Roles
