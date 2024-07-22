@@ -1,8 +1,8 @@
 import type { AxiosError } from "axios";
 
 type ErrorMessages = {
-  [key: number]: string; // Mensajes para códigos de estado HTTP
-  GENERIC?: string; // Mensaje genérico
+  [key: number]: string;
+  GENERIC?: string;
 };
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
@@ -33,3 +33,13 @@ export class ErrorService {
     }
   };
 }
+
+//EXAMPLE:
+// handleErrors(
+//     error,
+//     ERROR_MESSAGES.MEMBER_SERVICE.CREATE_MEMBER,
+//     true,
+//     () => {
+//       console.log('Función final');
+//     }
+//   );

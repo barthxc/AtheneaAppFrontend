@@ -12,25 +12,40 @@ if (!moduleName) {
   process.exit(1);
 }
 
-const baseDir = path.join(__dirname, "..", moduleName);
+const baseDir = path.join(__dirname, "..", "..", moduleName);
 
-const directories = [
+const directoriesAndFiles = [
   "components",
+  path.join("components", "index.ts"),
   "pages",
+  path.join("pages", "index.ts"),
   "schemas",
+  path.join("schemas", "index.ts"),
   "services",
+  path.join("services", "index.ts"),
   "stores",
+  path.join("stores", "index.ts"),
   "types",
-  path.join("types", "enums"),
-  path.join("types", "interfaces"),
+  path.join("types", "index.ts"),
+  path.join("types", `${moduleName}.interface.ts`),
+  path.join("types", `${moduleName}.type.ts`),
+  path.join("types", `${moduleName}.enum.ts`),
 ];
 
-directories.forEach((dir) => {
-  const dirPath = path.join(baseDir, dir);
-  fs.mkdirSync(dirPath, { recursive: true });
-  console.log(`Carpeta creada: ${dirPath}`);
+// Crear carpetas y archivos
+directoriesAndFiles.forEach((item) => {
+  const itemPath = path.join(baseDir, item);
+  if (path.extname(item)) {
+    // Si el item tiene una extensión, es un archivo
+    fs.writeFileSync(itemPath, "", { flag: "w" }); // Crear archivo vacío
+    console.log(`Archivo creado: ${itemPath}`);
+  } else {
+    // Si no tiene extensión, es una carpeta
+    fs.mkdirSync(itemPath, { recursive: true });
+    console.log(`Carpeta creada: ${itemPath}`);
+  }
 });
 
 console.log(
-  `Estructura de carpetas para el módulo '${moduleName}' creada con éxito.`
+  `Estructura de carpetas y archivos para el módulo '${moduleName}' creada con éxito.`
 );
