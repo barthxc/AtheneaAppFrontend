@@ -1,37 +1,23 @@
-import type { AxiosError } from "axios";
-
 type ErrorMessages = {
-  [key: number]: string;
-  GENERIC?: string;
+	[key: number]: string;
+	GENERIC?: string;
 };
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ErrorService {
-  static handleError = async (
-    error: AxiosError,
-    messages: ErrorMessages,
-    showToast: boolean,
-    afterError?: () => void
-  ) => {
-    const statusCode = error?.response?.status;
+	static handleError = (statusCode: number, messages: ErrorMessages, showToast?: boolean, afterError?: () => void) => {
+		const errorMessage = messages[statusCode] || messages.GENERIC;
 
-    //    const errorMessage = messages[statusCode] || messages.GENERIC || 'Un error inesperado ocurrió.';
+		if (showToast) {
+			console.log(errorMessage);
+		}
 
-    const errorMessage =
-      (statusCode !== undefined && messages[statusCode]) ||
-      messages.GENERIC ||
-      "Un error inesperado ocurrió.";
+		if (afterError) {
+			afterError();
+		}
 
-    if (showToast) {
-      //toast
-
-      console.log(errorMessage);
-    }
-
-    if (afterError) {
-      afterError();
-    }
-  };
+		return errorMessage;
+	};
 }
 
 //EXAMPLE:
