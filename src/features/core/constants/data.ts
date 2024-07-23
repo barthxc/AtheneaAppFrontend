@@ -123,7 +123,7 @@ export const navItems: NavItem[] = [
 	},
 	{
 		title: "Crear Socio",
-		href: "/dashboard/member/new",
+		href: "/dashboard/members/new",
 		icon: "userPlus",
 		label: "user",
 		validRole: [ValidRoles.admin, ValidRoles.treasure],

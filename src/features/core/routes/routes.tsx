@@ -1,101 +1,83 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Home from "@/features/core/pages/Home";
 import DashboardLayout from "@/features/core/layout/layout";
-import NotFound from "@/features/core/pages/not-found";
-// import { EmployeeTable } from "@/components/tables/members-tables/member-table";
+import ProtectedRoute from "@/features/core/layout/protected-route";
+import { HomePage, NotFoundPage, UnauthorizedPage } from "@/features/core/pages";
 
 import { AuthPage } from "@/features/auth/pages";
-import { MemberNewPage, MembersPage } from "@/features/members/pages";
+import { ValidRoles } from "@/features/auth/types";
+
+import { MemberEditPage, MemberNewPage, MembersPage } from "@/features/members/pages";
 import { KanbanPage } from "@/features/kanban/pages";
 import { CalendarPage } from "@/features/calendar/pages";
-import ProtectedRoute from "../layout/protected-route";
-import { ValidRoles } from "@/features/auth/types";
-import UnauthorizedPage from "../pages/unauthorized";
 
 export const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <AuthPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
-        path: "",
-        element: (
-          <ProtectedRoute
-            allowedRoles={[
-              ValidRoles.admin,
-              ValidRoles.treasure,
-              ValidRoles.president,
-              ValidRoles.user,
-            ]}>
-            <Home />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "members",
-        element: (
-          <ProtectedRoute
-            allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
-            <MembersPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "member/new",
-        element: (
-          <ProtectedRoute
-            allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
-            <MemberNewPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "members/:id",
-        element: (
-          <ProtectedRoute
-            allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
-            <MemberNewPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "kanban",
+	{
+		path: "/",
+		element: <AuthPage />,
+	},
+	{
+		path: "/dashboard",
+		element: <DashboardLayout />,
+		children: [
+			{
+				path: "",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure, ValidRoles.president, ValidRoles.user]}>
+						<HomePage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "members",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
+						<MembersPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "members/new",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
+						<MemberNewPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "members/:id/edit",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
+						<MemberEditPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "kanban",
 
-        element: (
-          <ProtectedRoute
-            allowedRoles={[
-              ValidRoles.admin,
-              ValidRoles.treasure,
-              ValidRoles.president,
-              ValidRoles.user,
-            ]}>
-            <KanbanPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "calendar",
-        element: (
-          <ProtectedRoute
-            allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
-            <CalendarPage />
-          </ProtectedRoute>
-        ),
-      },
-    ],
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/unauthorized",
-    element: <UnauthorizedPage />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure, ValidRoles.president, ValidRoles.user]}>
+						<KanbanPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "calendar",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
+						<CalendarPage />
+					</ProtectedRoute>
+				),
+			},
+		],
+		errorElement: <NotFoundPage />,
+	},
+	{
+		path: "/unauthorized",
+		element: <UnauthorizedPage />,
+	},
+	{
+		path: "*",
+		element: <NotFoundPage />,
+	},
 ]);

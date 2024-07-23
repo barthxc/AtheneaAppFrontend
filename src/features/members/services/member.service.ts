@@ -33,7 +33,7 @@ export class MemberService {
 
 	// //Devuelve todo el Member completo + backend data(?)
 	// //TODO: Devolver el usuario completo en el backend al hacr update)
-	static updateMember = async (member: Member, id: string) => {
+	static updateMember = async (member: MemberFormValues, id: string) => {
 		try {
 			const { data } = await atheneaApi.patch<UpdateMemberResponse>(`/members/${id}`, member);
 

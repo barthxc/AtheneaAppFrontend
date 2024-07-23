@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button, Paragraph, ToastAction, useToast } from "@/features/core/components/ui";
+import { ToastAction, useToast } from "@/features/core/components/ui";
 import { ERROR_MESSAGES } from "@/features/core/constants";
 
 import {
@@ -19,7 +19,7 @@ import { MemberService } from "@/features/members/services";
 import { Link } from "react-router-dom";
 import { ErrorService } from "@/features/error/service";
 
-export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {
+export const MemberForm: React.FC<MemberFormProps> = ({ initialData, isEdit, editId }) => {
 	//   const params = useParams();
 	//   const router = useRouter();
 	const { toast } = useToast();
@@ -80,10 +80,12 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {
 	const onSubmit = async (data: MemberFormValues) => {
 		setLoading(true);
 		try {
-			const createdMember = await MemberService.createMember(data);
-			if (createdMember) {
+			const submittedMember = await (isEdit && editId
+				? MemberService.updateMember(data, editId)
+				: MemberService.createMember(data));
+			if (submittedMember) {
 				toast({
-					description: "Socio creado con éxito",
+					description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
 					action: (
 						<ToastAction altText="View PDF">
 							<Link to="https://athenea-app-backend.vercel.app" target="_blank" rel="noreferrer noopener">
@@ -93,7 +95,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({ initialData }) => {
 					),
 				});
 				form.reset();
-				console.log(createdMember);
+				console.log(submittedMember);
 				return;
 			}
 			toast({
