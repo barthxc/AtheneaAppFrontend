@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
   Separator,
+  Textarea,
 } from "@/features/core/components/ui";
 import { FormField } from "@/features/core/components/forms";
 import { ConfirmModal } from "@/features/core/components/modal";
@@ -70,7 +71,21 @@ export const MemberFormView = ({
           className="w-full max-w-5xl space-y-8">
           <div className="flex flex-col gap-4">
             {/* INFORMACIÓN DEL SOCIO */}
-            <p className="text-2xl font-bold ">Información de Socio</p>
+            <div className="flex flex-row gap-7 justify-between">
+              <p className="text-2xl font-bold ">Información de Socio</p>
+              {initialData && (
+                <div className="flex flex-col gap-3 ">
+                  <p>
+                    <b className="font-semibold">SOCIO: </b>
+                    {initialData.memberNumber}
+                  </p>
+                  <p>
+                    <b className="font-semibold">PAGO: </b>
+                    {initialData.bankInfo.paymentDate}
+                  </p>
+                </div>
+              )}
+            </div>
 
             <div className="gap-4 md:grid md:grid-cols-3">
               <FormField
@@ -151,7 +166,8 @@ export const MemberFormView = ({
                 render={({ field }) => (
                   <Input
                     disabled={loading}
-                    placeholder="Fecha Nac."
+                    placeholder="DD/MM/AAAA"
+                    value
                     {...field}
                   />
                 )}
@@ -418,13 +434,14 @@ export const MemberFormView = ({
           {/* ANOTACIONES */}
           <div className="flex flex-col gap-4">
             <p className="text-2xl font-bold ">Anotaciones</p>
-            <div className="gap-4 md:grid md:grid-cols-4 max-w-lg">
+            <div className="gap-4  max-w-7xl">
               <FormField
                 formControl={form.control}
                 name="observations"
                 label="Observaciones"
                 render={({ field }) => (
-                  <Input
+                  <Textarea
+                    className="min-h-24"
                     disabled={loading}
                     placeholder="Observaciones"
                     {...field}
@@ -439,20 +456,6 @@ export const MemberFormView = ({
             className="ml-auto h-12 text-base"
             type="submit">
             {action}
-          </Button>
-
-          <Button
-            disabled={loading}
-            className="ml-auto h-12 text-base"
-            type="button">
-            ver Pdf
-          </Button>
-
-          <Button
-            disabled={loading}
-            className="ml-auto h-12 text-base"
-            type="button">
-            Actualizar fecha pago
           </Button>
         </form>
       </Form>

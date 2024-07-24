@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { ToastAction, useToast } from "@/features/core/components/ui";
+import { Button, ToastAction, useToast } from "@/features/core/components/ui";
 import { ERROR_MESSAGES } from "@/features/core/constants";
 
 import {
@@ -15,8 +15,8 @@ import {
 import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
 import { MemberService } from "@/features/members/services";
-import { Link } from "react-router-dom";
 import { ErrorService } from "@/features/error/service";
+import { LinkPdf } from "../member-pdf/link-pdf.component";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
   initialData,
@@ -25,6 +25,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 }) => {
   //   const params = useParams();
   //   const router = useRouter();
+
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -89,31 +90,26 @@ export const MemberForm: React.FC<MemberFormProps> = ({
       if (submittedMember) {
         toast({
           description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
-          action: (
+          action: isEdit ? undefined : (
             <ToastAction altText="View PDF">
-              <Link
-                to="https://athenea-app-backend.vercel.app"
-                target="_blank"
-                rel="noreferrer noopener">
-                Ver PDF
-              </Link>
+              <LinkPdf id={editId} />
             </ToastAction>
           ),
         });
-        form.reset();
-        console.log(submittedMember);
+        !isEdit && form.reset();
         return;
       }
       toast({
         variant: "destructive",
-        description: ERROR_MESSAGES.REQUEST.MEMBER.CREATE_MEMBER.GENERIC,
+        description: ERROR_MESSAGES.MEMBER.CREATE_MEMBER.GENERIC,
       });
     } catch (error: any) {
       const errorMessage = ErrorService.handleError(
         error.statusCode,
-        ERROR_MESSAGES.REQUEST.MEMBER.CREATE_MEMBER
+        isEdit
+          ? ERROR_MESSAGES.MEMBER.CREATE_MEMBER
+          : ERROR_MESSAGES.MEMBER.CREATE_MEMBER
       );
-      console.log(error);
       toast({
         variant: "destructive",
         description: errorMessage,
@@ -138,15 +134,28 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   };
 
   return (
-    <MemberFormView
-      initialData={initialData}
-      loading={loading}
-      showModal={showModal}
-      openModal={openModal}
-      closeModal={closeModal}
-      form={form}
-      onSubmit={onSubmit}
-      onDelete={onDelete}
-    />
+    <>
+      <MemberFormView
+        initialData={initialData}
+        loading={loading}
+        showModal={showModal}
+        openModal={openModal}
+        closeModal={closeModal}
+        form={form}
+        onSubmit={onSubmit}
+        onDelete={onDelete}
+      />
+
+      {isEdit && (
+        <div className="flex flex-row justify-around">
+          <Button disabled={loading} className="h-12 text-base" type="button">
+            Ver PDF
+          </Button>
+          <Button disabled={loading} className=" h-12 text-base" type="button">
+            Actualizar fecha pago
+          </Button>
+        </div>
+      )}
+    </>
   );
 };

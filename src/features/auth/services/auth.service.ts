@@ -1,6 +1,3 @@
-import { AxiosError } from "axios";
-
-import { ERROR_MESSAGES } from "@/features/core/constants";
 import { atheneaApi } from "@/features/core/lib/api";
 
 import type { LoginResponse } from "@/features/auth/types";
@@ -17,13 +14,8 @@ export class AuthService {
         password,
       });
       return data;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        throw error.code;
-        // throw new Error(error.response?.data);
-      }
-
-      throw ERROR_MESSAGES.REQUEST.UNKNOWN;
+    } catch (error: any) {
+      throw error.response?.data;
     }
   };
 

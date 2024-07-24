@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/features/auth/stores/auth.store";
 import axios from "axios";
 const atheneaApi = axios.create({
-  baseURL: "https://athenea-app-backend.vercel.app/api",
+  baseURL: `${import.meta.env.VITE_BACKEND_URL}`,
 
   withCredentials: false,
 });

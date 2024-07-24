@@ -80,7 +80,7 @@ export const memberFormSchema = z
         .optional(),
       location: z
         .string()
-        .min(1, "Ingresa al menos 1 caracter")
+        .min(3, "Ingresa al menos 3 caracter")
         .nullable()
         .optional(),
       province: z

@@ -9,6 +9,20 @@ import type {
   MemberStreetType,
 } from "@/features/members/types";
 
+interface EditMemberForm {
+  initialData: MemberResponse;
+  isEdit: true;
+  editId: string;
+}
+
+interface CreateMemberForm {
+  initialData: null;
+  isEdit?: false;
+  editId?: string;
+}
+
+export type CASOS = EditMemberForm | CreateMemberForm;
+
 export interface MemberFormProps {
   initialData: MemberFormValues | null;
   isEdit?: boolean;

@@ -49,6 +49,13 @@ export class MemberService {
     try {
       const { data } = await atheneaApi.get<MemberResponse>(`/members/${id}`);
 
+      data.memberNumber = data.memberNumber.toUpperCase();
+      data.birthDate = data.birthDate.split("-").reverse().join("-");
+      data.bankInfo.paymentDate = data.bankInfo.paymentDate
+        .split("-")
+        .reverse()
+        .join("-");
+
       return data;
     } catch (error: any) {
       throw error.response?.data;
