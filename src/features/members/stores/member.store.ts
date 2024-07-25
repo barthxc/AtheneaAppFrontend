@@ -9,4 +9,10 @@ export const useMemberStore = create<MemberState>((set) => ({
 			return member;
 		} catch (err: any) {}
 	},
+	getMembers: async () => {
+		try {
+			const members = await MemberService.getAllMembers();
+			return members;
+		} catch (err: any) {}
+	},
 }));
