@@ -100,12 +100,33 @@ export class MemberService {
         "/members-info/update"
       );
       return data;
-    } catch (error: any) {}
+    } catch (error: any) {
+      throw error.response?.data;
+    }
   };
 
-  static removeMember = async (id) => {};
+  static removeMember = async (id: string) => {};
 
-  static getPDfMemberById = async (id) => {};
+  static getPDFMemberById = async (id) => {
+    try {
+      const { data } = await atheneaApi.get(`/members/pdf/member/${id}`, {
+        responseType: "blob",
+      });
+      return data;
+    } catch (error: any) {
+      throw error.response?.data;
+    }
+  };
 
-  static getPdfMembersBank = async () => {};
+  static getPDFMembersBank = async () => {
+    try {
+      const { data } = await atheneaApi.get("/members/pdf/bank", {
+        responseType: "blob",
+      });
+      return data;
+    } catch (error: any) {
+      console.log(error);
+      throw error.response;
+    }
+  };
 }

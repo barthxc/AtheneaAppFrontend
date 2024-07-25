@@ -19,6 +19,7 @@ import {
 import { KanbanPage } from "@/features/kanban/pages";
 import { CalendarPage } from "@/features/calendar/pages";
 import { MemberPdfPage } from "@/features/members/pages/member-pdf.page";
+import { MemberPdfBankPage } from "@/features/members/pages/member-pdf-bank.page";
 
 export const routes = createBrowserRouter([
   {
@@ -76,6 +77,15 @@ export const routes = createBrowserRouter([
           <ProtectedRoute
             allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
             <MemberPdfPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "bank/pdf",
+        element: (
+          <ProtectedRoute
+            allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
+            <MemberPdfBankPage />
           </ProtectedRoute>
         ),
       },

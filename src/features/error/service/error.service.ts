@@ -1,6 +1,6 @@
 type ErrorMessages = {
   [key: number]: string;
-  GENERIC?: string;
+  GENERIC: string;
 };
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
@@ -9,7 +9,7 @@ export class ErrorService {
     statusCode: number,
     messages: ErrorMessages,
     afterError?: () => void
-  ) => {
+  ): string => {
     const errorMessage = messages[statusCode] || messages.GENERIC;
 
     if (afterError) {

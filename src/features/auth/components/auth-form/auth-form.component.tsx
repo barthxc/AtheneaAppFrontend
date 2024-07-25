@@ -20,7 +20,7 @@ import {
 import { useAuthStore } from "@/features/auth/stores";
 import { authSchema } from "@/features/auth/schemas";
 import { ErrorService } from "@/features/error/service";
-import { ERROR_MESSAGES } from "@/features/core/constants";
+import { ERROR_MESSAGES } from "@/features/error/constants";
 
 //TODO CREAR authStore
 
@@ -50,7 +50,7 @@ export function AuthForm() {
       navigate("/dashboard");
     } catch (error: any) {
       const errorMessage = ErrorService.handleError(
-        error,
+        error.statusCode,
         ERROR_MESSAGES.AUTH.LOGIN
       );
       /*

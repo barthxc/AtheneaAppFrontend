@@ -1,4 +1,6 @@
-export const ERROR_MESSAGES = {
+import type { ErrorMessages } from "@/features/error/types";
+
+export const ERROR_MESSAGES: ErrorMessages = {
   MEMBER: {
     CREATE_MEMBER: {
       400: "Error al crear un socio. Por favor revisa los datos ingresados.",
@@ -89,7 +91,7 @@ export const ERROR_MESSAGES = {
       403: "No tienes permiso para realizar esta acción.",
       500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
       GENERIC:
-        "Ocurrió un error al generar el PDF de métodos de pago bancario. Inténtalo de nuevo.",
+        "Ocurrió un error al generar el PDF bancario. Inténtalo de nuevo.",
     },
   },
   AUTH: {
@@ -189,6 +191,11 @@ export const ERROR_MESSAGES = {
     },
   },
   GENERIC: {
-    UNKNOWN: "Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+    UNKNOW: {
+      400: "Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+      500: "Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+      GENERIC:
+        "GENERIC ERROR: Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+    },
   },
 } as const;
