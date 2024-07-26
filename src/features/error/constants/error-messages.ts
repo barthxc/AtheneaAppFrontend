@@ -198,4 +198,12 @@ export const ERROR_MESSAGES: ErrorMessages = {
         "GENERIC ERROR: Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
     },
   },
+  EMAIL: {
+    SEND_EMAIL: {
+      400: "Error al intentar enviar un email",
+      500: "Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+      GENERIC:
+        "GENERIC ERROR: Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
+    },
+  },
 } as const;

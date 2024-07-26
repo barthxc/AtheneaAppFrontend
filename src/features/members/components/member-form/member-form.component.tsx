@@ -23,9 +23,6 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   isEdit,
   editId,
 }) => {
-  //   const params = useParams();
-  //   const router = useRouter();
-
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -140,6 +137,14 @@ export const MemberForm: React.FC<MemberFormProps> = ({
       closeModal();
     }
   };
+
+  const onUpdatePayment = async () =>{
+    setLoading(true);
+      try {
+        s
+      } catch (error) {
+        
+      }
 
   return (
     <>

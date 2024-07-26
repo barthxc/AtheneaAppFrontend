@@ -12,7 +12,6 @@ export function NotFoundPage() {
         Lo siento, la página que estás buscando no existe o ha sido alterada.
         Contacta con el desarrollador.
       </p>
-      <p>Contacta con el desarrollador</p>
       <NavigationButtons pdf={false} />
     </div>
   );
