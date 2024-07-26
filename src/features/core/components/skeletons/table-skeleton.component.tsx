@@ -1,13 +1,11 @@
-import { Skeleton } from "@/features/core/components/ui";
-import { Spinner } from "@/features/core/components/ui";
-const TableSkeleton = () => {
-  return (
-    <>
-      <Skeleton className="h-[calc(90vh-220px)] rounded-md border">
-        <Spinner />
-      </Skeleton>
-    </>
-  );
-};
+import { Skeleton, Spinner } from "@/features/core/components/ui";
 
-export default TableSkeleton;
+export const TableSkeleton = () => {
+	return (
+		<>
+			<Skeleton className="h-[calc(90vh-220px)] rounded-md border">
+				<Spinner />
+			</Skeleton>
+		</>
+	);
+};

@@ -1,17 +1,16 @@
 import type { ReactNode } from "react";
-import { Spinner } from "./ui";
+
+import { Spinner } from "@/features/core/components/ui";
 
 interface LoadingViewProps {
-  isLoading: boolean;
-  children: ReactNode;
-  skeleton?: ReactNode;
+	isLoading: boolean;
+	children?: ReactNode;
+	skeleton?: ReactNode;
 }
 
-const LoadingView = ({ isLoading, children, skeleton }: LoadingViewProps) => {
-  if (isLoading && skeleton) return skeleton;
-  if (isLoading) return <Spinner />;
+export const LoadingView = ({ isLoading, children, skeleton }: LoadingViewProps) => {
+	if (isLoading && skeleton) return skeleton;
+	if (isLoading) return <Spinner />;
 
-  return <>{children}</>;
+	return children;
 };
-
-export default LoadingView;

@@ -25,7 +25,8 @@ export default function DashboardLayout() {
 				<Sidebar />
 				<main className="flex-1 overflow-hidden pt-14">
 					<ScrollArea className="h-full">
-						<div className="p-8 h-[calc(100vh-3.5rem)]">
+						{/* viewport height - navbar height */}
+						<div className="space-y-4 p-8 h-[calc(100vh-3.5rem)]">
 							<Outlet />
 						</div>
 					</ScrollArea>
