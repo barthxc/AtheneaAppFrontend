@@ -138,13 +138,12 @@ export const MemberForm: React.FC<MemberFormProps> = ({
     }
   };
 
-  const onUpdatePayment = async () =>{
-    setLoading(true);
-      try {
-        s
-      } catch (error) {
-        
-      }
+  // const onUpdatePayment = async () =>{
+  //     try {
+  //       set
+  //     } catch (error) {
+
+  //     }
 
   return (
     <>
