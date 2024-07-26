@@ -3,7 +3,7 @@ import Header from "./header";
 import Sidebar from "./sidebar";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { Toaster } from "@/features/core/components/ui";
+import { ScrollArea, Toaster } from "@/features/core/components/ui";
 
 export default function DashboardLayout() {
 	const authStatus = useAuthStore((state) => state.status);
@@ -24,7 +24,11 @@ export default function DashboardLayout() {
 			<div className="flex h-screen overflow-hidden">
 				<Sidebar />
 				<main className="flex-1 overflow-hidden pt-16">
-					<Outlet />
+					<ScrollArea className="h-full">
+						<div className="flex-1 space-y-4 p-8">
+							<Outlet />
+						</div>
+					</ScrollArea>
 				</main>
 			</div>
 		</>

@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 
-import type { Employee } from "@/features/core/constants/data";
 import { cn } from "@/features/core/lib/utils";
-import { buttonVariants, Heading, Separator } from "@/features/core/components/ui";
+import { buttonVariants, Heading, Separator, Spinner, useToast } from "@/features/core/components/ui";
 
-import { columns, MemberTable } from "@/features/members/components";
+import { ERROR_MESSAGES } from "@/features/error/constants";
+
+import { ErrorService } from "@/features/error/service";
 import { useMemberStore } from "@/features/members/stores";
+import { memberColumns, MemberTable } from "@/features/members/components";
 
 export function MembersPage() {
-	const { page = "1", limit = "10", search } = useParams<{ page?: string; limit?: string; search?: string }>();
+	// const { page = "1", limit = "10", search } = useParams<{ page?: string; limit?: string; search?: string }>();
 	// const [employee, setEmployee] = useState<Employee[]>([]);
 	// const [totalUsers, setTotalUsers] = useState<number>(0);
 	// const [pageCount, setPageCount] = useState<number>(0);
-	const getMembers = useMemberStore((s) => s.getMembers);
+	const [pending, setPending] = useState<boolean>(true);
+	const { members, getMembers } = useMemberStore();
+	const { toast } = useToast();
 
 	useEffect(() => {
-		const fetchData = async () => {
+		(async () => {
 			// const pageValue = Number(page);
 			// const limitValue = Number(limit);
 			// const offset = (pageValue - 1) * limitValue;
@@ -33,33 +37,46 @@ export function MembersPage() {
 				// setEmployee(employeeData);
 				// setTotalUsers(totalUsersValue);
 				// setPageCount(pageCountValue);
-			} catch (error) {
-				console.error("Error fetching employee data:", error);
+			} catch (err: any) {
+				const errorMessage = ErrorService.handleError(err.statusCode, ERROR_MESSAGES.MEMBER.FIND_ALL);
+				toast({
+					description: errorMessage,
+					variant: "destructive",
+				});
+			} finally {
+				setPending(false);
 			}
-		};
+		})();
+	}, [getMembers, toast]);
 
-		fetchData();
-	}, [page, limit, search]);
+	useEffect(() => {
+		console.log("MEMBERS", members);
+	}, [members]);
+
+	if (pending && members.length === 0) {
+		return <Spinner />;
+	}
 
 	return (
-		<div className="flex-1 space-y-4  p-4 pt-6 md:p-8">
+		<section>
 			<div className="flex items-start justify-between">
-				<Heading title="Socios (x)" description="Manage employees (Server side table functionalities.)" />
+				<Heading title={`Socios (${members.length})`} description="Consulta la lista de socios" />
 
 				<Link to={"/dashboard/members/new"} className={cn(buttonVariants({ variant: "default" }))}>
 					<Plus className="mr-2 h-4 w-4" /> Crear Socio
 				</Link>
 			</div>
-			<Separator />
+			<Separator className="my-4" />
 
-			{/* <MemberTable
-				searchKey="country"
-				pageNo={Number(page)}
-				columns={columns}
-				// totalUsers={totalUsers}
-				// data={employee}
-				// pageCount={pageCount}
-			/> */}
-		</div>
+			<MemberTable
+				columns={memberColumns}
+				data={members}
+				searchLabel="Buscar por N° de Socio"
+				searchProperty="memberNumber"
+				pageNo={0}
+				pageCount={3}
+				totalMembers={members.length}
+			/>
+		</section>
 	);
 }

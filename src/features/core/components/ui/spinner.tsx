@@ -36,9 +36,11 @@ interface SpinnerContentProps extends VariantProps<typeof spinnerVariants>, Vari
 
 export function Spinner({ size, show, children, className }: SpinnerContentProps) {
 	return (
-		<span className={spinnerVariants({ show })}>
-			<Loader2 className={cn(loaderVariants({ size }), className)} />
-			{children}
-		</span>
+		<div className="h-full grid place-content-center">
+			<span className={spinnerVariants({ show })}>
+				<Loader2 className={cn(loaderVariants({ size }), className)} />
+				{children}
+			</span>
+		</div>
 	);
 }

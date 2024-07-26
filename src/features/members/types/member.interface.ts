@@ -93,11 +93,17 @@ export interface MembersInfoResponse {
 }
 
 export interface MemberState {
-	getMemberById: (id: string) => Awaited<any>;
+	members: Members[];
 	getMembers: () => Awaited<any>;
+	getMemberById: (id: string) => Awaited<any>;
+	deleteMemberById: (id: string) => Promise<any>;
 }
 
 export interface MemberPdfProps {
 	id?: string;
 	bank: boolean;
+}
+
+export interface MemberTableCellActionProps {
+	data: Members;
 }

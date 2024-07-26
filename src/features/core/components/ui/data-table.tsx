@@ -1,37 +1,59 @@
 "use client";
+import { type ColumnDef, flexRender, type Table as TableType } from "@tanstack/react-table";
 
-import { ColumnDef, flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table";
-
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/features/core/components/ui/table";
-import { Input } from "./input";
-import { Button } from "./button";
-import { ScrollArea, ScrollBar } from "./scroll-area";
+import {
+	Button,
+	Input,
+	ScrollArea,
+	ScrollBar,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/features/core/components/ui";
 
 interface DataTableProps<TData, TValue> {
+	table: TableType<TData>;
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
-	searchKey: string;
+	searchLabel?: string;
+	searchProperty?: keyof TData;
+	includePagination?: boolean;
 }
 
-export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTableProps<TData, TValue>) {
-	const table = useReactTable({
-		data,
-		columns,
-		getCoreRowModel: getCoreRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-	});
+/**
+ * @param table The data table options to use.
+ * @param columns The column definitions. For more information see: https://ui.shadcn.com/docs/components/data-table
+ * @param searchLabel The text to use for the search input.
+ * @param searchProperty The column key to search for.
+ * @param includePagination Whether the table includes a internal pagination or not.
+ * @example <DataTable table={userTableOptions} columns={userColumns} searchProperty="username" includePagination={true} />
+ * @returns A data table component with a search bar (if searchProperty is specified).
+ */
+export function DataTable<TData, TValue>({
+	table,
+	columns,
+	searchLabel = "Buscar",
+	searchProperty,
+	includePagination,
+}: DataTableProps<TData, TValue>) {
+	const searchKey = String(searchProperty);
 
 	/* this can be used to get the selectedrows 
   console.log("value", table.getFilteredSelectedRowModel()); */
 
 	return (
 		<>
-			<Input
-				placeholder={`Seardasdasch ${searchKey}...`}
-				value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-				onChange={(event) => table.getColumn(searchKey)?.setFilterValue(event.target.value)}
-				className="w-full md:max-w-sm"
-			/>
+			{searchKey && (
+				<Input
+					placeholder={searchLabel}
+					value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+					onChange={(event) => table.getColumn(searchKey)?.setFilterValue(event.target.value)}
+					className="w-full md:max-w-sm mb-4"
+				/>
+			)}
 			<ScrollArea className="h-[calc(80vh-220px)] rounded-md border">
 				<Table className="relative">
 					<TableHeader>
@@ -59,7 +81,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length} className="h-24 text-center">
-									No results.
+									No se encontraron resultados.
 								</TableCell>
 							</TableRow>
 						)}
@@ -69,21 +91,23 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
 			</ScrollArea>
 			<div className="flex items-center justify-end space-x-2 py-4">
 				<div className="flex-1 text-sm text-muted-foreground">
-					{table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-					selected.
+					{table.getFilteredSelectedRowModel().rows.length} de {table.getFilteredRowModel().rows.length} fila(s)
+					seleccionadas.
 				</div>
-				<div className="space-x-2">
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => table.previousPage()}
-						disabled={!table.getCanPreviousPage()}>
-						Previous
-					</Button>
-					<Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-						Next
-					</Button>
-				</div>
+				{includePagination && (
+					<div className="space-x-2">
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() => table.previousPage()}
+							disabled={!table.getCanPreviousPage()}>
+							Anterior
+						</Button>
+						<Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+							Siguiente
+						</Button>
+					</div>
+				)}
 			</div>
 		</>
 	);

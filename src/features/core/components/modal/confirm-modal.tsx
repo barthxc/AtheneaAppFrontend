@@ -1,42 +1,43 @@
-import { cn } from "@/features/core/lib/utils";
-import { Button } from "../ui";
+import { Button, Modal } from "@/features/core/components/ui";
 
 interface ConfirmModalProps extends React.HTMLAttributes<HTMLDivElement> {
-	title: string;
+	title?: string;
+	description?: string;
 	cancelButtonLabel?: string;
 	confirmButtonLabel?: string;
-	onCancel(): void;
+	isOpen: boolean;
+	onClose(): void;
 	onConfirm(): void;
-	isConfirmButtonDisabled?: boolean;
+	isDisabled?: boolean;
 	variant?: "destructive" | "default";
 }
 
 export const ConfirmModal = ({
-	title,
-	cancelButtonLabel,
-	confirmButtonLabel,
-	onCancel,
+	title = "¿Estás seguro?",
+	description = "Confirma si deseas realizar esta acción.",
+	cancelButtonLabel = "Cancelar",
+	confirmButtonLabel = "Confirmar",
+	isOpen,
+	onClose,
 	onConfirm,
-	isConfirmButtonDisabled,
+	isDisabled,
 	variant = "default",
-	className,
 	...props
 }: ConfirmModalProps) => {
+	if (!isOpen) {
+		return null;
+	}
+
 	return (
-		<div
-			className={cn("fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50", className)}
-			{...props}>
-			<div className="bg-white p-8 rounded shadow-md max-w-md">
-				<p className="text-lg font-semibold mb-4">{title}</p>
-				<div className="flex justify-end">
-					<Button variant="outline" className="mr-4" onClick={onCancel}>
-						{cancelButtonLabel ?? "Cancelar"}
-					</Button>
-					<Button variant={variant} onClick={onConfirm} disabled={isConfirmButtonDisabled}>
-						{confirmButtonLabel ?? "Confirmar"}
-					</Button>
-				</div>
+		<Modal title={title} description={description} isOpen={isOpen} onClose={onClose} {...props}>
+			<div className="flex justify-end">
+				<Button variant="outline" className="mr-4" onClick={onClose} disabled={isDisabled}>
+					{cancelButtonLabel}
+				</Button>
+				<Button variant={variant} onClick={onConfirm} disabled={isDisabled}>
+					{confirmButtonLabel}
+				</Button>
 			</div>
-		</div>
+		</Modal>
 	);
 };
