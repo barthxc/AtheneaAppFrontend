@@ -23,9 +23,9 @@ export default function DashboardLayout() {
 			<Header />
 			<div className="flex h-screen overflow-hidden">
 				<Sidebar />
-				<main className="flex-1 overflow-hidden pt-16">
+				<main className="flex-1 overflow-hidden pt-14">
 					<ScrollArea className="h-full">
-						<div className="flex-1 space-y-4 p-8">
+						<div className="p-8 h-[calc(100vh-3.5rem)]">
 							<Outlet />
 						</div>
 					</ScrollArea>
