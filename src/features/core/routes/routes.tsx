@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import DashboardLayout from "@/features/core/layout/layout";
+import { LandingLayout } from "../layout/landing-layout";
 import ProtectedRoute from "@/features/core/layout/protected-route";
 import {
   HomePage,
@@ -20,10 +21,32 @@ import { KanbanPage } from "@/features/kanban/pages";
 import { CalendarPage } from "@/features/calendar/pages";
 import { MemberPdfPage } from "@/features/members/pages/member-pdf.page";
 import { MemberPdfBankPage } from "@/features/members/pages/member-pdf-bank.page";
-
+import { AboutPage } from "@/features/landing/pages";
 export const routes = createBrowserRouter([
   {
     path: "/",
+    element: <LandingLayout />,
+    children: [
+      {
+        path: "",
+        element: <AboutPage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
+      },
+      {
+        path: "contact",
+        element: <AboutPage />,
+      },
+      {
+        path: "donation",
+        element: <AboutPage />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
     element: <AuthPage />,
   },
   {

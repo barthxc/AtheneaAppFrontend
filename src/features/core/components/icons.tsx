@@ -34,6 +34,10 @@ import {
   UserPlus,
   CalendarDays,
   Landmark,
+  BookUser,
+  Mail,
+  HandHeart,
+  LogInIcon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -88,4 +92,7 @@ export const Icons = {
   check: Check,
   calendar: CalendarDays,
   bank: Landmark,
+  about: BookUser,
+  contact: Mail,
+  donation: HandHeart,
 };

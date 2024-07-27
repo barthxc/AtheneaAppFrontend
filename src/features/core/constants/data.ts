@@ -115,7 +115,7 @@ export type Employee = {
 
 export const navItems: NavItem[] = [
   {
-    title: "Athenea",
+    title: "Inicio",
     href: "/dashboard",
     icon: "dashboard",
     label: "Dashboard",
@@ -195,5 +195,38 @@ export const navItems: NavItem[] = [
       e.preventDefault();
       useAuthStore.getState().logoutUser();
     },
+  },
+];
+
+export const visitortNavItems: NavItem[] = [
+  {
+    title: "Nosotros",
+    href: "/about",
+    icon: "about",
+    label: "About",
+  },
+  {
+    title: "Calendario",
+    href: "/calendar",
+    icon: "calendar",
+    label: "Calendar",
+  },
+  {
+    title: "Contacto",
+    href: "/contact",
+    icon: "contact",
+    label: "Contact",
+  },
+  {
+    title: "Donar",
+    href: "/donation",
+    icon: "donation",
+    label: "Donation",
+  },
+  {
+    title: "Iniciar Sesión",
+    href: "/auth",
+    icon: "login",
+    label: "Donation",
   },
 ];
