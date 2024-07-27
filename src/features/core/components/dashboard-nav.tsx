@@ -3,8 +3,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { Icons } from "@/features/core/components/icons";
 import { cn } from "@/features/core/lib/utils";
-import { NavItem } from "@/features/core/types";
-import { Dispatch, SetStateAction } from "react";
+import type { NavItem } from "@/features/core/types";
+import type { Dispatch, SetStateAction } from "react";
 import { useSidebar } from "@/features/core/hooks/useSidebar";
 import {
   Tooltip,
@@ -26,7 +26,6 @@ export function DashboardNav({
   setOpen,
   isMobileNav = false,
 }: DashboardNavProps) {
-  // const path = usePathname();
   const userRole = useAuthStore((state) => state.userRole) || [];
 
   const location = useLocation();
@@ -36,8 +35,6 @@ export function DashboardNav({
   if (!items?.length) {
     return null;
   }
-
-  console.log("isActive", isMobileNav, isMinimized);
 
   return (
     <nav className="grid items-start gap-2">

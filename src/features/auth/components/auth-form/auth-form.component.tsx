@@ -22,8 +22,6 @@ import { authSchema } from "@/features/auth/schemas";
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 
-//TODO CREAR authStore
-
 type UserFormValue = z.infer<typeof authSchema>;
 
 export function AuthForm() {
@@ -81,6 +79,13 @@ export function AuthForm() {
   return (
     <>
       <Toaster />
+      <Button
+        type="button"
+        disabled={loading}
+        onClick={() => navigate("/")}
+        className="absolute right-8 top-8 md:right-8 md:top-8">
+        Volver
+      </Button>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
