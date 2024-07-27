@@ -35,4 +35,12 @@ export const useMemberStore = create<MemberState>((set, get) => ({
 			if (err) throw err;
 		}
 	},
+	updateMemberPaymentDate: async (id) => {
+		try {
+			const updatedMember = await MemberService.updatePaymentDateMember(id);
+			return updatedMember;
+		} catch (err: any) {
+			if (err) throw err;
+		}
+	},
 }));
