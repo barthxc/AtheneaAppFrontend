@@ -9,7 +9,7 @@ export function LandingLayout() {
       <div className="flex h-screen overflow-hidden">
         <main className="flex-1 overflow-hidden pt-14">
           <ScrollArea className="h-full">
-            <div className="space-y-4 p-8 h-[calc(100vh-3.5rem)]">
+            <div className="text-center space-y-4 pt-20 px-4 h-[calc(100vh-3.5rem)]">
               <Outlet />
             </div>
           </ScrollArea>

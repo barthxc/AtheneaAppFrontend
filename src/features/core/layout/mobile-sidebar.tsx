@@ -9,15 +9,16 @@ import { navItems, visitortNavItems } from "@/features/core/constants/data";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 import { Separator } from "@/features/core/components/ui";
-import { useAuthStore } from "@/features/auth/stores";
+import { useLocation } from "react-router-dom";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function MobileSidebar({ className }: SidebarProps) {
-  const userRole = useAuthStore((state) => state.userRole) || [];
-  const isVisitor = userRole?.length === 0;
-
+  const location = useLocation();
+  const path = location.pathname;
+  const isLanding = !path.startsWith("/dashboard");
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -33,7 +34,7 @@ export function MobileSidebar({ className }: SidebarProps) {
               <Separator />
               <div className="space-y-1">
                 <DashboardNav
-                  items={isVisitor ? visitortNavItems : navItems}
+                  items={isLanding ? visitortNavItems : navItems}
                   isMobileNav={true}
                   setOpen={setOpen}
                 />

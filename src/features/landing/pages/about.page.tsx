@@ -1,7 +1,8 @@
+import { Heading } from "@/features/core/components/ui";
 export function AboutPage() {
   return (
     <>
-      <p>about</p>
+      <Heading description="test" title="teeest" />
     </>
   );
 }

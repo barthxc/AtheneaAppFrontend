@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/features/core/components/ui/tooltip";
+import { Edit, Trash } from "lucide-react";
 
 import { ConfirmModal } from "@/features/core/components/modal";
 import { Button, useToast } from "@/features/core/components/ui";
@@ -72,27 +66,14 @@ export const MemberTableCellAction: React.FC<MemberTableCellActionProps> = ({
         variant="destructive"
       />
 
-      <TooltipProvider>
-        <div className="flex flex-row gap-4">
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                onClick={() => navigate(`/dashboard/members/${data.id}/edit`)}>
-                <Edit className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Editar</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button variant="destructive" onClick={() => setOpen(true)}>
-                <Trash className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Eliminar</TooltipContent>
-          </Tooltip>
-        </div>
-      </TooltipProvider>
+      <div className="flex flex-row gap-4">
+        <Button onClick={() => navigate(`/dashboard/members/${data.id}/edit`)}>
+          <Edit className="h-4 w-4" />
+        </Button>
+        <Button variant="destructive" onClick={() => setOpen(true)}>
+          <Trash className="h-4 w-4" />
+        </Button>
+      </div>
     </>
   );
 };

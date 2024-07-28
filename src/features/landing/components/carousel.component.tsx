@@ -6,11 +6,10 @@ import {
   CarouselItem,
 } from "@/features/core/components/ui/carousel";
 
-export default function MainCarousel({ data }) {
+export default function CarouselComponent() {
   return (
     <>
       {/* <Carousel
-        className="w-full"
         opts={{ align: "start", loop: true }}
         plugins={[
           Autoplay({
@@ -20,13 +19,12 @@ export default function MainCarousel({ data }) {
         <CarouselContent>
           {data.map((image, index) => (
             <CarouselItem key={index}>
-              <div className="p-0">
+              <div >
                 <Card>
-                  <CardContent className="p-0">
+                  <CardContent >
                     <img
                       src={`${imagePath}/${image}`}
                       alt={`Imagen de ${image}`}
-                      className="w-full h-[36rem] object-cover rounded-sm"
                       loading="lazy"
                     />
                   </CardContent>

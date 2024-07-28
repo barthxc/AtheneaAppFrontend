@@ -1,14 +1,12 @@
 import { cn } from "@/features/core/lib/utils";
 import { MobileSidebar } from "./mobile-sidebar";
-import { useAuthStore } from "@/features/auth/stores";
 import { visitortNavItems } from "../constants/data";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
-  const userRole = useAuthStore((state) => state.userRole);
-  const isVisitor = userRole?.length === 0;
   const location = useLocation();
   const path = location.pathname;
+  const isLanding = !path.startsWith("/dashboard");
 
   return (
     <div className="supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur">
@@ -26,7 +24,7 @@ export default function Header() {
         </Link>
 
         <div className="flex justify-between gap-10">
-          {isVisitor && (
+          {isLanding && (
             <>
               {visitortNavItems.map((item) => {
                 return (

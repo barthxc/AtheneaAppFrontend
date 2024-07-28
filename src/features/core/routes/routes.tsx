@@ -18,10 +18,17 @@ import {
   MembersPage,
 } from "@/features/members/pages";
 import { KanbanPage } from "@/features/kanban/pages";
-import { CalendarPage } from "@/features/calendar/pages";
 import { MemberPdfPage } from "@/features/members/pages/member-pdf.page";
 import { MemberPdfBankPage } from "@/features/members/pages/member-pdf-bank.page";
-import { AboutPage } from "@/features/landing/pages";
+import {
+  AboutPage,
+  CalendarPage as CalendarLanding,
+} from "@/features/landing/pages";
+import ContactPage from "@/features/landing/pages/contact.page";
+import DonationPage from "@/features/landing/pages/donation.page";
+import MainPage from "@/features/landing/pages/main";
+import { CalendarPage } from "@/features/calendar/pages";
+
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -29,19 +36,23 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <AboutPage />,
+        element: <MainPage />,
       },
       {
         path: "about",
         element: <AboutPage />,
       },
       {
+        path: "calendar",
+        element: <CalendarLanding />,
+      },
+      {
         path: "contact",
-        element: <AboutPage />,
+        element: <ContactPage />,
       },
       {
         path: "donation",
-        element: <AboutPage />,
+        element: <DonationPage />,
       },
     ],
   },
