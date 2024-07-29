@@ -56,7 +56,6 @@ export function AuthPage() {
               dependiente de la invención. Es el producto más importante de su
               cerebro creativo.&rdquo;
             </p>
-            Separator
             <footer className="flex flex-row items-start justify-around gap-10">
               <div className="text-xl flex flex-col gap-2">
                 <p>Template</p>
