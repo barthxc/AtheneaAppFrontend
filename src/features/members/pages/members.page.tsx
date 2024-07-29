@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+// src/features/members/pages/MembersPage.tsx
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
-
 import { cn } from "@/features/core/lib/utils";
 import { LoadingView } from "@/features/core/components";
 import {
@@ -10,87 +10,130 @@ import {
   Separator,
   useToast,
 } from "@/features/core/components/ui";
-
-import { ERROR_MESSAGES } from "@/features/error/constants";
-
-import { ErrorService } from "@/features/error/service";
-import { useMemberStore } from "@/features/members/stores";
-import { memberColumns, MemberTable } from "@/features/members/components";
+import { MemberTable } from "@/features/members/components";
+import useMembers from "@/features/members/hooks/useMembers";
 
 export function MembersPage() {
-  // const { page = "1", limit = "10", search } = useParams<{ page?: string; limit?: string; search?: string }>();
-  // const [employee, setEmployee] = useState<Employee[]>([]);
-  // const [totalUsers, setTotalUsers] = useState<number>(0);
-  // const [pageCount, setPageCount] = useState<number>(0);
-  const [pending, setPending] = useState<boolean>(false);
-  const { members, getMembers } = useMemberStore();
+  const [filters, setFilters] = useState({
+    name: "",
+    lastName: "",
+    identificationNumber: "",
+    memberNumber: "",
+    status: "",
+  });
+
+  // Define el queryKey aquí
+  const [queryKey, setQueryKey] = useState<
+    (string | { [key: string]: string })[]
+  >(["members", filters]);
+
+  const {
+    data,
+    isError,
+    isLoading,
+    errorMessage,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useMembers({ filters, queryKey });
+
   const { toast } = useToast();
 
-  useEffect(() => {
-    (async () => {
-      setPending(true);
-      // const pageValue = Number(page);
-      // const limitValue = Number(limit);
-      // const offset = (pageValue - 1) * limitValue;
+  const handleFiltersChange = (newFilters: Record<string, any>) => {
+    setFilters((prevFilters) => ({ ...prevFilters, ...newFilters }));
+  };
 
-      try {
-        const res = await getMembers();
-        console.log({ res });
-        // const employeeRes = await res.json();
-        // const totalUsersValue = employeeRes.total_users; //1000
-        // const pageCountValue = Math.ceil(totalUsersValue / limitValue);
-        // const employeeData: Employee[] = employeeRes.users;
+  const handleSearch = () => {
+    // Actualiza el queryKey para forzar una nueva consulta
+    setQueryKey(["members", filters]);
+  };
 
-        // setEmployee(employeeData);
-        // setTotalUsers(totalUsersValue);
-        // setPageCount(pageCountValue);
-      } catch (err: any) {
-        const errorMessage = ErrorService.handleError(
-          err.statusCode,
-          ERROR_MESSAGES.MEMBER.FIND_ALL
-        );
-        toast({
-          description: errorMessage,
-          variant: "destructive",
-        });
-      } finally {
-        setPending(false);
-      }
-    })();
-  }, [getMembers, toast]);
+  if (isError && errorMessage) {
+    toast({
+      description: errorMessage,
+      variant: "destructive",
+    });
+  }
 
-  useEffect(() => {
-    console.log("MEMBERS", members);
-  }, [members]);
+  const flattenedData = data?.pages.flat() || [];
 
   return (
     <section>
       <div className="flex items-start justify-between">
         <Heading
-          title={`Socios (${members.length})`}
+          title={`Socios (${flattenedData.length})`}
           description="Consulta la lista de socios"
         />
-
         <Link
-          to={"/dashboard/members/new"}
+          to="/dashboard/members/new"
           className={cn(buttonVariants({ variant: "default" }))}>
           <Plus className="mr-2 h-4 w-4" /> Crear Socio
         </Link>
       </div>
       <Separator className="my-4" />
-
-      <LoadingView isLoading={pending && members.length === 0}>
+      <div className="flex flex-col gap-4 mb-4">
+        {/* Inputs para filtros */}
+        <div className="flex gap-4">
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={filters.name}
+            onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+            className="input"
+          />
+          <input
+            type="text"
+            placeholder="Apellido"
+            value={filters.lastName}
+            onChange={(e) =>
+              setFilters({ ...filters, lastName: e.target.value })
+            }
+            className="input"
+          />
+          <input
+            type="text"
+            placeholder="Número de Socio"
+            value={filters.memberNumber}
+            onChange={(e) =>
+              setFilters({ ...filters, memberNumber: e.target.value })
+            }
+            className="input"
+          />
+          <input
+            type="text"
+            placeholder="Número de Identificación"
+            value={filters.identificationNumber}
+            onChange={(e) =>
+              setFilters({ ...filters, identificationNumber: e.target.value })
+            }
+            className="input"
+          />
+          <input
+            type="text"
+            placeholder="Estado"
+            value={filters.status}
+            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+            className="input"
+          />
+          <button
+            type="button"
+            onClick={handleSearch}
+            className={cn(buttonVariants({ variant: "default" }))}>
+            Buscar
+          </button>
+        </div>
+      </div>
+      <LoadingView isLoading={isLoading && !flattenedData.length}>
         <MemberTable
-          columns={memberColumns}
-          data={members}
-          searchLabel="Buscar por N° de Socio"
-          searchProperty="memberNumber"
-          pageNo={0}
-          pageCount={3}
-          totalMembers={members.length}
-          loading={pending}
+          data={flattenedData}
+          onFetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onFiltersChange={handleFiltersChange}
         />
       </LoadingView>
     </section>
   );
 }
+
+export default MembersPage;

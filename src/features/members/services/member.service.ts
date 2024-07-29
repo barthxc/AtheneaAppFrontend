@@ -11,6 +11,16 @@ import type {
 } from "@/features/members/types";
 import { dateFormatter } from "@/features/core/utils";
 
+export interface FetchMembersParams {
+  offset?: number;
+  limit: number;
+  name?: string;
+  lastName?: string;
+  memberNumber?: string;
+  identificationNumber?: string;
+  status?: string;
+}
+
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class MemberService {
   // static convertIsDisabledToBoolean = (value: MemberIsDisabled): boolean => {
@@ -61,9 +71,16 @@ export class MemberService {
     }
   };
 
-  static getAllMembers = async () => {
+  static getAllMembers = async (params: FetchMembersParams) => {
     try {
-      const { data } = await atheneaApi.get<Members[]>("/members");
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(
+          ([_, value]) => value !== undefined && value !== ""
+        )
+      );
+      const { data } = await atheneaApi.get<Members[]>("/members", {
+        params: filteredParams,
+      });
       return data;
     } catch (error: any) {
       throw error.response?.data;
@@ -130,7 +147,6 @@ export class MemberService {
       });
       return data;
     } catch (error: any) {
-      console.log(error);
       throw error.response;
     }
   };

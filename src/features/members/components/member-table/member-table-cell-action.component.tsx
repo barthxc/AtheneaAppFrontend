@@ -24,7 +24,6 @@ export const MemberTableCellAction: React.FC<MemberTableCellActionProps> = ({
     setLoading(true);
     try {
       const deletedMember = await deleteMemberById(data.id);
-      console.log({ deletedMemberResponse: deletedMember });
       if (deletedMember || deletedMember === "") {
         toast({
           description: "Socio eliminado correctamente.",

@@ -41,7 +41,6 @@ export const MemberFormView = ({
   const description = initialData ? "Edita el socio" : "Agrega un nuevo socio";
   const action = initialData ? "Guardar Socio" : "Crear Socio";
 
-  console.log(dateFormatter(new Date("2024-07-28T16:21:55.991Z")));
   // biome-ignore lint/correctness/useExhaustiveDependencies: Only trigger the gradeDisability when isDisabled changes
   useEffect(() => {
     form.trigger("gradeDisability");

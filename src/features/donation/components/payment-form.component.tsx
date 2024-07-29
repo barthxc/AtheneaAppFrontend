@@ -38,10 +38,6 @@ const PaymentFormComponent: React.FC = () => {
     // Obtener el clientSecret solo cuando se envía el formulario
     await fetchClientSecret(amount);
 
-    console.log(stripe);
-    console.log(elements);
-    console.log(clientSecret);
-
     if (!stripe || !elements || !clientSecret) {
       setError("Stripe is not loaded or clientSecret is missing.");
       return;

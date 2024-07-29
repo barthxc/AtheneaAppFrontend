@@ -24,7 +24,6 @@ export class AuthService {
       const { data } = await atheneaApi.get("/auth/check-auth-status");
       return data;
     } catch (error) {
-      console.log(error);
       throw new Error("UnAuthorized");
     }
   };
