@@ -39,27 +39,13 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   table,
   columns,
-  searchLabel = "Buscar",
-  searchProperty,
   includePagination,
 }: DataTableProps<TData, TValue>) {
-  const searchKey = String(searchProperty);
-
   /* this can be used to get the selectedrows 
   console.log("value", table.getFilteredSelectedRowModel()); */
 
   return (
     <>
-      {searchKey && (
-        <Input
-          placeholder={searchLabel}
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-          }
-          className="w-full md:max-w-sm mb-4"
-        />
-      )}
       <ScrollArea className="h-[calc(80vh-220px)] rounded-md border">
         <Table className="relative">
           <TableHeader>

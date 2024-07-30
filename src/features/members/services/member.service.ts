@@ -11,26 +11,32 @@ import type {
 } from "@/features/members/types";
 import { dateFormatter } from "@/features/core/utils";
 
+// src/features/members/services/member.service.ts
 export interface FetchMembersParams {
-  offset?: number;
-  limit: number;
   name?: string;
   lastName?: string;
-  memberNumber?: string;
   identificationNumber?: string;
+  memberNumber?: string;
   status?: string;
+  search?: string;
+  page?: number;
+  take?: number;
+}
+
+export interface MembersResponseNew {
+  members: Members[];
+  pagination: {
+    itemCount: number;
+    pageCount: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+    page: number;
+    take: number;
+  };
 }
 
 // biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class MemberService {
-  // static convertIsDisabledToBoolean = (value: MemberIsDisabled): boolean => {
-  //   return value === MemberIsDisabled.si;
-  // };
-
-  // static convertBooleanToIsDisabled = (value: boolean): MemberIsDisabled => {
-  //   return value ? MemberIsDisabled.si : MemberIsDisabled.no;
-  // };
-
   static createMember = async (member: MemberFormValues) => {
     try {
       const { data } = await atheneaApi.post<CreateMemberResponse>(
@@ -78,11 +84,12 @@ export class MemberService {
           ([_, value]) => value !== undefined && value !== ""
         )
       );
-      const { data } = await atheneaApi.get<Members[]>("/members", {
+      const { data } = await atheneaApi.get<MembersResponseNew>("/members", {
         params: filteredParams,
       });
       return data;
     } catch (error: any) {
+      console.log("--->", error.response.data);
       throw error.response?.data;
     }
   };

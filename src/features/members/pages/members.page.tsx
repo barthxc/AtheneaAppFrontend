@@ -1,10 +1,11 @@
 // src/features/members/pages/MembersPage.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { cn } from "@/features/core/lib/utils";
 import { LoadingView } from "@/features/core/components";
 import {
+  Button,
   buttonVariants,
   Heading,
   Separator,
@@ -14,56 +15,67 @@ import { MemberTable } from "@/features/members/components";
 import useMembers from "@/features/members/hooks/useMembers";
 
 export function MembersPage() {
-  const [filters, setFilters] = useState({
-    name: "",
-    lastName: "",
-    identificationNumber: "",
-    memberNumber: "",
-    status: "",
-  });
-
-  // Define el queryKey aquí
-  const [queryKey, setQueryKey] = useState<
-    (string | { [key: string]: string })[]
-  >(["members", filters]);
+  const [filters, setFilters] = useState<Record<string, string>>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTrigger, setSearchTrigger] = useState(false);
 
   const {
-    data,
+    members,
+    totalPages,
+    currentPage: page,
+    hasNextPage,
+    hasPreviousPage,
     isError,
     isLoading,
     errorMessage,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useMembers({ filters, queryKey });
+    isFetching,
+  } = useMembers({
+    filters,
+    currentPage,
+  });
 
   const { toast } = useToast();
 
-  const handleFiltersChange = (newFilters: Record<string, any>) => {
-    setFilters((prevFilters) => ({ ...prevFilters, ...newFilters }));
+  const handleFiltersChange = (newFilters: Record<string, string>) => {
+    setFilters(newFilters);
   };
 
   const handleSearch = () => {
-    // Actualiza el queryKey para forzar una nueva consulta
-    setQueryKey(["members", filters]);
+    setCurrentPage(1);
+    setSearchTrigger(true);
   };
 
-  if (isError && errorMessage) {
-    toast({
-      description: errorMessage,
-      variant: "destructive",
-    });
-  }
+  const handlePageChange = (newPage: number) => {
+    if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
 
-  const flattenedData = data?.pages.flat() || [];
+    setCurrentPage(newPage);
+  };
+
+  useEffect(() => {
+    if (searchTrigger) {
+      setSearchTrigger(false);
+    }
+  }, [searchTrigger]);
+
+  useEffect(() => {
+    if (isError && errorMessage) {
+      toast({
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
+  }, [isError, errorMessage, toast]);
+
+  const isEmptyData = members.length === 0;
+
+  const isPreviousDisabled = !hasPreviousPage || isEmptyData;
+  const isNextDisabled = !hasNextPage || isEmptyData;
 
   return (
     <section>
       <div className="flex items-start justify-between">
-        <Heading
-          title={`Socios (${flattenedData.length})`}
-          description="Consulta la lista de socios"
-        />
+        <Heading title={"Socios"} description="Consulta la lista de socios" />
+
         <Link
           to="/dashboard/members/new"
           className={cn(buttonVariants({ variant: "default" }))}>
@@ -71,65 +83,47 @@ export function MembersPage() {
         </Link>
       </div>
       <Separator className="my-4" />
-      <div className="flex flex-col gap-4 mb-4">
-        {/* Inputs para filtros */}
-        <div className="flex gap-4">
-          <input
-            type="text"
-            placeholder="Nombre"
-            value={filters.name}
-            onChange={(e) => setFilters({ ...filters, name: e.target.value })}
-            className="input"
-          />
-          <input
-            type="text"
-            placeholder="Apellido"
-            value={filters.lastName}
-            onChange={(e) =>
-              setFilters({ ...filters, lastName: e.target.value })
-            }
-            className="input"
-          />
-          <input
-            type="text"
-            placeholder="Número de Socio"
-            value={filters.memberNumber}
-            onChange={(e) =>
-              setFilters({ ...filters, memberNumber: e.target.value })
-            }
-            className="input"
-          />
-          <input
-            type="text"
-            placeholder="Número de Identificación"
-            value={filters.identificationNumber}
-            onChange={(e) =>
-              setFilters({ ...filters, identificationNumber: e.target.value })
-            }
-            className="input"
-          />
-          <input
-            type="text"
-            placeholder="Estado"
-            value={filters.status}
-            onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            className="input"
-          />
-          <button
-            type="button"
-            onClick={handleSearch}
-            className={cn(buttonVariants({ variant: "default" }))}>
-            Buscar
-          </button>
-        </div>
+
+      <div className="flex flex-row gap-5 items-center mb-5">
+        <input
+          placeholder="Nombre"
+          value={filters.name || ""}
+          onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+          className="border p-2 rounded"
+        />
+        <input
+          placeholder="Apellido"
+          value={filters.lastName || ""}
+          onChange={(e) => setFilters({ ...filters, lastName: e.target.value })}
+          className="border p-2 rounded"
+        />
+        <input
+          placeholder="Número de Socio"
+          value={filters.memberNumber || ""}
+          onChange={(e) =>
+            setFilters({ ...filters, memberNumber: e.target.value })
+          }
+          className="border p-2 rounded"
+        />
+        <input
+          placeholder="Estado"
+          value={filters.status || ""}
+          onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+          className="border p-2 rounded"
+        />
+        <Button onClick={handleSearch}>Buscar</Button>
       </div>
-      <LoadingView isLoading={isLoading && !flattenedData.length}>
+
+      <LoadingView isLoading={isLoading && !members.length}>
         <MemberTable
-          data={flattenedData}
-          onFetchNextPage={fetchNextPage}
+          data={members}
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
           hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          onFiltersChange={handleFiltersChange}
+          isFetchingNextPage={isFetching}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+          totalPage={totalPages}
         />
       </LoadingView>
     </section>
