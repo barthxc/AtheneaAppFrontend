@@ -4,7 +4,7 @@ import type { memberFormSchema } from "@/features/members/schemas";
 
 export type MemberFormValues = z.infer<typeof memberFormSchema>;
 
-export type MemberStatus = "baja" | "alta" | "exitud";
+export type MemberStatus = "baja" | "alta" | "exitu";
 export type MemberStreetType =
   | "avenida"
   | "barriada"

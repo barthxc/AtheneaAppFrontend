@@ -149,10 +149,10 @@ export const navItems: NavItem[] = [
     validRole: [ValidRoles.admin, ValidRoles.treasure],
   },
   {
-    title: "Exitud",
+    title: "Exitu",
     href: "/dashboard/members",
     icon: "cross",
-    label: "exitud",
+    label: "exitu",
     validRole: [ValidRoles.admin, ValidRoles.treasure],
   },
   {

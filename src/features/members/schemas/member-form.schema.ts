@@ -61,7 +61,7 @@ export const memberFormSchema = z
       .number({ message: "Ingresa un porcentaje válido" })
       .nullable()
       .optional(),
-    status: z.enum([MemberStatus.baja, MemberStatus.alta, MemberStatus.exitud]),
+    status: z.enum([MemberStatus.baja, MemberStatus.alta, MemberStatus.exitu]),
     addressInfo: z.object({
       streetType: z
         .enum([

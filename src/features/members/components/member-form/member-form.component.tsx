@@ -18,6 +18,8 @@ import { memberFormSchema } from "@/features/members/schemas";
 import { MemberService } from "@/features/members/services";
 import { useMemberStore } from "@/features/members/stores";
 
+import { useMemberById } from "../../hooks/hook";
+
 import { ErrorService } from "@/features/error/service";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
@@ -34,6 +36,10 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   const updateMemberPaymentDate = useMemberStore(
     (s) => s.updateMemberPaymentDate
   );
+
+  const { data, isLoading, isFetching, isError, errorMessage, error, refetch } =
+    useMemberById(editId);
+
   // const toastMessage = initialData ? "Socio actualizado." : "Socio creado.";
 
   useEffect(() => {

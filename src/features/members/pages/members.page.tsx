@@ -1,4 +1,3 @@
-// src/features/members/pages/MembersPage.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
@@ -12,11 +11,15 @@ import {
   useToast,
 } from "@/features/core/components/ui";
 import { MemberTable } from "@/features/members/components";
-import useMembers from "@/features/members/hooks/useMembers";
+
+import { usePaginatedMembers } from "../hooks/hook";
 
 export function MembersPage() {
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchFilters, setSearchFilters] = useState<Record<string, string>>(
+    {}
+  );
   const [searchTrigger, setSearchTrigger] = useState(false);
 
   const {
@@ -29,19 +32,24 @@ export function MembersPage() {
     isLoading,
     errorMessage,
     isFetching,
-  } = useMembers({
-    filters,
+    refetch,
+  } = usePaginatedMembers({
+    filters: searchFilters,
     currentPage,
   });
 
   const { toast } = useToast();
 
-  const handleFiltersChange = (newFilters: Record<string, string>) => {
-    setFilters(newFilters);
+  const handleFiltersChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters({
+      ...filters,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const handleSearch = () => {
-    setCurrentPage(1);
+    setSearchFilters(filters);
+    setCurrentPage(1); // Reset page to 1 on search
     setSearchTrigger(true);
   };
 
@@ -76,6 +84,7 @@ export function MembersPage() {
       <div className="flex items-start justify-between">
         <Heading title={"Socios"} description="Consulta la lista de socios" />
 
+        <Button onClick={refetch}>eeeeee</Button>
         <Link
           to="/dashboard/members/new"
           className={cn(buttonVariants({ variant: "default" }))}>
@@ -86,29 +95,31 @@ export function MembersPage() {
 
       <div className="flex flex-row gap-5 items-center mb-5">
         <input
+          name="name"
           placeholder="Nombre"
           value={filters.name || ""}
-          onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+          onChange={handleFiltersChange}
           className="border p-2 rounded"
         />
         <input
+          name="lastName"
           placeholder="Apellido"
           value={filters.lastName || ""}
-          onChange={(e) => setFilters({ ...filters, lastName: e.target.value })}
+          onChange={handleFiltersChange}
           className="border p-2 rounded"
         />
         <input
+          name="memberNumber"
           placeholder="Número de Socio"
           value={filters.memberNumber || ""}
-          onChange={(e) =>
-            setFilters({ ...filters, memberNumber: e.target.value })
-          }
+          onChange={handleFiltersChange}
           className="border p-2 rounded"
         />
         <input
+          name="status"
           placeholder="Estado"
           value={filters.status || ""}
-          onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+          onChange={handleFiltersChange}
           className="border p-2 rounded"
         />
         <Button onClick={handleSearch}>Buscar</Button>

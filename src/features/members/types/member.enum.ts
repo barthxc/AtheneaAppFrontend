@@ -1,7 +1,7 @@
 export enum MemberStatus {
   alta = "alta",
   baja = "baja",
-  exitud = "exitud",
+  exitu = "exitu",
 }
 
 export enum MemberIsDisabled {
