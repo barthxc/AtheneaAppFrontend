@@ -19,8 +19,8 @@ interface UseMembersProps {
 }
 
 const useMembers = ({ filters, currentPage }: UseMembersProps) => {
-  const { data, isError, isFetching, isLoading } = useQuery<MembersResponseNew>(
-    {
+  const { data, isError, isFetching, isLoading, error } =
+    useQuery<MembersResponseNew>({
       queryKey: ["getMembers", filters, currentPage],
       queryFn: () =>
         MemberService.getAllMembers({
@@ -30,12 +30,11 @@ const useMembers = ({ filters, currentPage }: UseMembersProps) => {
         }),
       staleTime: 1000 * 60 * 5,
       retry: false,
-    }
-  );
+    });
 
   const errorMessage = isError
     ? ErrorService.handleError(
-        error?.statusCode,
+        (error as any)?.statusCode,
         ERROR_MESSAGES.MEMBER.FIND_ALL
       )
     : null;

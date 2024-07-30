@@ -89,7 +89,7 @@ export class MemberService {
       });
       return data;
     } catch (error: any) {
-      console.log("--->", error.response.data);
+      console.log(error.response.data);
       throw error.response?.data;
     }
   };
