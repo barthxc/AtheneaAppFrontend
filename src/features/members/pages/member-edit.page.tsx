@@ -36,9 +36,9 @@ export function MemberEditPage() {
     }
   }, [isLoading, data, navigate]);
 
-  const handleSubmit = async (formData: MemberFormValues, id: string) => {
+  const handleSubmit = async (formData: MemberFormValues) => {
     if (paramId) {
-      updateMember({ member: formData, id });
+      updateMember({ member: formData, id: paramId });
     }
   };
 

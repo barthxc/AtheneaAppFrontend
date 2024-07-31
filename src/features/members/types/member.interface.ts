@@ -27,7 +27,7 @@ export interface MemberFormProps {
   editId?: string;
   initialData: MemberFormValues | null;
   isEdit: boolean;
-  onSubmit: (data: MemberFormValues) => void;
+  onSubmit: (data: MemberFormValues) => Promise<void>;
   isLoading?: boolean;
   isError: boolean;
   errorMessage: string | null;
@@ -38,6 +38,7 @@ export interface MemberFormProps {
 export interface MemberFormViewProps extends FormViewProps {
   form: UseFormReturn<MemberFormValues>;
   paymentDate?: string;
+  // onSubmit: MemberNewSubmit | MemberEditSubmit
 }
 
 export interface CreateMemberResponse {
