@@ -81,8 +81,7 @@ const useCreateMember = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (member: MemberFormValues) =>
-      MemberService.createMember(member),
+    mutationFn: (member: MemberFormValues) => MemberService.createMember(member),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembers._def,

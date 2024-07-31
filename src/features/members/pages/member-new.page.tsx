@@ -5,18 +5,20 @@ import type { MemberFormValues } from "../types";
 export function MemberNewPage() {
   const {
     mutate: createMember,
+    data: memberData,
     isPending,
     isSuccess,
     isError,
     errorMessage,
   } = useCreateMember();
 
-  const handleSubmit = async (data: MemberFormValues) => {
+  const handleSubmit = (data: MemberFormValues) => {
     createMember(data);
   };
 
   return (
     <MemberForm
+      memberId={memberData?.id}
       initialData={null}
       isEdit={false}
       onSubmit={handleSubmit}

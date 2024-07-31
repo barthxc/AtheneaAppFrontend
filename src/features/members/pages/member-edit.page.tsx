@@ -48,7 +48,7 @@ export function MemberEditPage() {
         <MemberForm
           initialData={data as MemberFormValues}
           isEdit={true}
-          editId={paramId}
+          memberId={paramId}
           onSubmit={handleSubmit}
           isError={isUpdateError || isError}
           errorMessage={updateErrorMessage || fetchErrorMessage}

@@ -15,15 +15,15 @@ import {
 } from "@/features/members/types";
 import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
-import { MemberService } from "@/features/members/services";
+// import { MemberService } from "@/features/members/services";
 import { useMemberStore } from "@/features/members/stores";
 
-import { useMemberById } from "../../hooks/hook";
+// import { useMemberById } from "../../hooks/hook";
 
 import { ErrorService } from "@/features/error/service";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
-  editId,
+  memberId,
   initialData,
   isEdit,
   onSubmit,
@@ -48,12 +48,12 @@ export const MemberForm: React.FC<MemberFormProps> = ({
         description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
         action: !isEdit ? (
           <ToastAction altText="Ficha de Socio">
-            <Link to={`/dashboard/members/pdf/${editId}`}>Ficha de Socio</Link>
+            <Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
           </ToastAction>
         ) : undefined,
       });
     }
-  }, [isSuccess, editId, isEdit, toast]);
+  }, [isSuccess, memberId, isEdit, toast]);
 
   useEffect(() => {
     if (isError && errorMessage) {
@@ -114,7 +114,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handleSubmit = async (data: MemberFormValues) => {
+  const handleSubmit = (data: MemberFormValues) => {
     onSubmit(data);
     !isEdit && form.reset();
     return;
@@ -133,9 +133,9 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   };
 
   const onUpdatePaymentDate = async () => {
-    if (!editId) return;
+    if (!memberId) return;
     try {
-      const { bankInfo } = (await updateMemberPaymentDate(editId)) ?? {};
+      const { bankInfo } = (await updateMemberPaymentDate(memberId)) ?? {};
       if (bankInfo) {
         const { paymentDate } = bankInfo;
         setMemberPaymentDate(paymentDate);
@@ -177,7 +177,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
       {isEdit && (
         <div className="flex flex-row justify-around">
           <Button disabled={isLoading} className="h-12 text-base" type="button">
-            <Link to={`/dashboard/members/pdf/${editId}`}>Ficha de Socio</Link>
+            <Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
           </Button>
           <Button
             disabled={isLoading}

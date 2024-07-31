@@ -12,22 +12,22 @@ import type {
 interface EditMemberForm {
   initialData: MemberResponse;
   isEdit: true;
-  editId: string;
+  memberId: string;
 }
 
 interface CreateMemberForm {
   initialData: null;
   isEdit?: false;
-  editId?: string;
+  memberId?: string;
 }
 
 export type CASOS = EditMemberForm | CreateMemberForm;
 
 export interface MemberFormProps {
-  editId?: string;
+  memberId?: string;
   initialData: MemberFormValues | null;
   isEdit: boolean;
-  onSubmit: (data: MemberFormValues) => Promise<void>;
+  onSubmit: (data: MemberFormValues) => void;
   isLoading?: boolean;
   isError: boolean;
   errorMessage: string | null;
@@ -38,7 +38,6 @@ export interface MemberFormProps {
 export interface MemberFormViewProps extends FormViewProps {
   form: UseFormReturn<MemberFormValues>;
   paymentDate?: string;
-  // onSubmit: MemberNewSubmit | MemberEditSubmit
 }
 
 export interface CreateMemberResponse {
