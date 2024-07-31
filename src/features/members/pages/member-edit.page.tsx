@@ -15,15 +15,13 @@ export function MemberEditPage() {
   if (!paramId) {
     navigate("/dashboard");
   }
-
   const {
     data,
     isError,
     isLoading,
     errorMessage: fetchErrorMessage,
-  } = useMemberById(paramId);
+  } = useMemberById(paramId ?? "");
 
-  // Hook para actualizar miembro
   const {
     mutate: updateMember,
     isPending,
@@ -38,9 +36,9 @@ export function MemberEditPage() {
     }
   }, [isLoading, data, navigate]);
 
-  const handleSubmit = async (formData: MemberFormValues) => {
+  const handleSubmit = async (formData: MemberFormValues, id: string) => {
     if (paramId) {
-      updateMember({ member: formData, id: paramId });
+      updateMember({ member: formData, id });
     }
   };
 

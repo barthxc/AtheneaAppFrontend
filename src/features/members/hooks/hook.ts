@@ -85,10 +85,10 @@ const useCreateMember = () => {
       MemberService.createMember(member),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          MembersApiFactory.paginatedMembers._def,
-          MembersApiFactory.getMemberById._def,
-        ],
+        queryKey: MembersApiFactory.paginatedMembers._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getMemberById._def,
       });
     },
     onError: (error) => {
@@ -120,10 +120,10 @@ const useUpdateMember = () => {
       MemberService.updateMember(member, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          MembersApiFactory.paginatedMembers._def,
-          MembersApiFactory.getMemberById._def,
-        ],
+        queryKey: MembersApiFactory.paginatedMembers._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getMemberById._def,
       });
     },
 

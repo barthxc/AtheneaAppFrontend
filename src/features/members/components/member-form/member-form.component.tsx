@@ -114,9 +114,9 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handleSubmit = async (data: MemberFormValues) => {
+  const handleSubmit = async (data: MemberFormValues, editId: string) => {
     if (isEdit) {
-      onSubmit(data, editId);
+      onSubmit({ data, editId });
     } else {
       onSubmit(data);
     }
