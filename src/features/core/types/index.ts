@@ -41,6 +41,6 @@ export interface FormViewProps {
   showModal: boolean;
   openModal(): void;
   closeModal(): void;
-  onSubmit(data: FieldValues): Promise<void>;
+  onSubmit(data: FieldValues): void;
   onDelete(): Promise<void>;
 }
