@@ -23,36 +23,46 @@ import { useMemberById } from "../../hooks/hook";
 import { ErrorService } from "@/features/error/service";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
+  editId,
   initialData,
   isEdit,
-  editId,
+  onSubmit,
+  isLoading,
+  isError,
+  errorMessage,
+  isPending,
+  isSuccess,
 }) => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [memberId, setMemberId] = useState<string | undefined>(editId);
-  const [memberSubmitted, setMemberSubmitted] = useState<boolean>(false);
   const [memberPaymentDate, setMemberPaymentDate] = useState<string>();
   const updateMemberPaymentDate = useMemberStore(
     (s) => s.updateMemberPaymentDate
   );
 
-  const { data, isLoading, isFetching, isError, errorMessage, error, refetch } =
-    useMemberById(editId);
-
   // const toastMessage = initialData ? "Socio actualizado." : "Socio creado.";
 
   useEffect(() => {
-    if (!memberId || !memberSubmitted) return;
-    toast({
-      description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
-      action: !isEdit ? (
-        <ToastAction altText="Ficha de Socio">
-          <Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
-        </ToastAction>
-      ) : undefined,
-    });
-  }, [isEdit, memberId, memberSubmitted, toast]);
+    if (isSuccess) {
+      toast({
+        description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
+        action: !isEdit ? (
+          <ToastAction altText="Ficha de Socio">
+            <Link to={`/dashboard/members/pdf/${editId}`}>Ficha de Socio</Link>
+          </ToastAction>
+        ) : undefined,
+      });
+    }
+  }, [isSuccess, editId, isEdit, toast]);
+
+  useEffect(() => {
+    if (isError && errorMessage) {
+      toast({
+        variant: "destructive",
+        description: errorMessage,
+      });
+    }
+  }, [isError, errorMessage, toast]);
 
   const defaultValues: MemberFormValues = initialData
     ? initialData
@@ -104,57 +114,32 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const onSubmit = async (data: MemberFormValues) => {
-    setLoading(true);
-    try {
-      const submittedMember = await (isEdit && editId
-        ? MemberService.updateMember(data, editId)
-        : MemberService.createMember(data));
-      if (submittedMember) {
-        setMemberId(submittedMember.id);
-        setMemberSubmitted(true);
-        !isEdit && form.reset();
-        return;
-      }
-      toast({
-        variant: "destructive",
-        description: ERROR_MESSAGES.MEMBER.CREATE_MEMBER.GENERIC,
-      });
-    } catch (error: any) {
-      const errorMessage = ErrorService.handleError(
-        error.statusCode,
-        isEdit
-          ? ERROR_MESSAGES.MEMBER.CREATE_MEMBER
-          : ERROR_MESSAGES.MEMBER.CREATE_MEMBER
-      );
-      toast({
-        variant: "destructive",
-        description: errorMessage,
-      });
-    } finally {
-      setLoading(false);
+  const handleSubmit = async (data: MemberFormValues) => {
+    if (isEdit) {
+      onSubmit(data, editId);
+    } else {
+      onSubmit(data);
     }
+    !isEdit && form.reset();
+    return;
   };
 
   const onDelete = async () => {
     try {
-      setLoading(true);
       //   await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
       //   router.refresh();
       //TODO REFRESCAR AL HACER COSAS (?)
     } catch (error: any) {
       // console.error(error)
     } finally {
-      setLoading(false);
       closeModal();
     }
   };
 
   const onUpdatePaymentDate = async () => {
-    if (!memberId) return;
+    if (!editId) return;
     try {
-      setLoading(true);
-      const { bankInfo } = (await updateMemberPaymentDate(memberId)) ?? {};
+      const { bankInfo } = (await updateMemberPaymentDate(editId)) ?? {};
       if (bankInfo) {
         const { paymentDate } = bankInfo;
         setMemberPaymentDate(paymentDate);
@@ -176,8 +161,6 @@ export const MemberForm: React.FC<MemberFormProps> = ({
       toast({
         description: ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE.GENERIC,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -186,24 +169,22 @@ export const MemberForm: React.FC<MemberFormProps> = ({
       <MemberFormView
         initialData={initialData}
         paymentDate={memberPaymentDate}
-        loading={loading}
+        loading={isLoading || isPending}
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
         form={form}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         onDelete={onDelete}
       />
 
       {isEdit && (
         <div className="flex flex-row justify-around">
-          <Button disabled={loading} className="h-12 text-base" type="button">
-            <Link to={`/dashboard/members/pdf/${memberId}`}>
-              Ficha de Socio
-            </Link>
+          <Button disabled={isLoading} className="h-12 text-base" type="button">
+            <Link to={`/dashboard/members/pdf/${editId}`}>Ficha de Socio</Link>
           </Button>
           <Button
-            disabled={loading}
+            disabled={isLoading}
             className=" h-12 text-base"
             type="button"
             onClick={onUpdatePaymentDate}>

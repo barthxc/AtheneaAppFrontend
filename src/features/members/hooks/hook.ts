@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  QueryClient,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   MemberService,
   type FetchMembersParams,
@@ -7,6 +12,7 @@ import {
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import { MembersApiFactory } from "./members.factory";
+import { MemberFormValues } from "../types";
 export interface UseMembersProps {
   filters: {
     name?: string;
@@ -19,21 +25,12 @@ export interface UseMembersProps {
 }
 
 const usePaginatedMembers = (params: UseMembersProps) => {
-  // const client = useQueryClient();
-
   const { data, isError, isFetching, isLoading, error, refetch } = useQuery({
     ...MembersApiFactory.paginatedMembers(params),
     staleTime: 1000 * 60 * 5,
     retry: false,
   });
-  // const {}= useMutation({
-  //   mutationFn:()=>1,
-  //   onMutate: ()=>{
-  //     client.invalidateQueries({
-  //       queryKey:MembersApiFactory.paginatedMembers._def
-  //     })
-  //   },
-  // })
+
   const errorMessage = isError
     ? ErrorService.handleError(
         (error as any)?.statusCode,
@@ -80,4 +77,75 @@ const useMemberById = (id: string) => {
   };
 };
 
-export { usePaginatedMembers, useMemberById };
+const useCreateMember = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (member: MemberFormValues) =>
+      MemberService.createMember(member),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          MembersApiFactory.paginatedMembers._def,
+          MembersApiFactory.getMemberById._def,
+        ],
+      });
+    },
+    onError: (error) => {
+      console.error(
+        ErrorService.handleError(
+          (error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.CREATE
+        )
+      );
+    },
+  });
+
+  return {
+    ...mutation,
+    errorMessage: mutation.isError
+      ? ErrorService.handleError(
+          (mutation.error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.CREATE
+        )
+      : null,
+  };
+};
+
+const useUpdateMember = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: ({ member, id }: { member: MemberFormValues; id: string }) =>
+      MemberService.updateMember(member, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          MembersApiFactory.paginatedMembers._def,
+          MembersApiFactory.getMemberById._def,
+        ],
+      });
+    },
+
+    onError: (error) => {
+      console.error(
+        ErrorService.handleError(
+          (error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.CREATE
+        )
+      );
+    },
+  });
+
+  return {
+    ...mutation,
+    errorMessage: mutation.isError
+      ? ErrorService.handleError(
+          (mutation.error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.CREATE
+        )
+      : null,
+  };
+};
+
+export { usePaginatedMembers, useMemberById, useCreateMember, useUpdateMember };

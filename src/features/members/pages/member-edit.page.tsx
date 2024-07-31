@@ -1,40 +1,62 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { LoadingView } from "@/features/core/components";
-
-import type { MemberResponse } from "@/features/members/types";
-import { useMemberStore } from "@/features/members/stores";
 import { MemberForm } from "@/features/members/components";
+import type {
+  MemberFormValues,
+  MemberResponse,
+} from "@/features/members/types";
+import { useUpdateMember, useMemberById } from "../hooks/hook";
 
 export function MemberEditPage() {
-  const { id: paramId } = useParams();
-  const [member, setMember] = useState<MemberResponse | null>(null);
-  const [pending, setPending] = useState<boolean>(true);
-  const getMemberById = useMemberStore((s) => s.getMemberById);
+  const { id: paramId } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getMember = async () => {
-      if (!paramId) return setPending(false);
-      const memberFound = (await getMemberById(paramId)) ?? {};
-      if (Object.entries(memberFound).length > 0) setMember(memberFound);
-      setPending(false);
-    };
+  if (!paramId) {
+    navigate("/dashboard");
+  }
 
-    getMember();
-  }, [getMemberById, paramId]);
+  const {
+    data,
+    isError,
+    isLoading,
+    errorMessage: fetchErrorMessage,
+  } = useMemberById(paramId);
+
+  // Hook para actualizar miembro
+  const {
+    mutate: updateMember,
+    isPending,
+    isSuccess,
+    isError: isUpdateError,
+    errorMessage: updateErrorMessage,
+  } = useUpdateMember();
 
   useEffect(() => {
-    if (!pending && !member) {
+    if (!isLoading && !data) {
       navigate("/dashboard");
     }
-  }, [pending, member, navigate]);
+  }, [isLoading, data, navigate]);
+
+  const handleSubmit = async (formData: MemberFormValues) => {
+    if (paramId) {
+      updateMember({ member: formData, id: paramId });
+    }
+  };
 
   return (
     <>
-      <LoadingView isLoading={pending && !member}>
-        <MemberForm initialData={member} isEdit editId={paramId} />
+      <LoadingView isLoading={isLoading && !data}>
+        <MemberForm
+          initialData={data as MemberFormValues}
+          isEdit={true}
+          editId={paramId}
+          onSubmit={handleSubmit}
+          isError={isUpdateError || isError}
+          errorMessage={updateErrorMessage || fetchErrorMessage}
+          isPending={isPending}
+          isSuccess={isSuccess}
+        />
       </LoadingView>
     </>
   );
