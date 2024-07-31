@@ -31,12 +31,12 @@ const usePaginatedMembers = (params: UseMembersProps) => {
     retry: false,
   });
 
-  const errorMessage = isError
-    ? ErrorService.handleError(
-        (error as any)?.statusCode,
-        ERROR_MESSAGES.MEMBER.FIND_ALL
-      )
-    : null;
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.FIND_ALL
+    );
 
   return {
     members: data?.members || [],
@@ -59,12 +59,12 @@ const useMemberById = (id: string) => {
     retry: false,
   });
 
-  const errorMessage = isError
-    ? ErrorService.handleError(
-        (error as any)?.statusCode,
-        ERROR_MESSAGES.MEMBER.FIND_ALL
-      )
-    : null;
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.FIND_ALL
+    );
 
   return {
     data,
@@ -103,12 +103,12 @@ const useCreateMember = () => {
 
   return {
     ...mutation,
-    errorMessage: mutation.isError
-      ? ErrorService.handleError(
-          (mutation.error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.CREATE
-        )
-      : null,
+    errorMessage:
+      mutation.isError &&
+      ErrorService.handleError(
+        (mutation.error as any)?.statusCode,
+        ERROR_MESSAGES.MEMBER.CREATE
+      ),
   };
 };
 
@@ -128,10 +128,11 @@ const useUpdateMember = () => {
     },
 
     onError: (error) => {
-      console.error(
+      console.log(
+        "FOOOOOOOOW",
         ErrorService.handleError(
           (error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.CREATE
+          ERROR_MESSAGES.MEMBER.UPDATE
         )
       );
     },
@@ -139,12 +140,12 @@ const useUpdateMember = () => {
 
   return {
     ...mutation,
-    errorMessage: mutation.isError
-      ? ErrorService.handleError(
-          (mutation.error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.CREATE
-        )
-      : null,
+    errorMessage:
+      mutation.isError &&
+      ErrorService.handleError(
+        (mutation.error as any)?.statusCode,
+        ERROR_MESSAGES.MEMBER.UPDATE
+      ),
   };
 };
 

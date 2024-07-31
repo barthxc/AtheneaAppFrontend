@@ -15,10 +15,7 @@ import {
 } from "@/features/members/types";
 import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
-import { MemberService } from "@/features/members/services";
 import { useMemberStore } from "@/features/members/stores";
-
-import { useMemberById } from "../../hooks/hook";
 
 import { ErrorService } from "@/features/error/service";
 
