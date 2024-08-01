@@ -27,7 +27,6 @@ import {
 
 export const MemberFormView = ({
   initialData,
-  paymentDate,
   loading,
   showModal,
   openModal,
@@ -47,12 +46,6 @@ export const MemberFormView = ({
 
   return (
     <>
-      {/* <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={onDelete}
-        loading={loading}
-      /> */}
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (

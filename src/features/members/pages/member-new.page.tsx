@@ -8,12 +8,13 @@ export function MemberNewPage() {
     data: memberData,
     isPending,
     isSuccess,
-    isError,
-    errorMessage,
   } = useCreateMember();
 
-  const handleSubmit = (data: MemberFormValues) => {
-    createMember(data);
+  const handleSubmit = (
+    data: MemberFormValues,
+    onSuccessAction: () => void
+  ) => {
+    createMember(data, { onSuccess: onSuccessAction });
   };
 
   return (
@@ -22,8 +23,6 @@ export function MemberNewPage() {
       initialData={null}
       isEdit={false}
       onSubmit={handleSubmit}
-      isError={isError}
-      errorMessage={errorMessage}
       isPending={isPending}
       isSuccess={isSuccess}
     />

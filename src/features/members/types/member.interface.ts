@@ -27,17 +27,14 @@ export interface MemberFormProps {
   memberId?: string;
   initialData: MemberFormValues | null;
   isEdit: boolean;
-  onSubmit: (data: MemberFormValues) => void;
+  onSubmit: (data: MemberFormValues, onSuccessAction: () => void) => void;
   isLoading?: boolean;
-  isError: boolean;
-  errorMessage: string | null;
   isPending: boolean;
   isSuccess: boolean;
 }
 
 export interface MemberFormViewProps extends FormViewProps {
   form: UseFormReturn<MemberFormValues>;
-  paymentDate?: string;
 }
 
 export interface CreateMemberResponse {

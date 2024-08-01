@@ -4,6 +4,8 @@ import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import { MembersApiFactory } from "./members.factory";
 import type { MemberFormValues } from "../types";
+import { useToast } from "@/features/core/components/ui";
+import { useNavigate } from "react-router-dom";
 export interface UseMembersProps {
   filters: {
     name?: string;
@@ -116,6 +118,7 @@ const usePdfBank = () => {
 
 const useCreateMember = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const mutation = useMutation({
     mutationFn: (member: MemberFormValues) =>
@@ -135,12 +138,13 @@ const useCreateMember = () => {
       });
     },
     onError: (error) => {
-      console.error(
-        ErrorService.handleError(
+      toast({
+        variant: "destructive",
+        description: ErrorService.handleError(
           (error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.CREATE
-        )
-      );
+          ERROR_MESSAGES.MEMBER.create
+        ),
+      });
     },
   });
 
@@ -157,11 +161,15 @@ const useCreateMember = () => {
 
 const useUpdateMember = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const mutation = useMutation({
     mutationFn: ({ member, id }: { member: MemberFormValues; id: string }) =>
       MemberService.updateMember(member, id),
     onSuccess: () => {
+      toast({
+        description: "Socio actualizado correctamente",
+      });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembers._def,
       });
@@ -177,12 +185,13 @@ const useUpdateMember = () => {
     },
 
     onError: (error) => {
-      console.log(
-        ErrorService.handleError(
+      toast({
+        variant: "destructive",
+        description: ErrorService.handleError(
           (error as any)?.statusCode,
           ERROR_MESSAGES.MEMBER.UPDATE
-        )
-      );
+        ),
+      });
     },
   });
 
@@ -199,9 +208,15 @@ const useUpdateMember = () => {
 
 const useDeleteMember = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: (id: string) => MemberService.removeMember(id),
     onSuccess: () => {
+      navigate("/dashboard/members");
+      toast({
+        description: "Socio eliminado correctamente",
+      });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembers._def,
       });
@@ -217,12 +232,13 @@ const useDeleteMember = () => {
     },
 
     onError: (error) => {
-      console.log(
-        ErrorService.handleError(
+      toast({
+        variant: "destructive",
+        description: ErrorService.handleError(
           (error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.UPDATE
-        )
-      );
+          ERROR_MESSAGES.MEMBER.REMOVE
+        ),
+      });
     },
   });
 
@@ -239,9 +255,13 @@ const useDeleteMember = () => {
 
 const useUpdatePaymentDate = () => {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: (id: string) => MemberService.updatePaymentDateMember(id),
     onSuccess: () => {
+      toast({
+        description: "Fecha del pago actualizada correctamente",
+      });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembers._def,
       });
@@ -254,12 +274,13 @@ const useUpdatePaymentDate = () => {
     },
 
     onError: (error) => {
-      console.log(
-        ErrorService.handleError(
+      toast({
+        variant: "destructive",
+        description: ErrorService.handleError(
           (error as any)?.statusCode,
           ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE
-        )
-      );
+        ),
+      });
     },
   });
 
