@@ -15,20 +15,9 @@ export function MemberEditPage() {
   if (!paramId) {
     navigate("/dashboard");
   }
-  const {
-    data,
-    isError,
-    isLoading,
-    errorMessage: fetchErrorMessage,
-  } = useMemberById(paramId ?? "");
+  const { data, isLoading } = useMemberById(paramId ?? "");
 
-  const {
-    mutate: updateMember,
-    isPending,
-    isSuccess,
-    isError: isUpdateError,
-    errorMessage: updateErrorMessage,
-  } = useUpdateMember();
+  const { mutate: updateMember, isPending, isSuccess } = useUpdateMember();
 
   useEffect(() => {
     if (!isLoading && !data) {
@@ -50,8 +39,6 @@ export function MemberEditPage() {
           isEdit={true}
           memberId={paramId}
           onSubmit={handleSubmit}
-          isError={isUpdateError || isError}
-          errorMessage={updateErrorMessage || fetchErrorMessage}
           isPending={isPending}
           isSuccess={isSuccess}
         />

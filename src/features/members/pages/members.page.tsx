@@ -7,12 +7,15 @@ import {
   Button,
   buttonVariants,
   Heading,
+  Input,
+  Select,
   Separator,
   useToast,
 } from "@/features/core/components/ui";
 import { MemberTable } from "@/features/members/components";
 
 import { usePaginatedMembers } from "../hooks/hook";
+import { MemberStatus } from "../types";
 
 export function MembersPage() {
   const [filters, setFilters] = useState<Record<string, string>>({});
@@ -43,6 +46,13 @@ export function MembersPage() {
     setFilters({
       ...filters,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilters({
+      ...filters,
+      status: event.target.value,
     });
   };
 
@@ -92,34 +102,49 @@ export function MembersPage() {
       <Separator className="my-4" />
 
       <div className="flex flex-row gap-5 items-center mb-5">
-        <input
+        <Input
           name="name"
           placeholder="Nombre"
           value={filters.name || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-44"
         />
-        <input
+        <Input
           name="lastName"
           placeholder="Apellido"
           value={filters.lastName || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-44"
         />
-        <input
+        <Input
+          name="identificationNumber"
+          placeholder="DNI"
+          value={filters.identificationNumber || ""}
+          onChange={handleFiltersChange}
+          className="border p-2 rounded w-44"
+        />
+        <Input
           name="memberNumber"
           placeholder="Número de Socio"
           value={filters.memberNumber || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-44"
         />
-        <input
+        {/* //TODO shadCN component, using a empty option */}
+        <select
           name="status"
-          placeholder="Estado"
           value={filters.status || ""}
-          onChange={handleFiltersChange}
-          className="border p-2 rounded"
-        />
+          onChange={handleSelectChange}
+          className="border p-2 rounded">
+          <option key={"cosa"} value={""}>
+            {""}
+          </option>
+          {Object.values(MemberStatus).map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
+        </select>
         <Button onClick={handleSearch}>Buscar</Button>
       </div>
 

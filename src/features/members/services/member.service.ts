@@ -111,6 +111,7 @@ export class MemberService {
       const { data } = await atheneaApi.get<MembersInfo>("/members-info");
       return data;
     } catch (error: any) {
+      console.log(error);
       throw error.response?.data;
     }
   };

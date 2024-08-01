@@ -25,4 +25,8 @@ export const MembersApiFactory = createQueryKeys("members", {
     queryKey: ["getPdfBank"],
     queryFn: () => MemberService.getPDFMembersBank(),
   }),
+  membersInfo: () => ({
+    queryKey: ["membersInfo"],
+    queryFn: () => MemberService.membersInfo(),
+  }),
 });

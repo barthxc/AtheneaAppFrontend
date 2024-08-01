@@ -51,11 +51,29 @@ const useMemberById = (id: string) => {
     retry: false,
   });
 
+  return {
+    data,
+    isError,
+    isFetching,
+    isLoading,
+    error,
+  };
+};
+
+const useMembersInfo = () => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...MembersApiFactory.membersInfo(),
+    staleTime: 1000 * 60 * 60,
+    retry: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+  });
+
   const errorMessage =
     isError &&
     ErrorService.handleError(
       (error as any)?.statusCode,
-      ERROR_MESSAGES.MEMBER.FIND_ALL
+      ERROR_MESSAGES.MEMBERS_INFO.GET_STATISTICS
     );
 
   return {
@@ -73,6 +91,8 @@ const usePdfById = (id: string) => {
     ...MembersApiFactory.getPdfById(id),
     staleTime: 1000 * 60 * 5,
     retry: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 
   const errorMessage =
@@ -97,6 +117,8 @@ const usePdfBank = () => {
     ...MembersApiFactory.getPdfBank(),
     staleTime: 1000 * 60 * 5,
     retry: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 
   const errorMessage =
@@ -142,7 +164,7 @@ const useCreateMember = () => {
         variant: "destructive",
         description: ErrorService.handleError(
           (error as any)?.statusCode,
-          ERROR_MESSAGES.MEMBER.create
+          ERROR_MESSAGES.MEMBER.CREATE_MEMBER
         ),
       });
     },
@@ -295,6 +317,42 @@ const useUpdatePaymentDate = () => {
   };
 };
 
+const useRefreshMembersInfo = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+  const mutation = useMutation({
+    mutationFn: () => MemberService.updateMembersInfo(),
+    onSuccess: () => {
+      toast({
+        description: "Datos cargados correctamente",
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.membersInfo._def,
+      });
+    },
+
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        description: ErrorService.handleError(
+          (error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBERS_INFO.REFRESH_MEMBERS_INFO
+        ),
+      });
+    },
+  });
+
+  return {
+    ...mutation,
+    errorMessage:
+      mutation.isError &&
+      ErrorService.handleError(
+        (mutation.error as any)?.statusCode,
+        ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE
+      ),
+  };
+};
+
 export {
   usePaginatedMembers,
   useMemberById,
@@ -304,4 +362,6 @@ export {
   useUpdatePaymentDate,
   usePdfById,
   usePdfBank,
+  useMembersInfo,
+  useRefreshMembersInfo,
 };

@@ -103,7 +103,6 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 
   const onDelete = async () => {
     deleteMember(memberId ?? "");
-
     closeModal();
   };
 

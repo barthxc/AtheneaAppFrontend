@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Button,
   Card,
@@ -7,17 +6,19 @@ import {
   CardTitle,
 } from "@/features/core/components/ui";
 import { Spinner } from "@/features/core/components/ui";
-import { useMembersInfo } from "@/features/members/stores";
+import { useMembersInfo, useRefreshMembersInfo } from "../../hooks/hook";
 
 const MembersInfo = () => {
-  const membersInfo = useMembersInfo((state) => state.membersInfo);
-  const isLoading = useMembersInfo((state) => state.isLoading);
-  const getMembersInfo = useMembersInfo((state) => state.getMembersInfo);
-  const refreshMembersInfo = useMembersInfo(
-    (state) => state.refreshMembersInfo
-  );
+  const { data, isError, isLoading } = useMembersInfo();
+  const {
+    mutate: refreshMembersInfo,
+    isPending,
+    isError: isErrorRefresh,
+  } = useRefreshMembersInfo();
 
-  getMembersInfo();
+  const handleRefreshMembersIndo = () => {
+    refreshMembersInfo();
+  };
 
   return (
     <>
@@ -42,7 +43,8 @@ const MembersInfo = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {isLoading ? <Spinner /> : membersInfo?.totalMembers}
+              {isLoading || isPending ? <Spinner /> : data?.totalMembers}
+              {isError && !data?.membersPerYears && "NULL"}
             </div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
@@ -71,7 +73,8 @@ const MembersInfo = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {isLoading ? <Spinner /> : membersInfo?.activeMembers}
+              {isLoading || isPending ? <Spinner /> : data?.activeMembers}
+              {isError && !data?.membersPerYears && "NULL"}
             </div>
             <p className="text-xs text-muted-foreground">
               +180.1% from last month
@@ -99,7 +102,8 @@ const MembersInfo = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {isLoading ? <Spinner /> : membersInfo?.membersNoPay}
+              {isLoading || isPending ? <Spinner /> : data?.membersNoPay}
+              {isError && !data?.membersNoPay && "NULL"}
             </div>
             <p className="text-xs text-muted-foreground">
               +19% from last month
@@ -126,7 +130,8 @@ const MembersInfo = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {isLoading ? <Spinner /> : membersInfo?.membersPerYears}
+              {isLoading || isPending ? <Spinner /> : data?.membersPerYears}
+              {isError && !data?.membersPerYears && "NULL"}
             </div>
             <p className="text-xs text-muted-foreground">
               +201 since last hour
@@ -134,8 +139,16 @@ const MembersInfo = () => {
           </CardContent>
         </Card>
       </div>
-      <div className="flex justify-end mt-4">
-        <Button onClick={refreshMembersInfo}>Actualizar</Button>
+      <div
+        //TODO - no funciona como debería D:
+        className={`flex ${
+          isError || isErrorRefresh ? "justify-between" : "justify-end"
+        } mt-4`}>
+        {isError ||
+          (isErrorRefresh && (
+            <p className="text-red-400 font-bold">Error al cargar los datos</p>
+          ))}
+        <Button onClick={handleRefreshMembersIndo}>Actualizar</Button>
       </div>
     </>
   );
