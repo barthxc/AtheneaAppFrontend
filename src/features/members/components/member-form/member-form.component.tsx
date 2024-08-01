@@ -4,8 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { Button, ToastAction, useToast } from "@/features/core/components/ui";
-import { ERROR_MESSAGES } from "@/features/error/constants";
-
+import { useNavigate } from "react-router-dom";
 import {
   type MemberFormProps,
   type MemberFormValues,
@@ -15,9 +14,8 @@ import {
 } from "@/features/members/types";
 import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
-import { useMemberStore } from "@/features/members/stores";
 
-import { ErrorService } from "@/features/error/service";
+import { useDeleteMember, useUpdatePaymentDate } from "../../hooks/hook";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
   memberId,
@@ -32,25 +30,42 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 }) => {
   const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [memberPaymentDate, setMemberPaymentDate] = useState<string>();
-  const updateMemberPaymentDate = useMemberStore(
-    (s) => s.updateMemberPaymentDate
-  );
+  const navigate = useNavigate();
 
-  // const toastMessage = initialData ? "Socio actualizado." : "Socio creado.";
+  const {
+    mutate: updateMemberPaymentDate,
+    errorMessage: updateErrorMessage,
+    isPending: isPendingUpdatePaymentDate,
+    isSuccess: isSuccessUpdatePaymentDate,
+    isError: isErrorUpdatePaymentDate,
+  } = useUpdatePaymentDate();
+  const {
+    mutate: deleteMember,
+    errorMessage: deleteErrorMessage,
+    isPending: isPendingDeleteMember,
+    isSuccess: isSuccessDeleteMember,
+    isError: isErrorDeleteMember,
+  } = useDeleteMember();
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast({
-        description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
-        action: !isEdit ? (
-          <ToastAction altText="Ficha de Socio">
-            <Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
-          </ToastAction>
-        ) : undefined,
-      });
-    }
-  }, [isSuccess, memberId, isEdit, toast]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     toast({
+  //       description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
+  //       action: !isEdit ? (
+  //         <ToastAction altText="Ficha de Socio">
+  //           <Link to={`/dashboard/members/pdf/${memberId}`}>
+  //             Ficha de Socio
+  //           </Link>
+  //         </ToastAction>
+  //       ) : undefined,
+  //     });
+  //   }
+  //   if (isSuccessUpdatePaymentDate) {
+  //     toast({
+  //       description: "Fecha del socio actualizada correctamente.",
+  //     });
+  //   }
+  // }, [isSuccess, memberId, isEdit, toast, isSuccessUpdatePaymentDate]);
 
   useEffect(() => {
     if (isError && errorMessage) {
@@ -59,7 +74,56 @@ export const MemberForm: React.FC<MemberFormProps> = ({
         description: errorMessage,
       });
     }
-  }, [isError, errorMessage, toast]);
+    if (isErrorUpdatePaymentDate && updateErrorMessage) {
+      toast({
+        description: updateErrorMessage,
+        variant: "destructive",
+      });
+    }
+    if (isErrorDeleteMember && deleteErrorMessage) {
+      toast({
+        description: deleteErrorMessage,
+        variant: "destructive",
+      });
+    }
+
+    if (isSuccess) {
+      toast({
+        description: isEdit ? "Socio actualizado" : "Socio creado con éxito",
+        action: !isEdit ? (
+          <ToastAction altText="Ficha de Socio">
+            <Link to={`/dashboard/members/pdf/${memberId}`}>
+              Ficha de Socio
+            </Link>
+          </ToastAction>
+        ) : undefined,
+      });
+    }
+    if (isSuccessUpdatePaymentDate) {
+      toast({
+        description: "Fecha del socio actualizada correctamente.",
+      });
+    }
+    if (isSuccessDeleteMember) {
+      navigate("/dashboard/members");
+      toast({
+        description: "Socio eliminado correctamente",
+      });
+    }
+  }, [
+    isError,
+    errorMessage,
+    toast,
+    isErrorUpdatePaymentDate,
+    updateErrorMessage,
+    isEdit,
+    isSuccess,
+    isSuccessUpdatePaymentDate,
+    memberId,
+    isErrorDeleteMember,
+    deleteErrorMessage,
+    isSuccessDeleteMember,
+  ]);
 
   const defaultValues: MemberFormValues = initialData
     ? initialData
@@ -118,50 +182,19 @@ export const MemberForm: React.FC<MemberFormProps> = ({
   };
 
   const onDelete = async () => {
-    try {
-      //   await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
-      //   router.refresh();
-      //TODO REFRESCAR AL HACER COSAS (?)
-    } catch (error: any) {
-      // console.error(error)
-    } finally {
-      closeModal();
-    }
+    deleteMember(memberId ?? "");
+
+    closeModal();
   };
 
   const onUpdatePaymentDate = async () => {
-    if (!memberId) return;
-    try {
-      const { bankInfo } = (await updateMemberPaymentDate(memberId)) ?? {};
-      if (bankInfo) {
-        const { paymentDate } = bankInfo;
-        setMemberPaymentDate(paymentDate);
-        toast({
-          description: "Fecha del socio actualizada correctamente.",
-        });
-      }
-    } catch (error: any) {
-      if (error.statusCode) {
-        const errorMessage = ErrorService.handleError(
-          error.statusCode,
-          ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE
-        );
-        toast({
-          description: errorMessage,
-          variant: "destructive",
-        });
-      }
-      toast({
-        description: ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE.GENERIC,
-      });
-    }
+    updateMemberPaymentDate(memberId ?? "");
   };
 
   return (
     <>
       <MemberFormView
         initialData={initialData}
-        paymentDate={memberPaymentDate}
         loading={isLoading || isPending}
         showModal={showModal}
         openModal={openModal}
@@ -173,11 +206,20 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 
       {isEdit && (
         <div className="flex flex-row justify-around">
-          <Button disabled={isLoading} className="h-12 text-base" type="button">
-            <Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
+          <Button
+            disabled={
+              isLoading || isPendingUpdatePaymentDate || isPendingDeleteMember
+            }
+            className="h-12 text-base"
+            type="button">
+            <Link to={`/dashboard/members/pdf/${memberId}`}>
+              Ficha de Socio
+            </Link>
           </Button>
           <Button
-            disabled={isLoading}
+            disabled={
+              isLoading || isPendingUpdatePaymentDate || isPendingDeleteMember
+            }
             className=" h-12 text-base"
             type="button"
             onClick={onUpdatePaymentDate}>

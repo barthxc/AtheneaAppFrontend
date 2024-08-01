@@ -1,18 +1,9 @@
-import {
-  useQuery,
-  useMutation,
-  QueryClient,
-  useQueryClient,
-} from "@tanstack/react-query";
-import {
-  MemberService,
-  type FetchMembersParams,
-  type MembersResponseNew,
-} from "@/features/members/services/member.service";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { MemberService } from "@/features/members/services/member.service";
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import { MembersApiFactory } from "./members.factory";
-import { MemberFormValues } from "../types";
+import type { MemberFormValues } from "../types";
 export interface UseMembersProps {
   filters: {
     name?: string;
@@ -25,7 +16,7 @@ export interface UseMembersProps {
 }
 
 const usePaginatedMembers = (params: UseMembersProps) => {
-  const { data, isError, isFetching, isLoading, error, refetch } = useQuery({
+  const { data, isError, isFetching, isLoading, error } = useQuery({
     ...MembersApiFactory.paginatedMembers(params),
     staleTime: 1000 * 60 * 5,
     retry: false,
@@ -48,12 +39,11 @@ const usePaginatedMembers = (params: UseMembersProps) => {
     isLoading,
     errorMessage,
     isFetching,
-    refetch,
   };
 };
 
 const useMemberById = (id: string) => {
-  const { data, isError, isFetching, isLoading, error, refetch } = useQuery({
+  const { data, isError, isFetching, isLoading, error } = useQuery({
     ...MembersApiFactory.getMemberById(id),
     staleTime: 1000 * 60 * 5,
     retry: false,
@@ -73,7 +63,54 @@ const useMemberById = (id: string) => {
     isLoading,
     error,
     errorMessage,
-    refetch,
+  };
+};
+
+const usePdfById = (id: string) => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...MembersApiFactory.getPdfById(id),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.GET_PDF_BY_ID
+    );
+
+  return {
+    data,
+    isError,
+    isFetching,
+    isLoading,
+    error,
+    errorMessage,
+  };
+};
+
+const usePdfBank = () => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...MembersApiFactory.getPdfBank(),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.GET_PDF_PAYMENT_METHOD_BANK
+    );
+
+  return {
+    data,
+    isError,
+    isFetching,
+    isLoading,
+    error,
+    errorMessage,
   };
 };
 
@@ -81,13 +118,20 @@ const useCreateMember = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (member: MemberFormValues) => MemberService.createMember(member),
+    mutationFn: (member: MemberFormValues) =>
+      MemberService.createMember(member),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembers._def,
       });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getMemberById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfBank._def,
       });
     },
     onError: (error) => {
@@ -124,11 +168,16 @@ const useUpdateMember = () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getMemberById._def,
       });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfBank._def,
+      });
     },
 
     onError: (error) => {
       console.log(
-        "FOOOOOOOOW",
         ErrorService.handleError(
           (error as any)?.statusCode,
           ERROR_MESSAGES.MEMBER.UPDATE
@@ -148,4 +197,90 @@ const useUpdateMember = () => {
   };
 };
 
-export { usePaginatedMembers, useMemberById, useCreateMember, useUpdateMember };
+const useDeleteMember = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id: string) => MemberService.removeMember(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembers._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getMemberById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfBank._def,
+      });
+    },
+
+    onError: (error) => {
+      console.log(
+        ErrorService.handleError(
+          (error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.UPDATE
+        )
+      );
+    },
+  });
+
+  return {
+    ...mutation,
+    errorMessage:
+      mutation.isError &&
+      ErrorService.handleError(
+        (mutation.error as any)?.statusCode,
+        ERROR_MESSAGES.MEMBER.REMOVE
+      ),
+  };
+};
+
+const useUpdatePaymentDate = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id: string) => MemberService.updatePaymentDateMember(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembers._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getMemberById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.getPdfById._def,
+      });
+    },
+
+    onError: (error) => {
+      console.log(
+        ErrorService.handleError(
+          (error as any)?.statusCode,
+          ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE
+        )
+      );
+    },
+  });
+
+  return {
+    ...mutation,
+    errorMessage:
+      mutation.isError &&
+      ErrorService.handleError(
+        (mutation.error as any)?.statusCode,
+        ERROR_MESSAGES.MEMBER.UPDATE_PAYMENT_DATE
+      ),
+  };
+};
+
+export {
+  usePaginatedMembers,
+  useMemberById,
+  useCreateMember,
+  useUpdateMember,
+  useDeleteMember,
+  useUpdatePaymentDate,
+  usePdfById,
+  usePdfBank,
+};

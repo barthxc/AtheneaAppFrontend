@@ -32,7 +32,6 @@ export function MembersPage() {
     isLoading,
     errorMessage,
     isFetching,
-    refetch,
   } = usePaginatedMembers({
     filters: searchFilters,
     currentPage,
@@ -84,7 +83,6 @@ export function MembersPage() {
       <div className="flex items-start justify-between">
         <Heading title={"Socios"} description="Consulta la lista de socios" />
 
-        <Button onClick={refetch}>eeeeee</Button>
         <Link
           to="/dashboard/members/new"
           className={cn(buttonVariants({ variant: "default" }))}>

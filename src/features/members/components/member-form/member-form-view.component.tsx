@@ -24,7 +24,6 @@ import {
   MemberStreetType,
   MemberPaymentMethod,
 } from "@/features/members/types";
-import { dateFormatter } from "@/features/core/utils/dateFormatter";
 
 export const MemberFormView = ({
   initialData,
@@ -83,7 +82,7 @@ export const MemberFormView = ({
                   </p>
                   <p>
                     <b className="font-semibold">PAGO: </b>
-                    {paymentDate || initialData.bankInfo.paymentDate}
+                    {initialData.bankInfo.paymentDate}
                   </p>
                 </div>
               )}

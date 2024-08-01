@@ -1,56 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
 
 import { ConfirmModal } from "@/features/core/components/modal";
 import { Button, useToast } from "@/features/core/components/ui";
 
-import { ErrorService } from "@/features/error/service";
-import { ERROR_MESSAGES } from "@/features/error/constants";
-
 import type { MemberTableCellActionProps } from "@/features/members/types";
-import { useMemberStore } from "@/features/members/stores";
+import { useDeleteMember } from "../../hooks/hook";
 
 export const MemberTableCellAction: React.FC<MemberTableCellActionProps> = ({
   data,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const deleteMemberById = useMemberStore((s) => s.deleteMemberById);
   const { toast } = useToast();
 
+  const {
+    mutate: deleteMember,
+    isError,
+    isPending,
+    isSuccess,
+    errorMessage,
+  } = useDeleteMember();
+
   const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const deletedMember = await deleteMemberById(data.id);
-      if (deletedMember || deletedMember === "") {
-        toast({
-          description: "Socio eliminado correctamente.",
-        });
-      } else {
-        toast({
-          description: ErrorService.handleError(
-            0,
-            ERROR_MESSAGES.MEMBER.REMOVE
-          ),
-          variant: "destructive",
-        });
-      }
-    } catch (err: any) {
-      const errorMessage = ErrorService.handleError(
-        err.statusCode,
-        ERROR_MESSAGES.MEMBER.REMOVE
-      );
+    deleteMember(data.id);
+  };
+
+  useEffect(() => {
+    if (isError && errorMessage) {
       toast({
         description: errorMessage,
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
-      setOpen(false);
     }
-  };
+
+    if (isSuccess) {
+      toast({
+        description: "Socio eliminado correctamente.",
+        variant: "default",
+      });
+    }
+    setOpen(false);
+  }, [isError, errorMessage, toast, isSuccess]);
 
   return (
     <>
@@ -61,7 +53,7 @@ export const MemberTableCellAction: React.FC<MemberTableCellActionProps> = ({
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={handleDelete}
-        isDisabled={loading}
+        isDisabled={isPending}
         variant="destructive"
       />
 

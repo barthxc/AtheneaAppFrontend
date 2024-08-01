@@ -13,7 +13,16 @@ export const MembersApiFactory = createQueryKeys("members", {
   }),
 
   getMemberById: (id: string) => ({
-    queryKey: ["getMemberById"],
+    queryKey: ["getMemberById", id],
     queryFn: () => MemberService.getMember(id),
+  }),
+
+  getPdfById: (id: string) => ({
+    queryKey: ["getPdfById", id],
+    queryFn: () => MemberService.getPDFMemberById(id),
+  }),
+  getPdfBank: () => ({
+    queryKey: ["getPdfBank"],
+    queryFn: () => MemberService.getPDFMembersBank(),
   }),
 });

@@ -100,7 +100,6 @@ export class MemberService {
         `/members/updatePaymentDate/${id}`
       );
 
-      data.bankInfo.paymentDate = dateFormatter(data.bankInfo.paymentDate);
       return data;
     } catch (error: any) {
       throw error.response?.data;
