@@ -2,11 +2,8 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingView } from "@/features/core/components";
 import { MemberForm } from "@/features/members/components";
-import type {
-  MemberFormValues,
-  MemberResponse,
-} from "@/features/members/types";
-import { useUpdateMember, useMemberById } from "../hooks/hook";
+import type { MemberFormValues } from "@/features/members/types";
+import { useUpdateMember, useMemberById } from "@/features/members/hooks/hook";
 
 export function MemberEditPage() {
   const { id: paramId } = useParams<{ id: string }>();

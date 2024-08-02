@@ -6,9 +6,9 @@ import { ConfirmModal } from "@/features/core/components/modal";
 import { Button, useToast } from "@/features/core/components/ui";
 
 import type { MemberTableCellActionProps } from "@/features/members/types";
-import { useDeleteMember } from "@/features/members/hooks";
+import { useDeleteMember } from "../../hooks/hook";
 
-export const MemberTableCellAction: React.FC<MemberTableCellActionProps> = ({
+export const CalendarTableCellAction: React.FC<MemberTableCellActionProps> = ({
   data,
 }) => {
   const [open, setOpen] = useState(false);

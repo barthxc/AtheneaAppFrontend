@@ -1,9 +1,11 @@
 import { CalendarForm } from "@/features/calendar/components";
 
 export function CalendarPage() {
-	return (
-		<>
-			<CalendarForm initialData={null} key={null} />
-		</>
-	);
+  return (
+    <>
+      <CalendarForm />
+
+      <h1>table + actions </h1>
+    </>
+  );
 }

@@ -1,5 +1,5 @@
-import { MemberService } from "../services";
-import type { UseMembersProps } from "./hook";
+import { MemberService } from "@/features/members/services";
+import type { UseMembersProps } from "@/features/members/types";
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 export const MembersApiFactory = createQueryKeys("members", {
   paginatedMembers: ({ filters, currentPage }: UseMembersProps) => ({

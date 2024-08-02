@@ -1,6 +1,6 @@
 import { MemberForm } from "@/features/members/components";
-import { useCreateMember } from "../hooks/hook";
-import type { MemberFormValues } from "../types";
+import { useCreateMember } from "@/features/members/hooks";
+import type { MemberFormValues } from "@/features/members/types";
 
 export function MemberNewPage() {
   const {

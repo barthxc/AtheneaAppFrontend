@@ -6,7 +6,10 @@ import {
   CardTitle,
 } from "@/features/core/components/ui";
 import { Spinner } from "@/features/core/components/ui";
-import { useMembersInfo, useRefreshMembersInfo } from "../../hooks/hook";
+import {
+  useMembersInfo,
+  useRefreshMembersInfo,
+} from "@/features/members/hooks";
 
 const MembersInfo = () => {
   const { data, isError, isLoading } = useMembersInfo();

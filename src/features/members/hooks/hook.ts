@@ -2,20 +2,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { MemberService } from "@/features/members/services/member.service";
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
-import { MembersApiFactory } from "./members.factory";
-import type { MemberFormValues } from "../types";
+import { MembersApiFactory } from "@/features/members/hooks";
+import type { MemberFormValues } from "@/features/members/types";
 import { useToast } from "@/features/core/components/ui";
 import { useNavigate } from "react-router-dom";
-export interface UseMembersProps {
-  filters: {
-    name?: string;
-    lastName?: string;
-    identificationNumber?: string;
-    memberNumber?: string;
-    status?: string;
-  };
-  currentPage: number;
-}
+import type { UseMembersProps } from "@/features/members/types";
 
 const usePaginatedMembers = (params: UseMembersProps) => {
   const { data, isError, isFetching, isLoading, error } = useQuery({

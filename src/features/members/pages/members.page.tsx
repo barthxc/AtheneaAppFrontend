@@ -14,8 +14,8 @@ import {
 } from "@/features/core/components/ui";
 import { MemberTable } from "@/features/members/components";
 
-import { usePaginatedMembers } from "../hooks/hook";
-import { MemberStatus } from "../types";
+import { usePaginatedMembers } from "@/features/members/hooks";
+import { MemberStatus } from "@/features/members/types";
 
 export function MembersPage() {
   const [filters, setFilters] = useState<Record<string, string>>({});
@@ -58,7 +58,7 @@ export function MembersPage() {
 
   const handleSearch = () => {
     setSearchFilters(filters);
-    setCurrentPage(1); // Reset page to 1 on search
+    setCurrentPage(1);
     setSearchTrigger(true);
   };
 

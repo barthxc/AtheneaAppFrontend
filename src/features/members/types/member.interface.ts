@@ -132,3 +132,14 @@ export interface MemberPdfProps {
 export interface MemberTableCellActionProps {
   data: Members;
 }
+
+export interface UseMembersProps {
+  filters: {
+    name?: string;
+    lastName?: string;
+    identificationNumber?: string;
+    memberNumber?: string;
+    status?: string;
+  };
+  currentPage: number;
+}
