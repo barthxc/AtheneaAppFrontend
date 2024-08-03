@@ -258,6 +258,9 @@ const useUpdateMember = () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.paginatedMembersNoPay._def,
       });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersExitu._def,
+      });
     },
 
     onError: (error) => {
