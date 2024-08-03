@@ -55,7 +55,7 @@ export class CalendarService {
 
   static remove = async (id: string) => {
     try {
-      const { data } = await atheneaApi.delete(`/calendar${id}`);
+      const { data } = await atheneaApi.delete(`/calendar/${id}`);
       return data;
     } catch (error: any) {
       throw error.response?.data;

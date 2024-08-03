@@ -17,3 +17,7 @@ export interface Calendar {
 export interface CalendarResponse extends Calendar {
   id: string;
 }
+
+export interface CalendarTableCellActionProps {
+  data: CalendarResponse;
+}

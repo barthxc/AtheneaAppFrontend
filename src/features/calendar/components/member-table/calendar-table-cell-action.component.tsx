@@ -1,40 +1,29 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Edit, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 
 import { ConfirmModal } from "@/features/core/components/modal";
 import { Button, useToast } from "@/features/core/components/ui";
 
-import type { MemberTableCellActionProps } from "@/features/members/types";
-import { useDeleteMember } from "../../hooks/hook";
+import { useDeleteEventCaldendar } from "@/features/calendar/hooks/hook";
+import type { CalendarTableCellActionProps } from "@/features/calendar/types";
 
-export const CalendarTableCellAction: React.FC<MemberTableCellActionProps> = ({
-  data,
-}) => {
+export const CalendarTableCellAction: React.FC<
+  CalendarTableCellActionProps
+> = ({ data }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const {
-    mutate: deleteMember,
-    isError,
+    mutate: deleteEvent,
     isPending,
     isSuccess,
-    errorMessage,
-  } = useDeleteMember();
+  } = useDeleteEventCaldendar();
 
   const handleDelete = async () => {
-    deleteMember(data.id);
+    deleteEvent(data.id);
   };
 
   useEffect(() => {
-    if (isError && errorMessage) {
-      toast({
-        description: errorMessage,
-        variant: "destructive",
-      });
-    }
-
     if (isSuccess) {
       toast({
         description: "Socio eliminado correctamente.",
@@ -42,14 +31,14 @@ export const CalendarTableCellAction: React.FC<MemberTableCellActionProps> = ({
       });
     }
     setOpen(false);
-  }, [isError, errorMessage, toast, isSuccess]);
+  }, [toast, isSuccess]);
 
   return (
     <>
       <ConfirmModal
-        title="¿Estás seguro que deseas eliminar este socio?"
+        title="¿Estás seguro que deseas eliminar este evento?"
         description="Una vez eliminado no se puede recuperar."
-        confirmButtonLabel="Eliminar socio"
+        confirmButtonLabel="Eliminar fecha"
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={handleDelete}
@@ -58,9 +47,6 @@ export const CalendarTableCellAction: React.FC<MemberTableCellActionProps> = ({
       />
 
       <div className="flex flex-row gap-4">
-        <Button onClick={() => navigate(`/dashboard/members/${data.id}/edit`)}>
-          <Edit className="h-4 w-4" />
-        </Button>
         <Button variant="destructive" onClick={() => setOpen(true)}>
           <Trash className="h-4 w-4" />
         </Button>

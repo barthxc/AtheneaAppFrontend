@@ -27,7 +27,6 @@ export function CalendarDateRangePicker({
       <Popover>
         <PopoverTrigger asChild>
           <div>
-            {/* //?Así? sorry fow :/ */}
             <label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base">
               Selecciona un rango de fechas
             </label>

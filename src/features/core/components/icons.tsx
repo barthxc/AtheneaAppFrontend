@@ -37,7 +37,6 @@ import {
   BookUser,
   Mail,
   HandHeart,
-  LogInIcon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;

@@ -1,5 +1,3 @@
-import { Trash } from "lucide-react";
-
 import {
   Button,
   Form,
@@ -8,7 +6,6 @@ import {
   Separator,
 } from "@/features/core/components/ui";
 import { FormField } from "@/features/core/components/forms";
-import { ConfirmModal } from "@/features/core/components/modal";
 import { CalendarDateRangePicker } from "@/features/core/components/date-range-picker";
 
 import type { CalendarFormViewProps } from "@/features/calendar/types";
@@ -18,12 +15,8 @@ import { useState } from "react";
 
 export const CalendarFormView = ({
   loading,
-  showModal,
-  openModal,
-  closeModal,
   form,
   onSubmit,
-  onDelete,
 }: CalendarFormViewProps) => {
   const title = "Gestión del calendario";
   const description = "Gestiona el calendario de la asociación.";
@@ -44,25 +37,8 @@ export const CalendarFormView = ({
 
   return (
     <>
-      {/* <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={onDelete}
-        loading={loading}
-      /> */}
-      {/* <div className="flex items-center justify-between"> */}
       <Heading title={title} description={description} />
-      {/* <Button
-          disabled={loading}
-          variant="destructive"
-          size="sm"
-          onClick={openModal}>
-          <Trash className="h-4 w-4" />
-        </Button> */}
-      {/* </div> */}
-
       <Separator />
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
@@ -80,32 +56,16 @@ export const CalendarFormView = ({
               onChangeDateRage={onChangeDateRange}
               currentDate={date}
             />
+            <Button
+              disabled={loading}
+              className="ml-auto space-y-2"
+              type="submit">
+              {action}
+            </Button>
           </div>
-
           <div className="items-center space-x-2 md:flex" />
-
-          <Button
-            disabled={loading}
-            className="ml-auto space-y-2"
-            type="submit">
-            {action}
-          </Button>
         </form>
       </Form>
-
-      {/* Modal de confirmación de eliminación */}
-
-      {/* //TODO : */}
-      {/* {showModal && (
-        <ConfirmModal
-          title="¿Seguro que quieres eliminar este calendario?"
-          variant="destructive"
-          onCancel={closeModal}
-          onConfirm={onDelete}
-          confirmButtonLabel="Eliminar calendario"
-          isConfirmButtonDisabled={loading}
-        />
-      )} */}
     </>
   );
 };
