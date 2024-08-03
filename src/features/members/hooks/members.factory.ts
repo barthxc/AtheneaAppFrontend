@@ -12,6 +12,26 @@ export const MembersApiFactory = createQueryKeys("members", {
       }),
   }),
 
+  paginatedMembersNoPay: ({ filters, currentPage }: UseMembersProps) => ({
+    queryKey: ["getMembersNoPay", filters, currentPage],
+    queryFn: () =>
+      MemberService.getMembersNoPay({
+        ...filters,
+        page: currentPage,
+        take: 10,
+      }),
+  }),
+
+  paginatedMembersExitu: ({ filters, currentPage }: UseMembersProps) => ({
+    queryKey: ["getMembersNoPay", filters, currentPage],
+    queryFn: () =>
+      MemberService.getMembersExitu({
+        ...filters,
+        page: currentPage,
+        take: 10,
+      }),
+  }),
+
   getMemberById: (id: string) => ({
     queryKey: ["getMemberById", id],
     queryFn: () => MemberService.getMember(id),

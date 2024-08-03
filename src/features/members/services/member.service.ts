@@ -94,6 +94,46 @@ export class MemberService {
     }
   };
 
+  static getMembersNoPay = async (params: FetchMembersParams) => {
+    try {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(
+          ([_, value]) => value !== undefined && value !== ""
+        )
+      );
+      const { data } = await atheneaApi.get<MembersResponseNew>(
+        "/members/nopay",
+        {
+          params: filteredParams,
+        }
+      );
+      return data;
+    } catch (error: any) {
+      console.log(error.response.data);
+      throw error.response?.data;
+    }
+  };
+
+  static getMembersExitu = async (params: FetchMembersParams) => {
+    try {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(
+          ([_, value]) => value !== undefined && value !== ""
+        )
+      );
+      const { data } = await atheneaApi.get<MembersResponseNew>(
+        "/members/exitu",
+        {
+          params: filteredParams,
+        }
+      );
+      return data;
+    } catch (error: any) {
+      console.log(error.response.data);
+      throw error.response?.data;
+    }
+  };
+
   static updatePaymentDateMember = async (id: string) => {
     try {
       const { data } = await atheneaApi.patch<Members>(

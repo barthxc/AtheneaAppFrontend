@@ -143,14 +143,14 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Socios Sin Pagar",
-    href: "/dashboard/members",
+    href: "/dashboard/members-no-pay",
     icon: "employee",
     label: "employee",
     validRole: [ValidRoles.admin, ValidRoles.treasure],
   },
   {
     title: "Exitu",
-    href: "/dashboard/members",
+    href: "/dashboard/members-exitu",
     icon: "cross",
     label: "exitu",
     validRole: [ValidRoles.admin, ValidRoles.treasure],

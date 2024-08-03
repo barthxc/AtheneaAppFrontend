@@ -35,6 +35,60 @@ const usePaginatedMembers = (params: UseMembersProps) => {
   };
 };
 
+const usePaginatedMembersNoPay = (params: UseMembersProps) => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...MembersApiFactory.paginatedMembersNoPay(params),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.FIND_ALL
+    );
+
+  return {
+    members: data?.members || [],
+    totalPages: data?.pagination.pageCount || 1,
+    currentPage: data?.pagination.page || 1,
+    hasNextPage: data?.pagination.hasNextPage || false,
+    hasPreviousPage: data?.pagination.hasPreviousPage || false,
+    isError,
+    isLoading,
+    errorMessage,
+    isFetching,
+  };
+};
+
+const usePaginatedMembersExitu = (params: UseMembersProps) => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...MembersApiFactory.paginatedMembersExitu(params),
+    staleTime: 1000 * 60 * 5,
+    retry: false,
+  });
+
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.MEMBER.FIND_ALL
+    );
+
+  return {
+    members: data?.members || [],
+    totalPages: data?.pagination.pageCount || 1,
+    currentPage: data?.pagination.page || 1,
+    hasNextPage: data?.pagination.hasNextPage || false,
+    hasPreviousPage: data?.pagination.hasPreviousPage || false,
+    isError,
+    isLoading,
+    errorMessage,
+    isFetching,
+  };
+};
+
 const useMemberById = (id: string) => {
   const { data, isError, isFetching, isLoading, error } = useQuery({
     ...MembersApiFactory.getMemberById(id),
@@ -149,6 +203,12 @@ const useCreateMember = () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getPdfBank._def,
       });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersNoPay._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersExitu._def,
+      });
     },
     onError: (error) => {
       toast({
@@ -194,6 +254,9 @@ const useUpdateMember = () => {
       });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getPdfBank._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersNoPay._def,
       });
     },
 
@@ -242,6 +305,12 @@ const useDeleteMember = () => {
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getPdfBank._def,
       });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersNoPay._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersExitu._def,
+      });
     },
 
     onError: (error) => {
@@ -283,6 +352,12 @@ const useUpdatePaymentDate = () => {
       });
       queryClient.invalidateQueries({
         queryKey: MembersApiFactory.getPdfById._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersNoPay._def,
+      });
+      queryClient.invalidateQueries({
+        queryKey: MembersApiFactory.paginatedMembersExitu._def,
       });
     },
 
@@ -355,4 +430,6 @@ export {
   usePdfBank,
   useMembersInfo,
   useRefreshMembersInfo,
+  usePaginatedMembersNoPay,
+  usePaginatedMembersExitu,
 };
