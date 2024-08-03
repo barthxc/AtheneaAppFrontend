@@ -45,8 +45,6 @@ export class CalendarService {
     try {
       const { data } = await atheneaApi.get<CalendarResponse[]>("/calendar");
       return data;
-
-      console.log(data);
     } catch (error: any) {
       console.log(error.response.data);
       throw error.response?.data;
