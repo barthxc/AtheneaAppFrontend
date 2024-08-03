@@ -1,6 +1,5 @@
-import { CalendarForm } from "@/features/calendar/components";
+import { CalendarForm, CalendarTable } from "@/features/calendar/components";
 import { useCalendar } from "@/features/calendar/hooks/hook";
-import { CalendarTable } from "@/features/calendar/components";
 
 export function CalendarPage() {
   const { calendar } = useCalendar();
