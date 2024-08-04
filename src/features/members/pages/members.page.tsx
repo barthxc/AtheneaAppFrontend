@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
+
 import { cn } from "@/features/core/lib/utils";
+import { capitalizeString } from "@/features/core/utils";
 import { LoadingView } from "@/features/core/components";
 import {
 	Button,
@@ -17,66 +19,30 @@ import {
 	Separator,
 	useToast,
 } from "@/features/core/components/ui";
-import { MemberTable } from "@/features/members/components";
 
-import { usePaginatedMembers } from "@/features/members/hooks";
 import { MemberStatus } from "@/features/members/types";
-import { capitalizeString } from "@/features/core/utils";
+import { MemberTable } from "@/features/members/components";
+import { useMemberPaginationInfo, useMemberTableMethods, usePaginatedMembers } from "@/features/members/hooks";
 
 export function MembersPage() {
-	const [filters, setFilters] = useState<Record<string, string>>({});
-	const [currentPage, setCurrentPage] = useState(1);
-	const [searchFilters, setSearchFilters] = useState<Record<string, string>>({});
-	const [searchTrigger, setSearchTrigger] = useState(false);
-
+	const { toast } = useToast();
+	const { filters, currentPage, handleFiltersChange, handleSelectChange, handlePageChange, handleSearch } =
+		useMemberTableMethods();
 	const {
 		members,
 		totalPages,
 		currentPage: page,
-		hasNextPage,
 		hasPreviousPage,
+		hasNextPage,
 		isError,
 		isLoading,
 		errorMessage,
 		isFetching,
 	} = usePaginatedMembers({
-		filters: searchFilters,
+		filters,
 		currentPage,
 	});
-
-	const { toast } = useToast();
-
-	const handleFiltersChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setFilters({
-			...filters,
-			[event.target.name]: event.target.value,
-		});
-	};
-
-	const handleSelectChange = (value: string) => {
-		setFilters({
-			...filters,
-			status: value === "default" ? "" : value,
-		});
-	};
-
-	const handleSearch = () => {
-		setSearchFilters(filters);
-		setCurrentPage(1);
-		setSearchTrigger(true);
-	};
-
-	const handlePageChange = (newPage: number) => {
-		if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
-
-		setCurrentPage(newPage);
-	};
-
-	useEffect(() => {
-		if (searchTrigger) {
-			setSearchTrigger(false);
-		}
-	}, [searchTrigger]);
+	const { isPreviousDisabled, isNextDisabled } = useMemberPaginationInfo({ members, hasPreviousPage, hasNextPage });
 
 	useEffect(() => {
 		if (isError && errorMessage) {
@@ -86,11 +52,6 @@ export function MembersPage() {
 			});
 		}
 	}, [isError, errorMessage, toast]);
-
-	const isEmptyData = members.length === 0;
-
-	const isPreviousDisabled = !hasPreviousPage || isEmptyData;
-	const isNextDisabled = !hasNextPage || isEmptyData;
 
 	return (
 		<section>
@@ -153,7 +114,7 @@ export function MembersPage() {
 			<LoadingView isLoading={isLoading && !members.length}>
 				<MemberTable
 					data={members}
-					onPageChange={handlePageChange}
+					onPageChange={(newPage) => handlePageChange(newPage, totalPages)}
 					currentPage={currentPage}
 					hasNextPage={hasNextPage}
 					isFetchingNextPage={isFetching}
