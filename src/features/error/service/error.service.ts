@@ -15,7 +15,6 @@ export class ErrorService {
     if (afterError) {
       afterError();
     }
-    console.log("errorMessage---->", errorMessage);
 
     return errorMessage;
   };

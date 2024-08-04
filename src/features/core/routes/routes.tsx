@@ -23,14 +23,13 @@ import {
 } from "@/features/members/pages";
 import { KanbanPage } from "@/features/kanban/pages";
 
-import {
-  AboutPage,
-  CalendarPage as CalendarLanding,
-} from "@/features/landing/pages";
+import { AboutPage } from "@/features/landing/pages";
+import { CalendarPage } from "@/features/calendar/pages";
+
 import ContactPage from "@/features/landing/pages/contact.page";
 import DonationPage from "@/features/landing/pages/donation.page";
 import MainPage from "@/features/landing/pages/main";
-import { CalendarPage } from "@/features/calendar/pages";
+import { CalendarControlPage } from "@/features/calendar/pages";
 
 export const routes = createBrowserRouter([
   {
@@ -47,7 +46,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "calendar",
-        element: <CalendarLanding />,
+        element: <CalendarPage />,
       },
       {
         path: "contact",
@@ -164,7 +163,7 @@ export const routes = createBrowserRouter([
         element: (
           <ProtectedRoute
             allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
-            <CalendarPage />
+            <CalendarControlPage />
           </ProtectedRoute>
         ),
       },

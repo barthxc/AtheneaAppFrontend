@@ -1,14 +1,19 @@
-import { CalendarForm, CalendarTable } from "@/features/calendar/components";
+import CalendarEvents from "@/features/landing/components/calendar.component";
+import { Spinner } from "@/features/core/components/ui";
 import { useCalendar } from "@/features/calendar/hooks/hook";
 
 export function CalendarPage() {
-  const { calendar } = useCalendar();
+  const { isLoading, isFetching, calendar, isError, errorMessage } =
+    useCalendar();
+
   return (
     <>
-      <CalendarForm />
-
-      <h1>table + actions </h1>
-      <CalendarTable data={calendar} />
+      {isError && !isLoading && !isFetching && calendar && <p>error!</p>}
+      {isLoading || isFetching ? (
+        <Spinner />
+      ) : (
+        <CalendarEvents events={calendar} />
+      )}
     </>
   );
 }

@@ -8,10 +8,7 @@ export function MemberNewPage() {
     data: memberData,
     isPending,
     isSuccess,
-    isError,
   } = useCreateMember();
-
-  console.log(isError);
 
   const handleSubmit = (
     data: MemberFormValues,

@@ -33,8 +33,6 @@ export class CalendarService {
         "/calendar",
         event
       );
-      console.log(data);
-
       return data;
     } catch (error: any) {
       throw error.response?.data;
@@ -46,7 +44,6 @@ export class CalendarService {
       const { data } = await atheneaApi.get<CalendarResponse[]>("/calendar");
       return data;
     } catch (error: any) {
-      console.log(error.response.data);
       throw error.response?.data;
     }
   };

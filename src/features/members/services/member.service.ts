@@ -89,7 +89,6 @@ export class MemberService {
       });
       return data;
     } catch (error: any) {
-      console.log(error.response.data);
       throw error.response?.data;
     }
   };
@@ -109,7 +108,6 @@ export class MemberService {
       );
       return data;
     } catch (error: any) {
-      console.log(error.response.data);
       throw error.response?.data;
     }
   };
@@ -129,7 +127,6 @@ export class MemberService {
       );
       return data;
     } catch (error: any) {
-      console.log(error.response.data);
       throw error.response?.data;
     }
   };
@@ -151,7 +148,6 @@ export class MemberService {
       const { data } = await atheneaApi.get<MembersInfo>("/members-info");
       return data;
     } catch (error: any) {
-      console.log(error);
       throw error.response?.data;
     }
   };

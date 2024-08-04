@@ -7,16 +7,18 @@ import { calendarFormSchema } from "@/features/calendar/schemas";
 import type { CalendarFormValues } from "@/features/calendar/types";
 import { useCreateEventCalendar } from "../../hooks/hook";
 import type { DateRange } from "react-day-picker";
+import { useToast } from "@/features/core/components/ui";
 
 // React.FC<CalendarFormProps>
 
 export const CalendarForm = () => {
-  const {
-    mutate: createEvent,
-    data,
-    isError,
-    isPending,
-  } = useCreateEventCalendar();
+  const { mutate: createEvent, isError, isPending } = useCreateEventCalendar();
+
+  const { toast } = useToast();
+
+  const toUTCDate = (date: Date): Date => {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  };
 
   const [showModal, setShowModal] = useState(false);
 
@@ -28,14 +30,24 @@ export const CalendarForm = () => {
   const closeModal = () => setShowModal(false);
 
   const onSubmit = async (
-    formData: CalendarFormValues & { date: DateRange | undefined }
+    formData: CalendarFormValues & { date: DateRange }
   ) => {
     const { date, title } = formData;
+
+    if (!date || !date.from || !date.to) {
+      toast({
+        variant: "destructive",
+        description: "Fechas no definidas o incompletas",
+      });
+      return;
+    }
+
     const payload = {
       title,
-      from: date?.from,
-      to: date?.to,
+      from: toUTCDate(date?.from),
+      to: toUTCDate(date?.to),
     };
+
     createEvent(payload);
   };
 

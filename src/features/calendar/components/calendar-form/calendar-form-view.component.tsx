@@ -22,9 +22,11 @@ export const CalendarFormView = ({
   const description = "Gestiona el calendario de la asociación.";
   const action = "Crear";
 
+  const today = new Date();
+
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2023, 0, 20),
-    to: addDays(new Date(2023, 0, 20), 20),
+    from: today,
+    to: addDays(today, 0),
   });
 
   const onChangeDateRange: SelectRangeEventHandler = (data) => {
@@ -58,12 +60,11 @@ export const CalendarFormView = ({
             />
             <Button
               disabled={loading}
-              className="ml-auto space-y-2"
+              className="mr-auto space-y-2"
               type="submit">
               {action}
             </Button>
           </div>
-          <div className="items-center space-x-2 md:flex" />
         </form>
       </Form>
     </>
