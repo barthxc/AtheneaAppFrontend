@@ -1,36 +1,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useToast } from "@/features/core/components/ui";
-import { ERROR_MESSAGES } from "@/features/error/constants";
-
-import { ErrorService } from "@/features/error/service";
-import type { EmailFormValues } from "@/features/email/types";
-import { emailFormSchema } from "@/features/email/schemas";
+import type { EmailLogFormValues } from "@/features/email/types";
+import { emailLogFormSchema } from "@/features/email/schemas";
 import EmailFormView from "./email-form-view.component";
-import { EmailService } from "@/features/email/services";
+import { useSendEmail } from "../hooks/hook";
 
 export const EmailForm = () => {
-  const { toast } = useToast();
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [emailSubmitted, setEmailSubmitted] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!emailSubmitted) return;
-    toast({
-      description: "Email Enviado",
-    });
-  }, [emailSubmitted, toast]);
+  const { isPending, isSuccess, mutate: sendEmail } = useSendEmail();
 
-  const defaultValues: EmailFormValues = {
+  const defaultValues: EmailLogFormValues = {
     title: "",
     msg: "",
   };
 
-  const form = useForm<EmailFormValues>({
-    resolver: zodResolver(emailFormSchema),
+  const form = useForm<EmailLogFormValues>({
+    resolver: zodResolver(emailLogFormSchema),
     defaultValues,
     mode: "all",
     reValidateMode: "onChange",
@@ -39,30 +27,15 @@ export const EmailForm = () => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const onSubmit = async (data: EmailFormValues) => {
-    setLoading(true);
-    try {
-      const emailSubmitted = await EmailService.sendEmail(data);
-      if (emailSubmitted) {
-        setEmailSubmitted(true);
-        form.reset();
-        return;
-      }
-      toast({
-        variant: "destructive",
-        description: ERROR_MESSAGES.EMAIL.SEND_EMAIL.GENERIC,
-      });
-    } catch (error: any) {
-      const errorMessage = ErrorService.handleError(
-        error.statusCode,
-        ERROR_MESSAGES.EMAIL.SEND_EMAIL
-      );
-      toast({
-        variant: "destructive",
-        description: errorMessage,
-      });
-    } finally {
-      setLoading(false);
+  const onSubmit = async (data: EmailLogFormValues) => {
+    const dataEmail = {
+      ...data,
+      emailType: "log",
+    };
+    sendEmail(dataEmail);
+    if (isSuccess) {
+      form.reset();
+      return;
     }
   };
 
@@ -71,13 +44,14 @@ export const EmailForm = () => {
       <EmailFormView
         initialData={{}}
         onDelete={async () => {}}
-        loading={loading}
+        loading={isPending}
         showModal={showModal}
         openModal={openModal}
         closeModal={closeModal}
         form={form}
         onSubmit={onSubmit}
       />
+      {isSuccess && <p>Email enviado correctamente!</p>}
     </>
   );
 };

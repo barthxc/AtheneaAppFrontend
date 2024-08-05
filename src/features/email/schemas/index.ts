@@ -1,1 +1,2 @@
-export * from "./email-from.schema";
+export * from "./email-log-fom.schema";
+export * from "./email-comunication-form.schema";

@@ -1,3 +1,11 @@
 import type { z } from "zod";
-import type { emailFormSchema } from "../schemas/email-from.schema";
-export type EmailFormValues = z.infer<typeof emailFormSchema>;
+import type {
+  emailLogFormSchema,
+  emailComunicationFormSchema,
+} from "@/features/email/schemas";
+
+export type EmailLogFormValues = z.infer<typeof emailLogFormSchema>;
+
+export type EmailComunicationFormValues = z.infer<
+  typeof emailComunicationFormSchema
+>;
