@@ -8,7 +8,12 @@ import {
 } from "@/features/core/components/ui";
 import type { EmailFormViewProps } from "@/features/email/types";
 
-const EmailFormView = ({ loading, form, onSubmit }: EmailFormViewProps) => {
+const EmailFormView = ({
+  loading,
+  form,
+  onSubmit,
+  emailType,
+}: EmailFormViewProps) => {
   return (
     <>
       <Form {...form}>
@@ -18,9 +23,28 @@ const EmailFormView = ({ loading, form, onSubmit }: EmailFormViewProps) => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-7 justify-between">
               <p className="text-2xl font-bold ">
-                Contactar con el Administrador
+                {emailType === "communication"
+                  ? "Formulario de contacto"
+                  : "Contactar con el Administrador"}
               </p>
             </div>
+
+            {emailType === "communication" && (
+              <div className="gap-4 md:grid md:grid-cols-3">
+                <FormField
+                  formControl={form.control}
+                  name="from"
+                  label="Email"
+                  render={({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Correo electrónico"
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+            )}
 
             <div className="gap-4 md:grid md:grid-cols-3">
               <FormField

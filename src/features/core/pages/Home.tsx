@@ -60,7 +60,7 @@ export function HomePage() {
         </TabsContent>
         <TabsContent value="analytics" />
         <TabsContent value="contact">
-          <EmailForm />
+          <EmailForm emailType="log" />
         </TabsContent>
         <TabsContent value="admin">
           <p>Button descargar base de datos</p>

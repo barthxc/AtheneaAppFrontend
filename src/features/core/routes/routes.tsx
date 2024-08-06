@@ -7,6 +7,7 @@ import {
   HomePage,
   NotFoundPage,
   UnauthorizedPage,
+  FaqPage,
 } from "@/features/core/pages";
 
 import { AuthPage } from "@/features/auth/pages";
@@ -26,7 +27,7 @@ import { KanbanPage } from "@/features/kanban/pages";
 import { AboutPage } from "@/features/landing/pages";
 import { CalendarPage } from "@/features/calendar/pages";
 
-import ContactPage from "@/features/landing/pages/contact.page";
+import ContactPage from "@/features/email/pages/ContactPage";
 import DonationPage from "@/features/landing/pages/donation.page";
 import MainPage from "@/features/landing/pages/main";
 import { CalendarControlPage } from "@/features/calendar/pages";
@@ -55,6 +56,10 @@ export const routes = createBrowserRouter([
       {
         path: "donation",
         element: <DonationPage />,
+      },
+      {
+        path: "faq",
+        element: <FaqPage />,
       },
     ],
   },

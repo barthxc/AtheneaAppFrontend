@@ -11,7 +11,7 @@ export interface SendEmail {
 export class EmailService {
   static sendEmail = async (emailData: SendEmail) => {
     try {
-      const { data } = await atheneaApi.post("/emails", emailData);
+      const { data } = await atheneaApi.post("/mailing", emailData);
       return data;
     } catch (error: any) {
       throw error.response?.data;

@@ -4,6 +4,7 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   CircuitBoardIcon,
   Command,
   CreditCard,
@@ -37,6 +38,7 @@ import {
   BookUser,
   Mail,
   HandHeart,
+  MapPin,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -94,4 +96,6 @@ export const Icons = {
   about: BookUser,
   contact: Mail,
   donation: HandHeart,
+  map: MapPin,
+  chevronDown: ChevronDown,
 };

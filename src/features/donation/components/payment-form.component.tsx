@@ -3,7 +3,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { DonationService } from "../services/donation.service";
 import PaymentFormView from "./payment-form-view.component";
 
-const PaymentFormComponent: React.FC = () => {
+const PaymentFormComponent = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [clientSecret, setClientSecret] = useState<string | null>(null);

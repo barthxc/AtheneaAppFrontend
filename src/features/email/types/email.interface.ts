@@ -6,14 +6,9 @@ import type {
   EmailComunicationFormValues,
   EmailLogFormValues,
 } from "@/features/email/types";
-
-// export interface EmailLogFormViewProps extends FormViewProps {
-//   form: UseFormReturn<EmailComunicationFormValues>;
-// }
-// export interface EmailComunicationFormViewProps extends FormViewProps {
-//   form: UseFormReturn<EmailLogFormValues>;
-// }
+import type { EmailType } from "../components";
 
 export interface EmailFormViewProps extends FormViewProps {
   form: UseFormReturn<EmailLogFormValues | EmailComunicationFormValues>;
+  emailType: EmailType;
 }
