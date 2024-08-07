@@ -206,4 +206,16 @@ export const ERROR_MESSAGES: ErrorMessages = {
         "GENERIC ERROR: Ocurrió un error desconocido, inténtalo de nuevo más tarde.",
     },
   },
+  DONATION: {
+    CREATE_PAYMENT_INTENT: {
+      400: "CREATE PAYMENT INTENT 400",
+      500: "El servicio de donaciones no está disponible en este momento. Intentelo más tarde",
+      GENERIC: "Servicio de pago no está disponible en este momento",
+    },
+    CONFIRM_PAYMENT: {
+      400: "CONFIRM PAYMENT 400",
+      500: "CONFIRM PAYMENT 500",
+      GENERIC: "Hubo un error al confirmar el pago. Intentelo de nuevo",
+    },
+  },
 } as const;

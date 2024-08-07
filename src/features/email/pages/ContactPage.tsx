@@ -1,5 +1,5 @@
 import { EmailForm } from "@/features/email/components";
-
+//  https://api.whatsapp.com/send/?phone=34XXXXXX
 const ContactPage = () => {
   return (
     <div className="flex flex-row items-center gap-20">

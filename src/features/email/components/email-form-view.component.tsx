@@ -1,11 +1,6 @@
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  Input,
-  Textarea,
-} from "@/features/core/components/ui";
+import { Button, Form, Input, Textarea } from "@/features/core/components/ui";
+import { FormField } from "@/features/core/components";
+
 import type { EmailFormViewProps } from "@/features/email/types";
 
 const EmailFormView = ({

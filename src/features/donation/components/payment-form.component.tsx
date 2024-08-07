@@ -1,95 +1,70 @@
-import { useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-import { DonationService } from "../services/donation.service";
 import PaymentFormView from "./payment-form-view.component";
+import { useForm } from "react-hook-form";
+import { useClientSecret, useConfirmCardPayment } from "../hooks/hook";
+import type { DonationFormValues } from "../types/donation.type";
+import { donationFormSchema } from "../schemas/donation-form.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const PaymentFormComponent = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [amount, setAmount] = useState<number>(0);
 
-  const fetchClientSecret = async (amount: number) => {
-    setLoading(true);
-    try {
-      const response = await DonationService.createPaymentIntent({
-        amount: amount * 100,
-      });
-      setClientSecret(response.clientSecret);
-      setLoading(false);
-    } catch (err) {
-      console.error("Failed to fetch clientSecret:", err);
-      setError("Failed to fetch payment information.");
-      setLoading(false);
-    }
+  const {
+    fetchClientSecret,
+    isPending: clientSecretPending,
+    errorMessage: clientSecretError,
+  } = useClientSecret();
+
+  const {
+    mutate: confirmCardPayment,
+    isPending: confirmPaymentPending,
+    errorMessage: confirmPaymentError,
+    isSuccess,
+  } = useConfirmCardPayment();
+
+  const defaultValues: DonationFormValues = {
+    amount: 0,
+    name: "",
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const form = useForm<DonationFormValues>({
+    resolver: zodResolver(donationFormSchema),
+    defaultValues,
+    mode: "all",
+    reValidateMode: "onChange",
+  });
 
-    if (amount <= 0) {
-      setError("Please enter a valid amount.");
-      return;
-    }
+  const handleSubmit = async (data: DonationFormValues) => {
+    const { amount, name } = data;
+    const clientSecret = await fetchClientSecret({
+      name,
+      amount: amount * 100,
+    });
 
-    // Obtener el clientSecret solo cuando se envía el formulario
-    await fetchClientSecret(amount);
+    const cardElement = elements?.getElement(CardElement);
 
-    if (!stripe || !elements || !clientSecret) {
-      setError("Stripe is not loaded or clientSecret is missing.");
-      return;
-    }
-
-    const cardElement = elements.getElement(CardElement);
-
-    if (!cardElement) {
-      setError("Card element not found.");
-      return;
-    }
-
-    try {
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: "Customer Name", // Puede ser un valor dinámico
-            },
-          },
-        }
-      );
-
-      if (error) {
-        setError(error.message || "An unexpected error occurred.");
-        setSuccess(false);
-      } else if (paymentIntent?.status === "succeeded") {
-        setSuccess(true);
-        setError(null);
-      }
-    } catch (err) {
-      setError("An unexpected error occurred.");
-      setSuccess(false);
-    }
-  };
-
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number.parseFloat(event.target.value));
+    confirmCardPayment({
+      stripe,
+      cardElement,
+      clientSecret,
+      name,
+    });
   };
 
   return (
-    <PaymentFormView
-      onSubmit={handleSubmit}
-      stripe={!!stripe}
-      error={error}
-      success={success}
-      amount={amount}
-      onAmountChange={handleAmountChange}
-      loading={loading}
-    />
+    <>
+      <p>gay</p>
+      <PaymentFormView
+        onSubmit={handleSubmit}
+        stripe={!!stripe}
+        error={confirmPaymentError || clientSecretError}
+        success={isSuccess}
+        loading={clientSecretPending || confirmPaymentPending}
+        form={form}
+        initialData={{}}
+      />
+    </>
   );
 };
 
