@@ -25,4 +25,4 @@ dist-ssr
 *.sw?
 
 bun.lockb
-pmpm-lock.yaml
+pnpm-lock.yaml
