@@ -12,6 +12,8 @@ export const useViewportSize = () => {
 	}, []);
 
 	useEffect(() => {
+		checkWidth();
+
 		// You don't usually resize the viewport when you're on mobile.
 		// So we won't check the viewport size.
 		if (isMobile) return;

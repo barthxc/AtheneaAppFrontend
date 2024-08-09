@@ -14,13 +14,15 @@ import {
 	CarouselPrevious,
 } from "@/features/core/components/ui";
 
+import { Heading } from "@/features/landing/components";
+
 export const MainContent = () => {
 	return (
 		<main>
 			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
-				<h2 className="text-black text-8xl text-center font-display max-w-4xl mx-auto">
+				<Heading variant="display" position="centered">
 					Stories of Hope and Transformation
-				</h2>
+				</Heading>
 				<Carousel
 					opts={{ loop: false }}
 					plugins={[
@@ -47,7 +49,9 @@ export const MainContent = () => {
 
 				<section className="flex justify-center items-start gap-10">
 					<article className="max-w-sm text-center">
-						<h3 className="font-display text-8xl mb-5">30+</h3>
+						<Heading as="h3" variant="display" className="mb-5">
+							30+
+						</Heading>
 						<p>Our charity organization thrives on the remarkable dedication of over 30 members.</p>
 					</article>
 				</section>
@@ -58,7 +62,9 @@ export const MainContent = () => {
 					<img src="/hero.jpg" alt="" className="w-full h-[700px] object-cover" />
 				</figure>
 				<article className="flex flex-col gap-10 flex-1">
-					<h2 className="font-display text-8xl text-white max-w-2xl">Supporting Those in Need</h2>
+					<Heading variant="display" className="text-white max-w-2xl">
+						Supporting Those in Need
+					</Heading>
 					<p className="text-white leading-relaxed">
 						At Athenea, we believe that every act of kindness has the power to transform lives and make the world a
 						better place. Founded in 2019, we are a passionate community of volunteers and donors dedicated to creating
@@ -71,11 +77,13 @@ export const MainContent = () => {
 			</section>
 
 			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
-				<h2 className="text-black text-8xl text-center font-display max-w-4xl mx-auto">Donate to Make an Impact</h2>
+				<Heading variant="display" position="centered">
+					Donate to Make an Impact
+				</Heading>
 				<div className="grid grid-cols-4 justify-center items-start">
 					<article className="border border-[#D5D3C8] hover:bg-white p-5 flex flex-col justify-center items-start gap-3">
 						<img src="/hero.jpg" alt="" className="w-full max-h-80 object-cover" />
-						<h3 className="text-2xl font-semibold">Quenching Thirst, Saving Lives</h3>
+						<Heading as="h3">Quenching Thirst, Saving Lives</Heading>
 						<p>
 							Join us in our mission to provide pure, clean and safe drinking water to communities in need around the
 							world.
@@ -105,7 +113,9 @@ export const MainContent = () => {
 				<article className="flex justify-between items-center gap-20">
 					<div className="flex-1 flex flex-col gap-10">
 						<header className="flex flex-col gap-5">
-							<h2 className="font-display text-8xl text-white max-w-2xl">Together, We Change Lives</h2>
+							<Heading variant="display" className="text-white max-w-2xl">
+								Together, We Change Lives
+							</Heading>
 							<p className="text-white leading-loose">
 								Over the years, Athenea has made a significant impact in the lives of countless individuals and
 								communities. Here are some key highlights of our work that we have done:
@@ -114,21 +124,27 @@ export const MainContent = () => {
 
 						<ul className="[&_h3]:text-white [&_h3]:text-2xl [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:leading-loose [&_p]:text-white flex flex-col gap-5">
 							<li>
-								<h3>Education for All</h3>
+								<Heading as="h3" className="text-white">
+									Education for All
+								</Heading>
 								<p>
 									We've provided education and scholarships to X underprivileged children, empowering them to break the
 									cycle of poverty.
 								</p>
 							</li>
 							<li>
-								<h3>Access to Clean Water</h3>
+								<Heading as="h3" className="text-white">
+									Access to Clean Water
+								</Heading>
 								<p>
 									Through our water projects, we've brought clean and safe drinking water to X communities, reducing
 									waterborne diseases.
 								</p>
 							</li>
 							<li>
-								<h3>Empowering Women</h3>
+								<Heading as="h3" className="text-white">
+									Empowering Women
+								</Heading>
 								<p>
 									We've supported X women in starting their own businesses, fostering economic independence and gender
 									equality.
@@ -149,7 +165,9 @@ export const MainContent = () => {
 
 			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
 				<header className="flex flex-col gap-5">
-					<h2 className="text-8xl text-center font-display max-w-4xl mx-auto">Our Team</h2>
+					<Heading variant="display" position="centered">
+						Our Team
+					</Heading>
 					<p className="leading-loose text-center max-w-xl mx-auto">
 						Meet the dedicated individuals who drive Athenea forward. Our team is made up of passionate individuals with
 						diverse backgrounds and expertise
@@ -159,7 +177,7 @@ export const MainContent = () => {
 				<div className="grid grid-cols-4 justify-start gap-10">
 					<article className="bg-[#FFD9CD] max-w-sm flex flex-col relative">
 						<header className="flex flex-col gap-2 p-5">
-							<h3 className="font-medium text-2xl">David Warner</h3>
+							<Heading as="h3">David Warner</Heading>
 							<span>Founder</span>
 						</header>
 						<img src="/hero.jpg" alt="" className="w-full h-[400px] object-cover" />
@@ -172,7 +190,7 @@ export const MainContent = () => {
 
 					<article className="bg-[#C9FFE1] max-w-sm flex flex-col relative">
 						<header className="flex flex-col gap-2 p-5">
-							<h3 className="font-medium text-2xl">David Warner</h3>
+							<Heading as="h3">David Warner</Heading>
 							<span>Founder</span>
 						</header>
 						<img src="/hero.jpg" alt="" className="w-full h-[400px] object-cover" />
@@ -186,7 +204,9 @@ export const MainContent = () => {
 			</section>
 
 			<section className="bg-[#FFFDF1] p-32 flex justify-between items-start gap-20">
-				<h2 className="text-8xl font-display max-w-2xl mx-auto flex-1">Frequently Asked Question</h2>
+				<Heading variant="display" className="flex-1 max-w-2xl">
+					Frequently Asked Question
+				</Heading>
 				<Accordion
 					type="multiple"
 					className="flex-1 [&_svg]:text-black [&_svg]:w-7 [&_svg]:h-7 [&_p]:leading-loose [&_p]:text-base">

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Separator } from "@/features/core/components/ui";
+import { Heading, Logo } from "@/features/landing/components";
 
 export const Footer = () => {
 	return (
@@ -8,8 +9,8 @@ export const Footer = () => {
 			<div className="flex justify-between items-start gap-20 py-14">
 				<section className="flex-1 flex flex-col gap-5">
 					<header className="text-white">
-						<h3 className="text-2xl font-semibold mb-5">Athenea</h3>
-						<p className="text-lg max-w-xs">Making a Difference, One Act of Kindness at a Time</p>
+						<Logo />
+						<p className="max-w-xs">Making a Difference, One Act of Kindness at a Time</p>
 					</header>
 
 					<ul className="flex justify-start flex-wrap gap-2 text-white max-w-xs">
@@ -28,7 +29,9 @@ export const Footer = () => {
 
 				<section className="flex-1 flex justify-between items-start gap-20">
 					<article className="text-white">
-						<h3 className="text-2xl font-semibold mb-5">Quick Links</h3>
+						<Heading as="h3" className="mb-5">
+							Quick Links
+						</Heading>
 						<ul className="flex flex-col gap-5 text-lg">
 							<li>
 								<Link to="#">Home</Link>
@@ -49,7 +52,9 @@ export const Footer = () => {
 					</article>
 
 					<article className="text-white">
-						<h3 className="text-2xl font-semibold mb-5">Company</h3>
+						<Heading as="h3" className="mb-5">
+							Company
+						</Heading>
 						<ul className="flex flex-col gap-5 text-lg">
 							<li>
 								<Link to="#">Terms & Conditions</Link>
@@ -64,7 +69,9 @@ export const Footer = () => {
 					</article>
 
 					<article className="px-5 py-14 bg-[#FFD502] flex flex-col justify-between gap-14 max-w-sm">
-						<h3 className="text-4xl text-black font-semibold">Have questions or want to get involved?</h3>
+						<Heading as="h3" size="lg">
+							Have questions or want to get involved?
+						</Heading>
 						<Link to="#" className="block w-full py-5 bg-[#FF521A] text-white text-xl text-center font-medium">
 							Contact us
 						</Link>

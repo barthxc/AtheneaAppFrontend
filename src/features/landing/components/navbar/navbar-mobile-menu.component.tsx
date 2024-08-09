@@ -1,5 +1,13 @@
 import { Icons } from "@/features/core/components";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/features/core/components/ui";
+import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/features/core/components/ui";
 
 import { NavbarLinks } from "@/features/landing/components";
 
@@ -15,6 +23,8 @@ export const NavbarMobileMenu = () => {
 					<SheetClose className="!mt-0">
 						<Icons.close />
 					</SheetClose>
+
+					<SheetDescription className="sr-only">Navigation menu</SheetDescription>
 				</SheetHeader>
 
 				<NavbarLinks isMobile />
