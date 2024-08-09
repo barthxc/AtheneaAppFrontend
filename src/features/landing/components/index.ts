@@ -7,4 +7,6 @@ export * from "./header/header.component";
 export * from "./header/header-hero.component";
 // export * from './lastdata.component';
 export * from "./main-content/main-content.component";
+export * from "./navbar/navbar-links";
 export * from "./navbar/navbar.component";
+export * from "./navbar/navbar.mobile-menu";
