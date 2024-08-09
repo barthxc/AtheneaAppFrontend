@@ -1,5 +1,10 @@
-export * from "./carousel.component";
-export * from "./companies.component";
+// export * from './calendar.component';
+// export * from './carousel.component';
+// export * from './companies.component';
 export * from "./footer/footer.component";
-export * from "./hero.component";
-export * from "./lastdata.component";
+export * from "./header/header.component";
+// export * from './hero.component';
+export * from "./header/header-hero.component";
+// export * from './lastdata.component';
+export * from "./main-content/main-content.component";
+export * from "./navbar/navbar.component";

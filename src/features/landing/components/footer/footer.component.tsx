@@ -1,72 +1,80 @@
 import { Link } from "react-router-dom";
 
-import { Icons } from "@/features/core/components";
+import { Separator } from "@/features/core/components/ui";
 
 export const Footer = () => {
 	return (
-		// py-12
-		<footer className="bg-muted pt-2">
-			<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-				<div className="flex flex-col items-start gap-4">
-					<Link to={"/"} className="flex items-center gap-2">
-						<img className="h-8" src="https://athenea.netlify.app/Logo.png" alt="" />
-						<span className="text-xl font-bold">Athenea</span>
-					</Link>
-					<div className="flex flex-col gap-2 text-muted-foreground">
-						<div>
-							<Icons.about className="w-4 h-4 inline-block mr-2" />
-							<span>+34 (555) 123-4567</span>
-						</div>
-						<div>
-							<Icons.contact className="w-4 h-4 inline-block mr-2" />
-							<span>discapacitadosatheneanerva@gmail.com</span>
-						</div>
-						<div>
-							<Icons.map className="w-4 h-4 inline-block mr-2" />
-							<span>C. José Maria Pemán, 21, 21670 Nerva, Huelva</span>
-						</div>
-						<div>
-							<Icons.map className="w-4 h-4 inline-block mr-2" />
-							<span>C. José Maria Pemán, 21, 21670 Nerva, Huelva</span>
-						</div>
-					</div>
-				</div>
-				<div className="flex flex-col items-start gap-4">
-					<h4 className="text-lg font-semibold">Enlaces Rápidos</h4>
-					<nav className="grid gap-2">
-						<Link to={"/"} className="hover:underline">
-							Inicio
+		<footer className="flex flex-col gap-10 px-20 py-10">
+			<div className="flex justify-between items-start gap-20 py-14">
+				<section className="flex-1 flex flex-col gap-5">
+					<header className="text-white">
+						<h3 className="text-2xl font-semibold mb-5">Athenea</h3>
+						<p className="text-lg max-w-xs">Making a Difference, One Act of Kindness at a Time</p>
+					</header>
+
+					<ul className="flex justify-start flex-wrap gap-2 text-white max-w-xs">
+						<li>
+							<Link to="#" className="bg-white/50 hover:bg-[#FF521A] w-10 h-10 flex justify-center items-center">
+								FB
+							</Link>
+						</li>
+						<li>
+							<Link to="#" className="bg-white/50 hover:bg-[#FF521A] w-10 h-10 flex justify-center items-center">
+								IN
+							</Link>
+						</li>
+					</ul>
+				</section>
+
+				<section className="flex-1 flex justify-between items-start gap-20">
+					<article className="text-white">
+						<h3 className="text-2xl font-semibold mb-5">Quick Links</h3>
+						<ul className="flex flex-col gap-5 text-lg">
+							<li>
+								<Link to="#">Home</Link>
+							</li>
+							<li>
+								<Link to="#">About us</Link>
+							</li>
+							<li>
+								<Link to="#">Campaigns</Link>
+							</li>
+							<li>
+								<Link to="#">Blog</Link>
+							</li>
+							<li>
+								<Link to="#">Contact</Link>
+							</li>
+						</ul>
+					</article>
+
+					<article className="text-white">
+						<h3 className="text-2xl font-semibold mb-5">Company</h3>
+						<ul className="flex flex-col gap-5 text-lg">
+							<li>
+								<Link to="#">Terms & Conditions</Link>
+							</li>
+							<li>
+								<Link to="#">Privacy Policy</Link>
+							</li>
+							<li>
+								<Link to="#">Cookie Preferences</Link>
+							</li>
+						</ul>
+					</article>
+
+					<article className="px-5 py-14 bg-[#FFD502] flex flex-col justify-between gap-14 max-w-sm">
+						<h3 className="text-4xl text-black font-semibold">Have questions or want to get involved?</h3>
+						<Link to="#" className="block w-full py-5 bg-[#FF521A] text-white text-xl text-center font-medium">
+							Contact us
 						</Link>
-						<Link to={"/about"} className="hover:underline">
-							Nosotros
-						</Link>
-						<Link to={"/donation"} className="hover:underline">
-							Donar
-						</Link>
-						<Link to={"/faq"} className="hover:underline">
-							FAQ
-						</Link>
-					</nav>
-				</div>
-				<div className="flex flex-col items-start gap-4">
-					<h4 className="text-lg font-semibold">Síguenos</h4>
-					<div className="flex gap-4">
-						<Link to={"/"} className="text-muted-foreground hover:text-primary" aria-label="GitHub">
-							<Icons.gitHub className="w-6 h-6" />
-						</Link>
-						<Link to={"/"} className="text-muted-foreground hover:text-primary" aria-label="Twitter">
-							<Icons.twitter className="w-6 h-6" />
-						</Link>
-						<Link to={"/"} className="text-muted-foreground hover:text-primary" aria-label="LinkedIn">
-							<Icons.pizza className="w-6 h-6" />
-						</Link>
-						<Link to={"/"} className="text-muted-foreground hover:text-primary" aria-label="Facebook">
-							<Icons.pizza className="w-6 h-6" />
-						</Link>
-					</div>
-				</div>
+					</article>
+				</section>
 			</div>
-			<div className="container mx-auto mt-8 text-center text-sm text-muted-foreground">&copy; 2024 Athenea.</div>
+
+			<Separator className="bg-white/10 h-1" />
+
+			<p className="text-white text-lg text-center">&copy; 2024 Athenea. All rights reserved.</p>
 		</footer>
 	);
 };
