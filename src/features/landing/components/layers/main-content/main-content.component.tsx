@@ -14,7 +14,7 @@ import {
 	CarouselPrevious,
 } from "@/features/core/components/ui";
 
-import { Heading } from "@/features/landing/components";
+import { Button, Heading, Paragraph, Progress } from "@/features/landing/components";
 
 export const MainContent = () => {
 	return (
@@ -52,7 +52,7 @@ export const MainContent = () => {
 						<Heading as="h3" variant="display" className="mb-5">
 							30+
 						</Heading>
-						<p>Our charity organization thrives on the remarkable dedication of over 30 members.</p>
+						<Paragraph>Our charity organization thrives on the remarkable dedication of over 30 members.</Paragraph>
 					</article>
 				</section>
 			</section>
@@ -65,14 +65,14 @@ export const MainContent = () => {
 					<Heading variant="display" className="text-white max-w-2xl">
 						Supporting Those in Need
 					</Heading>
-					<p className="text-white leading-relaxed">
+					<Paragraph className="text-white">
 						At Athenea, we believe that every act of kindness has the power to transform lives and make the world a
 						better place. Founded in 2019, we are a passionate community of volunteers and donors dedicated to creating
 						positive change in the world.
-					</p>
-					<Link to="#" className="py-4 px-8 bg-[#FF521A] text-white text-lg font-medium w-max">
-						Learn More
-					</Link>
+					</Paragraph>
+					<Button asChild variant="accent" size="lg" className="w-max">
+						<Link to="#">Learn More</Link>
+					</Button>
 				</article>
 			</section>
 
@@ -84,29 +84,31 @@ export const MainContent = () => {
 					<article className="border border-[#D5D3C8] hover:bg-white p-5 flex flex-col justify-center items-start gap-3">
 						<img src="/hero.jpg" alt="" className="w-full max-h-80 object-cover" />
 						<Heading as="h3">Quenching Thirst, Saving Lives</Heading>
-						<p>
+						<Paragraph>
 							Join us in our mission to provide pure, clean and safe drinking water to communities in need around the
 							world.
-						</p>
+						</Paragraph>
 
 						<div className="flex flex-col gap-2 w-full">
 							<div className="flex justify-between items-center font-medium text-lg">
-								<span>$8,520</span>
-								<span>50%</span>
+								<Paragraph as="span">$8,520</Paragraph>
+								<Paragraph as="span">50%</Paragraph>
 							</div>
-							<span className="uppercase text-sm">Raised of $17,000</span>
-							<div className="w-full h-3 rounded-lg bg-[#E6EDEB] relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-2/4 before:h-full before:bg-[#10A476] before:rounded-tr-lg before:rounded-br-lg" />
+							<Paragraph as="span" size="sm" className="uppercase">
+								Raised of $17,000
+							</Paragraph>
+							<Progress value={50} />
 						</div>
 
-						<button type="button" className="px-4 py-2 mt-6 border border-black hover:bg-[#FFE353] text-black">
+						<Button className="mt-6" variant="ghost">
 							Donate Now
-						</button>
+						</Button>
 					</article>
 				</div>
 
-				<Link to="#" className="py-4 px-8 mx-auto bg-[#FF521A] text-white text-lg font-medium w-max">
-					View All Campaigns
-				</Link>
+				<Button asChild variant="accent" size="lg" className="w-max" position="centered">
+					<Link to="#">View All Campaigns</Link>
+				</Button>
 			</section>
 
 			<section className="p-32">
@@ -116,39 +118,39 @@ export const MainContent = () => {
 							<Heading variant="display" className="text-white max-w-2xl">
 								Together, We Change Lives
 							</Heading>
-							<p className="text-white leading-loose">
+							<Paragraph className="text-white">
 								Over the years, Athenea has made a significant impact in the lives of countless individuals and
 								communities. Here are some key highlights of our work that we have done:
-							</p>
+							</Paragraph>
 						</header>
 
-						<ul className="[&_h3]:text-white [&_h3]:text-2xl [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:leading-loose [&_p]:text-white flex flex-col gap-5">
+						<ul className="[&_h3]:text-white [&_h3]:text-2xl [&_h3]:font-semibold [&_h3]:mb-2 [&_p]:text-white flex flex-col gap-5">
 							<li>
 								<Heading as="h3" className="text-white">
 									Education for All
 								</Heading>
-								<p>
+								<Paragraph>
 									We've provided education and scholarships to X underprivileged children, empowering them to break the
 									cycle of poverty.
-								</p>
+								</Paragraph>
 							</li>
 							<li>
 								<Heading as="h3" className="text-white">
 									Access to Clean Water
 								</Heading>
-								<p>
+								<Paragraph>
 									Through our water projects, we've brought clean and safe drinking water to X communities, reducing
 									waterborne diseases.
-								</p>
+								</Paragraph>
 							</li>
 							<li>
 								<Heading as="h3" className="text-white">
 									Empowering Women
 								</Heading>
-								<p>
+								<Paragraph>
 									We've supported X women in starting their own businesses, fostering economic independence and gender
 									equality.
-								</p>
+								</Paragraph>
 							</li>
 						</ul>
 					</div>
@@ -168,17 +170,17 @@ export const MainContent = () => {
 					<Heading variant="display" position="centered">
 						Our Team
 					</Heading>
-					<p className="leading-loose text-center max-w-xl mx-auto">
+					<Paragraph className="text-center max-w-xl mx-auto">
 						Meet the dedicated individuals who drive Athenea forward. Our team is made up of passionate individuals with
 						diverse backgrounds and expertise
-					</p>
+					</Paragraph>
 				</header>
 
 				<div className="grid grid-cols-4 justify-start gap-10">
 					<article className="bg-[#FFD9CD] max-w-sm flex flex-col relative">
 						<header className="flex flex-col gap-2 p-5">
 							<Heading as="h3">David Warner</Heading>
-							<span>Founder</span>
+							<Paragraph as="span">Founder</Paragraph>
 						</header>
 						<img src="/hero.jpg" alt="" className="w-full h-[400px] object-cover" />
 						<Link
@@ -191,7 +193,7 @@ export const MainContent = () => {
 					<article className="bg-[#C9FFE1] max-w-sm flex flex-col relative">
 						<header className="flex flex-col gap-2 p-5">
 							<Heading as="h3">David Warner</Heading>
-							<span>Founder</span>
+							<Paragraph as="span">Founder</Paragraph>
 						</header>
 						<img src="/hero.jpg" alt="" className="w-full h-[400px] object-cover" />
 						<Link
@@ -215,22 +217,22 @@ export const MainContent = () => {
 							How can I make a donation to your charity?
 						</AccordionTrigger>
 						<AccordionContent asChild>
-							<p>
+							<Paragraph>
 								You can make a donation to our charity by clicking the "Donate Now" button on our website. We offer
 								various donation options, including one-time donations, monthly contributions, and even opportunities to
 								sponsor specific programs or individuals.
-							</p>
+							</Paragraph>
 						</AccordionContent>
 					</AccordionItem>
 
 					<AccordionItem value="item-2">
 						<AccordionTrigger className="font-medium text-2xl">Is my donation tax-deductible?</AccordionTrigger>
 						<AccordionContent asChild>
-							<p>
+							<Paragraph>
 								Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione sed magni earum corporis vero eveniet
 								itaque blanditiis aut cupiditate quam? Corrupti, corporis. Eaque voluptatem, esse veritatis commodi
 								veniam sint id nobis officia eligendi placeat ratione explicabo in, eius fugit quisquam.
-							</p>
+							</Paragraph>
 						</AccordionContent>
 					</AccordionItem>
 				</Accordion>

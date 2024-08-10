@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
-
 import { Separator } from "@/features/core/components/ui";
-import { Heading, Logo } from "@/features/landing/components";
+import { Button, Heading, Link, Logo, Paragraph } from "@/features/landing/components";
 
 export const Footer = () => {
 	return (
@@ -10,7 +8,7 @@ export const Footer = () => {
 				<section className="flex-1 flex flex-col gap-5">
 					<header className="text-white">
 						<Logo />
-						<p className="max-w-xs">Making a Difference, One Act of Kindness at a Time</p>
+						<Paragraph className="max-w-xs">Making a Difference, One Act of Kindness at a Time</Paragraph>
 					</header>
 
 					<ul className="flex justify-start flex-wrap gap-2 text-white max-w-xs">
@@ -72,16 +70,16 @@ export const Footer = () => {
 						<Heading as="h3" size="lg">
 							Have questions or want to get involved?
 						</Heading>
-						<Link to="#" className="block w-full py-5 bg-[#FF521A] text-white text-xl text-center font-medium">
-							Contact us
-						</Link>
+						<Button asChild variant="accent" size="xl">
+							<Link to="#">Contact us</Link>
+						</Button>
 					</article>
 				</section>
 			</div>
 
 			<Separator className="bg-white/10 h-1" />
 
-			<p className="text-white text-lg text-center">&copy; 2024 Athenea. All rights reserved.</p>
+			<Paragraph className="text-white text-center">&copy; 2024 Athenea. All rights reserved.</Paragraph>
 		</footer>
 	);
 };

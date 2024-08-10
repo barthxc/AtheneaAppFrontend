@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-
 import { cn } from "@/features/core/lib/utils";
+
 import type { NavbarLinksProps } from "@/features/landing/types";
+import { Button, Link } from "@/features/landing/components";
 
 export const NavbarLinks = ({ className, isMobile, ...props }: NavbarLinksProps) => {
 	return (
@@ -39,13 +39,13 @@ export const NavbarLinks = ({ className, isMobile, ...props }: NavbarLinksProps)
 
 const DonateLink = ({ isMobile }: { isMobile?: boolean }) => {
 	return (
-		<Link
-			to="/donate"
-			className={cn(
-				"py-2 px-5 text-lg font-medium inline-block",
-				isMobile ? "bg-[#0D5244] text-white w-max mx-auto" : "bg-white text-black",
-			)}>
-			Donate
-		</Link>
+		<>
+			<Button
+				asChild
+				size="md"
+				className={cn(isMobile ? "bg-[#0D5244] text-white w-max mx-auto" : "bg-white text-black")}>
+				<Link to="/donate">Donate</Link>
+			</Button>
+		</>
 	);
 };

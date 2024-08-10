@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
-
 import { Separator } from "@/features/core/components/ui";
-import { Heading } from "@/features/landing/components";
+import { Heading, Link, Paragraph } from "@/features/landing/components";
 
 export const Hero = () => {
 	return (
@@ -10,10 +8,10 @@ export const Hero = () => {
 				<div className="flex flex-col gap-10">
 					<article className="flex flex-col gap-4">
 						<Heading as="h3">Donate Now</Heading>
-						<p>
+						<Paragraph>
 							Your financial contribution can make a real difference. Every dollar you donate goes directly toward our
 							projects.
-						</p>
+						</Paragraph>
 						<Link to="#" className="font-medium text-base">
 							Get started
 						</Link>
@@ -23,10 +21,10 @@ export const Hero = () => {
 
 					<article className="flex flex-col gap-4">
 						<Heading as="h3">Become a Volunteer</Heading>
-						<p>
+						<Paragraph>
 							Join our team of dedicated volunteers and actively participate in our projects and events. Your time and
 							skills are invaluable.
-						</p>
+						</Paragraph>
 						<Link to="#" className="font-medium text-base">
 							Get started
 						</Link>
