@@ -3,7 +3,7 @@ import { Heading, Link, Paragraph } from "@/features/landing/components";
 
 export const Hero = () => {
 	return (
-		<div className="flex justify-between items-stretch [&>*]:pt-24 [&>*]:pb-20">
+		<div className="flex flex-col xl:flex-row xl:justify-between xl:items-stretch [&>*]:pt-24 [&>*]:pb-20">
 			<section className="bg-[#FFE353] flex-1 flex flex-col gap-20 px-12">
 				<div className="flex flex-col gap-10">
 					<article className="flex flex-col gap-4">
@@ -36,7 +36,7 @@ export const Hero = () => {
 				<Heading variant="display" size="2xl" className="text-white">
 					Changing Lives for the Better
 				</Heading>
-				<img src="/hero.jpg" alt="" className="w-full max-w-screen-md h-[500px] object-cover" />
+				<img src="/hero.jpg" alt="" className="w-full max-w-screen-md h-96 xl:h-[500px] object-cover" />
 			</section>
 		</div>
 	);

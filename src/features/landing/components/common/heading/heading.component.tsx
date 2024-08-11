@@ -3,26 +3,22 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/features/core/lib/utils";
 import type { HeadingProps } from "@/features/landing/types";
 
-export const headingVariants = cva("text-2xl", {
+export const headingVariants = cva("text-xl xl:text-2xl break-words", {
 	variants: {
 		variant: {
 			default: "font-semibold",
-			display: "text-8xl font-display max-w-4xl",
+			display: "text-5xl xl:text-8xl font-display max-w-4xl",
 		},
 		size: {
-			default: "",
-			lg: "text-4xl",
-			"2xl": "text-9xl",
+			lg: "text-3xl xl:text-4xl",
+			"2xl": "text-6xl xl:text-9xl",
 		},
 		position: {
-			default: "",
-			centered: "text-center mx-auto",
+			centered: "text-center xl:mx-auto",
 		},
 	},
 	defaultVariants: {
 		variant: "default",
-		size: "default",
-		position: "default",
 	},
 });
 

@@ -15,11 +15,12 @@ import {
 } from "@/features/core/components/ui";
 
 import { Button, Heading, Paragraph, Progress } from "@/features/landing/components";
+import { cn } from "@/features/core/lib/utils";
 
 export const MainContent = () => {
 	return (
 		<main>
-			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
+			<section className="bg-[#FFFDF1] p-16 xl:p-32 flex flex-col gap-10 xl:gap-20">
 				<Heading variant="display" position="centered">
 					Stories of Hope and Transformation
 				</Heading>
@@ -43,8 +44,8 @@ export const MainContent = () => {
 							<img src="/hero.jpg" alt="" className="w-full max-h-[600px] object-cover select-none" />
 						</CarouselItem>
 					</CarouselContent>
-					<CarouselPrevious className="translate-x-4 w-16 h-16 rounded-none border-none bg-[#FF521A] hover:bg-[#FF521A] disabled:bg-[#FFFDF1]/50 [&>svg]:text-white [&>svg]:w-6 [&>svg]:h-6" />
-					<CarouselNext className="-translate-x-4 w-16 h-16 rounded-none border-none bg-[#FF521A] hover:bg-[#FF521A] disabled:bg-[#FFFDF1]/50 [&>svg]:text-white [&>svg]:w-6 [&>svg]:h-6" />
+					<CarouselPreviousNext previous />
+					<CarouselPreviousNext next />
 				</Carousel>
 
 				<section className="flex justify-center items-start gap-10">
@@ -57,11 +58,11 @@ export const MainContent = () => {
 				</section>
 			</section>
 
-			<section className="p-32 flex justify-between items-center gap-20">
+			<section className="p-16 xl:p-32 flex flex-col xl:flex-row xl:justify-between xl:items-center gap-10 xl:gap-20">
 				<figure className="flex-1">
-					<img src="/hero.jpg" alt="" className="w-full h-[700px] object-cover" />
+					<img src="/hero.jpg" alt="" className="w-full h-96 xl:h-[700px] object-cover" />
 				</figure>
-				<article className="flex flex-col gap-10 flex-1">
+				<article className="flex flex-col gap-5 xl:gap-10 flex-1">
 					<Heading variant="display" className="text-white max-w-2xl">
 						Supporting Those in Need
 					</Heading>
@@ -76,11 +77,11 @@ export const MainContent = () => {
 				</article>
 			</section>
 
-			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
+			<section className="bg-[#FFFDF1] p-16 xl:p-32 flex flex-col gap-10 xl:gap-20">
 				<Heading variant="display" position="centered">
 					Donate to Make an Impact
 				</Heading>
-				<div className="grid grid-cols-4 justify-center items-start">
+				<div className="grid [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] xl:[grid-template-columns:repeat(auto-fit,350px)] place-items-center gap-10">
 					<article className="border border-[#D5D3C8] hover:bg-white p-5 flex flex-col justify-center items-start gap-3">
 						<img src="/hero.jpg" alt="" className="w-full max-h-80 object-cover" />
 						<Heading as="h3">Quenching Thirst, Saving Lives</Heading>
@@ -111,8 +112,8 @@ export const MainContent = () => {
 				</Button>
 			</section>
 
-			<section className="p-32">
-				<article className="flex justify-between items-center gap-20">
+			<section className="p-16 xl:p-32">
+				<article className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-10 xl:gap-20">
 					<div className="flex-1 flex flex-col gap-10">
 						<header className="flex flex-col gap-5">
 							<Heading variant="display" className="text-white max-w-2xl">
@@ -156,7 +157,7 @@ export const MainContent = () => {
 					</div>
 
 					<div className="flex-1 flex flex-col gap-10">
-						<img src="/hero.jpg" alt="" className="h-[450px] object-cover" />
+						<img src="/hero.jpg" alt="" className="h-96 xl:h-[450px] object-cover" />
 						<div className="grid grid-cols-2 gap-10">
 							<img src="/hero.jpg" alt="" className="aspect-square object-cover" />
 							<img src="/hero.jpg" alt="" className="aspect-square object-cover rounded-full" />
@@ -165,7 +166,7 @@ export const MainContent = () => {
 				</article>
 			</section>
 
-			<section className="bg-[#FFFDF1] p-32 flex flex-col gap-20">
+			<section className="bg-[#FFFDF1] p-16 xl:p-32 flex flex-col gap-10 xl:gap-20">
 				<header className="flex flex-col gap-5">
 					<Heading variant="display" position="centered">
 						Our Team
@@ -176,7 +177,7 @@ export const MainContent = () => {
 					</Paragraph>
 				</header>
 
-				<div className="grid grid-cols-4 justify-start gap-10">
+				<div className="grid [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] xl:[grid-template-columns:repeat(auto-fit,350px)] place-items-center gap-10">
 					<article className="bg-[#FFD9CD] max-w-sm flex flex-col relative">
 						<header className="flex flex-col gap-2 p-5">
 							<Heading as="h3">David Warner</Heading>
@@ -205,18 +206,16 @@ export const MainContent = () => {
 				</div>
 			</section>
 
-			<section className="bg-[#FFFDF1] p-32 flex justify-between items-start gap-20">
+			<section className="bg-[#FFFDF1] p-16 xl:p-32 flex flex-col xl:flex-row xl:justify-between xl:items-start gap-10 xl:gap-20">
 				<Heading variant="display" className="flex-1 max-w-2xl">
 					Frequently Asked Question
 				</Heading>
-				<Accordion
-					type="multiple"
-					className="flex-1 [&_svg]:text-black [&_svg]:w-7 [&_svg]:h-7 [&_p]:leading-loose [&_p]:text-base">
+				<Accordion type="multiple" className="flex-1 [&_svg]:text-black [&_svg]:w-7 [&_svg]:h-7">
 					<AccordionItem value="item-1">
-						<AccordionTrigger className="font-medium text-2xl">
+						<AccordionTrigger className="font-medium text-xl xl:text-2xl text-left">
 							How can I make a donation to your charity?
 						</AccordionTrigger>
-						<AccordionContent asChild>
+						<AccordionContent>
 							<Paragraph>
 								You can make a donation to our charity by clicking the "Donate Now" button on our website. We offer
 								various donation options, including one-time donations, monthly contributions, and even opportunities to
@@ -226,8 +225,10 @@ export const MainContent = () => {
 					</AccordionItem>
 
 					<AccordionItem value="item-2">
-						<AccordionTrigger className="font-medium text-2xl">Is my donation tax-deductible?</AccordionTrigger>
-						<AccordionContent asChild>
+						<AccordionTrigger className="font-medium text-xl xl:text-2xl text-left">
+							Is my donation tax-deductible?
+						</AccordionTrigger>
+						<AccordionContent>
 							<Paragraph>
 								Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione sed magni earum corporis vero eveniet
 								itaque blanditiis aut cupiditate quam? Corrupti, corporis. Eaque voluptatem, esse veritatis commodi
@@ -239,4 +240,26 @@ export const MainContent = () => {
 			</section>
 		</main>
 	);
+};
+
+export interface CarouselPreviousNextProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	previous?: boolean;
+	next?: boolean;
+}
+
+const CarouselPreviousNext = ({ previous, next, className, ...restProps }: CarouselPreviousNextProps) => {
+	const props = {
+		className: cn(
+			"w-10 h-10 xl:w-16 xl:h-16 rounded-none border-none bg-[#FF521A] hover:bg-[#FF521A] disabled:bg-[#FFFDF1]/50 [&>svg]:text-white [&>svg]:w-6 [&>svg]:h-6",
+			previous ? "xl:translate-x-4" : next ? "xl:-translate-x-4" : null,
+			className,
+		),
+		...restProps,
+	};
+
+	if (previous) {
+		return <CarouselPrevious {...props} />;
+	}
+
+	return <CarouselNext {...props} />;
 };

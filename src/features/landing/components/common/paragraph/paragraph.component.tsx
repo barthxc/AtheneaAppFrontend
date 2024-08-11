@@ -1,16 +1,14 @@
-import { cn } from "@/features/core/lib/utils";
-import type { ParagraphProps } from "@/features/landing/types";
 import { cva } from "class-variance-authority";
 
-export const paragraphVariants = cva("leading-relaxed", {
+import { cn } from "@/features/core/lib/utils";
+import type { ParagraphProps } from "@/features/landing/types";
+
+export const paragraphVariants = cva("text-base leading-relaxed", {
 	variants: {
 		size: {
 			default: "text-base",
 			sm: "text-sm",
 		},
-	},
-	defaultVariants: {
-		size: "default",
 	},
 });
 
