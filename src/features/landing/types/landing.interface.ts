@@ -9,6 +9,8 @@ import type {
 	sectionVariants,
 } from "@/features/landing/components";
 
+export interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {}
+
 export interface NavbarLinksProps extends React.HTMLAttributes<HTMLUListElement> {
 	isMobile?: boolean;
 	isHome?: boolean;
