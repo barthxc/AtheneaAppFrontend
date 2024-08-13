@@ -1,1 +1,1 @@
-export * from "./section.compontent";
+export * from "./section.component";

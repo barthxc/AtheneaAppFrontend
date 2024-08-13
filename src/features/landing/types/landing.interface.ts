@@ -2,7 +2,12 @@ import type { VariantProps } from "class-variance-authority";
 import type { LinkProps as LinkPropsBase } from "react-router-dom";
 import type { ProgressProps as ProgressPropsBase } from "@radix-ui/react-progress";
 
-import type { buttonVariants, headingVariants, paragraphVariants } from "@/features/landing/components";
+import type {
+	buttonVariants,
+	headingVariants,
+	paragraphVariants,
+	sectionVariants,
+} from "@/features/landing/components";
 
 export interface NavbarLinksProps extends React.HTMLAttributes<HTMLUListElement> {
 	isMobile?: boolean;
@@ -28,4 +33,8 @@ export interface ButtonProps
 	extends React.ButtonHTMLAttributes<HTMLButtonElement>,
 		VariantProps<typeof buttonVariants> {
 	asChild?: boolean;
+}
+
+export interface SectionProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof sectionVariants> {
+	children?: React.ReactNode;
 }
