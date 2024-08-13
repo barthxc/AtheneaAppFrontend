@@ -42,6 +42,8 @@ import {
 	Menu,
 } from "lucide-react";
 
+import { cn } from "@/features/core/lib/utils";
+
 export type Icon = LucideIcon;
 
 export const Icons = {
@@ -100,4 +102,40 @@ export const Icons = {
 	map: MapPin,
 	chevronDown: ChevronDown,
 	menu: Menu,
+	arrowLeftCustom: ({ className, ...props }: LucideProps) => (
+		<svg
+			width="24"
+			height="26"
+			viewBox="0 0 24 26"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			role="img"
+			aria-label="Previous"
+			className={cn("w-5 h-5", className)}
+			{...props}>
+			<path
+				d="M24 13L-7.15256e-07 13M-7.15256e-07 13C4.36364 13 12.8727 15.4 12 25M-7.15256e-07 13C4.36364 13 12.8727 10.6 12 0.999999"
+				stroke="black"
+				strokeWidth="2"
+			/>
+		</svg>
+	),
+	arrowRightCustom: ({ className, ...props }: LucideProps) => (
+		<svg
+			width="24"
+			height="26"
+			viewBox="0 0 24 26"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			role="img"
+			aria-label="Next"
+			className={cn("w-5 h-5", className)}
+			{...props}>
+			<path
+				d="M0 13H24M24 13C19.6364 13 11.1273 10.6 12 1M24 13C19.6364 13 11.1273 15.4 12 25"
+				stroke="black"
+				strokeWidth="2"
+			/>
+		</svg>
+	),
 };

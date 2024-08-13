@@ -172,7 +172,7 @@ export const MainContent = () => {
 						<Link
 							to="#"
 							className="w-16 h-16 bg-white hover:bg-[#FFD9CD] p-2 flex justify-center items-center absolute bottom-5 left-5">
-							<Icons.arrowRight />
+							<Icons.arrowRightCustom />
 						</Link>
 					</article>
 
@@ -185,7 +185,7 @@ export const MainContent = () => {
 						<Link
 							to="#"
 							className="w-16 h-16 bg-white hover:bg-[#C9FFE1] p-2 flex justify-center items-center absolute bottom-5 left-5">
-							<Icons.arrowRight />
+							<Icons.arrowRightCustom />
 						</Link>
 					</article>
 				</div>
@@ -257,8 +257,16 @@ const CarouselPreviousNext = ({ previous, next, className, ...restProps }: Carou
 	};
 
 	if (previous) {
-		return <CarouselPrevious {...props} />;
+		return (
+			<CarouselPrevious {...props}>
+				<Icons.arrowLeftCustom className="[&>path]:stroke-white" />
+			</CarouselPrevious>
+		);
 	}
 
-	return <CarouselNext {...props} />;
+	return (
+		<CarouselNext {...props}>
+			<Icons.arrowRightCustom className="[&>path]:stroke-white" />
+		</CarouselNext>
+	);
 };
