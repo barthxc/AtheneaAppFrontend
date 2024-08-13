@@ -64,18 +64,24 @@ export const EmailForm = ({ emailType }: EmailFormComponentProps) => {
 
   return (
     <>
-      <EmailFormView
-        initialData={{}}
-        onDelete={async () => {}}
-        loading={isPending}
-        showModal={showModal}
-        openModal={openModal}
-        closeModal={closeModal}
-        form={form}
-        onSubmit={onSubmit}
-        emailType={emailType}
-      />
-      {isSuccess && <p>Email enviado correctamente!</p>}
+      <div className="bg-white shadow-lg rounded-lg p-8">
+        <EmailFormView
+          initialData={{}}
+          onDelete={async () => {}}
+          loading={isPending}
+          showModal={showModal}
+          openModal={openModal}
+          closeModal={closeModal}
+          form={form}
+          onSubmit={onSubmit}
+          emailType={emailType}
+        />
+        {isSuccess && (
+          <p className="text-center text-green-400 font-bold">
+            Email enviado correctamente!
+          </p>
+        )}
+      </div>
     </>
   );
 };

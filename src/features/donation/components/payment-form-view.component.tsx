@@ -50,98 +50,100 @@ const PaymentFormView: React.FC<PaymentFormViewProps> = ({
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Donate</h2>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <FormField
-              formControl={form.control}
-              name="name"
-              label="Nombre"
-              render={({ field }) => (
-                <Input disabled={loading} placeholder="Anónimo" {...field} />
-              )}
-            />
+    <>
+      <div className="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
+        {success && (
+          <div className="text-green-500 font-bold text-sm mt-2 p-4">
+            Pago registrado!! Intentaremos hacer cosas
           </div>
-          <div>
-            <FormField
-              formControl={form.control}
-              name="amount"
-              label="Cantidad"
-              render={({ field }) => (
-                <Input
-                  type="number"
-                  disabled={loading}
-                  placeholder="€"
-                  {...field}
-                />
-              )}
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="card-element"
-              className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base">
-              Detalles de la Tarjeta:
-            </label>
-            <div className="p-2 border border-gray-300 rounded-md shadow-sm">
-              <CardElement
-                onChange={handleCardValidation}
-                id="card-element"
-                className="w-full"
-                options={{
-                  style: {
-                    base: {
-                      color: "#32325d",
-                      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                      fontSize: "16px",
-                      "::placeholder": {
-                        color: "#aab7c4",
-                      },
-                    },
-                    invalid: {
-                      color: "#fa755a",
-                      iconColor: "#fa755a",
-                    },
-                  },
-                }}
+        )}
+        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Donación</h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <div>
+              <FormField
+                formControl={form.control}
+                name="name"
+                label="Nombre"
+                render={({ field }) => (
+                  <Input disabled={loading} placeholder="Anónimo" {...field} />
+                )}
               />
             </div>
-          </div>
-
-          <div>
-            {loading ? (
-              <div className="text-center text-blue-600">Loading...</div>
-            ) : (
-              !error &&
-              !isEmpty &&
-              isComplete && (
-                <button
-                  type="submit"
-                  disabled={!stripe}
-                  className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                  Donar
-                </button>
-              )
-            )}
-          </div>
-
-          {error ||
-            (cardElementError && (
-              <div className="text-red-500 text-sm mt-2">
-                {error || cardElementError}
-              </div>
-            ))}
-          {success && (
-            <div className="text-green-500 text-sm mt-2">
-              Pago registrado!! Intentaremos hacer cosas
+            <div>
+              <FormField
+                formControl={form.control}
+                name="amount"
+                label="Cantidad"
+                render={({ field }) => (
+                  <Input
+                    type="number"
+                    disabled={loading}
+                    placeholder="€"
+                    {...field}
+                  />
+                )}
+              />
             </div>
-          )}
-        </form>
-      </Form>
-    </div>
+
+            <div>
+              <label
+                htmlFor="card-element"
+                className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base">
+                Detalles de la Tarjeta:
+              </label>
+              <div className="p-2 border border-gray-300 rounded-md shadow-sm">
+                <CardElement
+                  onChange={handleCardValidation}
+                  id="card-element"
+                  className="w-full"
+                  options={{
+                    style: {
+                      base: {
+                        color: "#32325d",
+                        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                        fontSize: "16px",
+                        "::placeholder": {
+                          color: "#aab7c4",
+                        },
+                      },
+                      invalid: {
+                        color: "#fa755a",
+                        iconColor: "#fa755a",
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              {loading ? (
+                <div className="text-center text-blue-600">Loading...</div>
+              ) : (
+                !error &&
+                !isEmpty &&
+                isComplete && (
+                  <button
+                    type="submit"
+                    disabled={!stripe}
+                    className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    Donar
+                  </button>
+                )
+              )}
+            </div>
+
+            {error ||
+              (cardElementError && (
+                <div className="text-red-500 text-sm mt-2">
+                  {error || cardElementError}
+                </div>
+              ))}
+          </form>
+        </Form>
+      </div>
+    </>
   );
 };
 

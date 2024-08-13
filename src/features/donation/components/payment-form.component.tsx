@@ -54,7 +54,6 @@ const PaymentFormComponent = () => {
 
   return (
     <>
-      <p>gay</p>
       <PaymentFormView
         onSubmit={handleSubmit}
         stripe={!!stripe}
