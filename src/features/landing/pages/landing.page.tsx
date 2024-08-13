@@ -1,10 +1,9 @@
-import { Header, MainContent, About } from "@/features/landing/components";
+import { Header, MainContent } from "@/features/landing/components";
 export function LandingPage() {
-  return (
-    <div className="min-h-screen ">
-      <Header />
-      <About />
-      <MainContent />
-    </div>
-  );
+	return (
+		<div className="min-h-screen">
+			<Header />
+			<MainContent />
+		</div>
+	);
 }

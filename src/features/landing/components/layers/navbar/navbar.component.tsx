@@ -17,7 +17,7 @@ export const Navbar = () => {
 			<div className="flex-1 flex justify-start items-center px-14 h-full">
 				<Logo className={cn(isHome && "text-black")} />
 			</div>
-			{isMobileSize ? <NavbarMobileMenu /> : <NavbarLinks />}
+			{isMobileSize ? <NavbarMobileMenu /> : <NavbarLinks isHome={isHome} />}
 		</div>
 	);
 };

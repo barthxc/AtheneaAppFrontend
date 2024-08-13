@@ -4,14 +4,14 @@ import { Footer } from "@/features/landing/components";
 import { Navbar } from "@/features/landing/components";
 
 export function LandingLayout() {
-  return (
-    <>
-      <Toaster />
-      <div className="min-h-screen bg-[#094074]">
-        <Navbar />
-        <Outlet />
-        <Footer />
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Toaster />
+			<div className="min-h-screen bg-[#094074] bg-pattern">
+				<Navbar />
+				<Outlet />
+				<Footer />
+			</div>
+		</>
+	);
 }

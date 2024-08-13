@@ -11,6 +11,7 @@ import type {
 
 export interface NavbarLinksProps extends React.HTMLAttributes<HTMLUListElement> {
 	isMobile?: boolean;
+	isHome?: boolean;
 }
 
 export interface LogoProps extends React.HTMLAttributes<HTMLHeadingElement> {}

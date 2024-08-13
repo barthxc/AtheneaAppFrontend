@@ -89,4 +89,7 @@
     height: 100vh; /* Fallback */
     height: 100dvh;
   }
+  .bg-pattern {
+    @apply bg-[url(/pattern.png)];
+  }
 }
