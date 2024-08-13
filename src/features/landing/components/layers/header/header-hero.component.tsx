@@ -1,4 +1,6 @@
+import { Icons } from "@/features/core/components";
 import { Separator } from "@/features/core/components/ui";
+
 import { Heading, Link, Paragraph } from "@/features/landing/components";
 
 export const Hero = () => {
@@ -7,7 +9,10 @@ export const Hero = () => {
 			<section className="bg-[#3BA6FF] flex-1 flex flex-col gap-20 px-14">
 				<div className="flex flex-col gap-10">
 					<article className="flex flex-col gap-4">
-						<Heading as="h3">Donar Ahora</Heading>
+						<div className="flex justify-start gap-5 items-center">
+							<Icons.donation size={80} />
+							<Heading as="h3">Donar Ahora</Heading>
+						</div>
 						<Paragraph>
 							Tu aporte financiero puede marcar una gran diferencia. Cada donación se destina directamente a nuestros
 							proyectos, ayudándonos a construir un futuro mejor para todos.
@@ -20,7 +25,10 @@ export const Hero = () => {
 					<Separator className="bg-black" />
 
 					<article className="flex flex-col gap-4">
-						<Heading as="h3">Conviértete en Socio</Heading>
+						<div className="flex justify-start gap-5 items-center">
+							<Icons.heartHandshake size={80} />
+							<Heading as="h3">Conviértete en Socio</Heading>
+						</div>
 						<Paragraph>
 							Forma parte de nuestra comunidad y participa activamente en nuestros proyectos y actividades. Tu
 							compromiso es clave para lograr nuestros objetivos.
@@ -30,7 +38,10 @@ export const Hero = () => {
 						</Link>
 					</article>
 					<article className="flex flex-col gap-4">
-						<Heading as="h3">Conviértete en Voluntario</Heading>
+						<div className="flex justify-start gap-5 items-center">
+							<Icons.smilePlus size={80} />
+							<Heading as="h3">Conviértete en Voluntario</Heading>
+						</div>
 						<Paragraph>
 							Únete a nuestro equipo de voluntarios apasionados y marca la diferencia con tu tiempo y habilidades.
 						</Paragraph>

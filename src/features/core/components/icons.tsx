@@ -40,6 +40,8 @@ import {
 	HandHeart,
 	MapPin,
 	Menu,
+	HeartHandshake,
+	SmilePlus,
 } from "lucide-react";
 
 import { cn } from "@/features/core/lib/utils";
@@ -138,4 +140,6 @@ export const Icons = {
 			/>
 		</svg>
 	),
+	heartHandshake: HeartHandshake,
+	smilePlus: SmilePlus,
 };
