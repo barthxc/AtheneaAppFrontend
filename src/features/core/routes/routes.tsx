@@ -28,8 +28,8 @@ import {
   DonationPage,
   LandingPage,
   ContactPage,
+  CalendarPage,
 } from "@/features/landing/pages";
-import { CalendarPage } from "@/features/calendar/pages";
 
 import { CalendarControlPage } from "@/features/calendar/pages";
 import { LandingLayout } from "@/features/landing/layout/landing-layout";
