@@ -27,7 +27,7 @@ export class DonationService {
       );
       return data.clientSecret;
     } catch (error: any) {
-      console.log("error");
+      console.log(error);
       throw error.response?.data;
     }
   };

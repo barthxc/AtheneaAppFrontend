@@ -49,6 +49,10 @@ const PaymentFormView: React.FC<PaymentFormViewProps> = ({
     }
   };
 
+  console.log("LOADING---->", loading);
+  console.log("ERROR---->", error);
+  console.log("isEMPTY---->", isEmpty);
+  console.log("isCOMPLETE---->", isComplete);
   return (
     <>
       <div className="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
