@@ -28,16 +28,16 @@ export const NavbarLinks = ({
           <Link to="/">Inicio</Link>
         </li>
         <li>
-          <Link to="#about-us">Nosotros</Link>
+          <Link to="/about">Nosotros</Link>
         </li>
         <li>
           <Link to="/calendar">Calendario</Link>
         </li>
         <li>
-          <Link to="#blog">Blog</Link>
+          <Link to="/news">Noticias</Link>
         </li>
         <li>
-          <Link to="contact">Contacto</Link>
+          <Link to="/contact">Contacto</Link>
         </li>
         {isMobile && <DonateLink isMobile />}
       </ul>

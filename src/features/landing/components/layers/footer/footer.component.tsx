@@ -45,19 +45,19 @@ export const Footer = () => {
               </Heading>
               <ul className="flex flex-col gap-3 xl:gap-5 text-lg">
                 <li>
-                  <Link to="#">Home</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="#">About us</Link>
+                  <Link to="/about">Nosotros</Link>
                 </li>
                 <li>
                   <Link to="/calendar">Calendario</Link>
                 </li>
                 <li>
-                  <Link to="#">Blog</Link>
+                  <Link to="/news">Noticias</Link>
                 </li>
                 <li>
-                  <Link to="#">Contact</Link>
+                  <Link to="/contact">Contacto</Link>
                 </li>
               </ul>
             </article>
