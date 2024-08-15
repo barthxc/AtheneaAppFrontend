@@ -1,4 +1,4 @@
-import { Section } from "@/features/landing/components";
+import { Section, Heading } from "@/features/landing/components";
 
 import { Spinner } from "@/features/core/components/ui";
 import { useCalendar } from "@/features/calendar/hooks/hook";
@@ -8,10 +8,17 @@ export function CalendarPage() {
   const { isLoading, isFetching, calendar, isError } = useCalendar();
 
   return (
-    <Section>
+    <Section className="">
+      <Heading
+        variant="display"
+        size="lg"
+        position="centered"
+        className="max-w-none">
+        Calendario de Eventos
+      </Heading>
       {isError && !isLoading && !isFetching && calendar && <p>error!</p>}
       {isLoading || isFetching ? (
-        <Spinner className="h-[80vh]" />
+        <Spinner className="h-[75vh]" />
       ) : (
         <CalendarEvents events={calendar} />
       )}

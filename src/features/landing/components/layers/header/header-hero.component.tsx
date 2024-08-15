@@ -5,7 +5,7 @@ import { Heading, Link, Paragraph } from "@/features/landing/components";
 
 export const Hero = () => {
   return (
-    <div className="flex flex-col xl:flex-row xl:justify-between xl:items-stretch [&>*]:pt-24 [&>*]:pb-20">
+    <div className="flex flex-col-reverse xl:flex-row xl:justify-between xl:items-stretch [&>*]:pt-24 [&>*]:pb-20">
       <section className="bg-[#3BA6FF] flex-1 flex flex-col gap-20 px-14">
         <div className="flex flex-col gap-10">
           <article className="flex flex-col gap-4">

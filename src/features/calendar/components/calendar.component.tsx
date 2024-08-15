@@ -35,7 +35,7 @@ const CalendarEvents: React.FC<CalendarProps> = ({ events }) => {
         localizer={localizer}
         events={parsedEvents}
         views={["month", "agenda"]}
-        style={{ height: "80vh" }}
+        style={{ height: "75vh" }}
         formats={{
           monthHeaderFormat: (date) => {
             return dayjs(date).format("DD - MMMM - YY");
