@@ -5,7 +5,7 @@ import { Carousel as CarouselBase, CarouselContent, CarouselItem } from "@/featu
 
 import { CarouselButtons, type CarouselProps } from "@/features/landing/components";
 
-export const Carousel = ({ autoplay, includeButtons = true, className, children, ...props }: CarouselProps) => {
+export const Carousel = ({ autoplay = true, includeButtons = true, className, children, ...props }: CarouselProps) => {
 	return (
 		<CarouselBase
 			opts={{ loop: false }}
