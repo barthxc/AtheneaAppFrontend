@@ -9,8 +9,8 @@ export const buttonVariants = cva("rounded-none h-auto text-black font-medium !n
 	variants: {
 		variant: {
 			default: "bg-white hover:bg-white",
-			accent: "bg-[#FB5012] hover:bg-[#FB5012] text-white",
-			ghost: "border border-black bg-transparent hover:bg-[#FFE353]",
+			accent: "bg-[#2974ba] hover:bg-[#2c7ec9] text-white",
+			ghost: "border border-black bg-transparent hover:bg-[#2974ba]",
 		},
 		size: {
 			default: "py-2 px-4",

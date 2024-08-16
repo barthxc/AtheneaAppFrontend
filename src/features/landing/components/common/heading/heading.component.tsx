@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 import { cn } from "@/features/core/lib/utils";
 import type { HeadingProps } from "@/features/landing/types";
 
-export const headingVariants = cva("text-xl xl:text-2xl break-words", {
+export const headingVariants = cva("text-xl xl:text-2xl text-[#0a1d2b] break-words", {
 	variants: {
 		variant: {
 			default: "font-semibold",
@@ -11,10 +11,11 @@ export const headingVariants = cva("text-xl xl:text-2xl break-words", {
 		},
 		size: {
 			lg: "text-3xl xl:text-4xl",
+			xl: "text-4xl xl:text-5xl",
 			"2xl": "text-6xl xl:text-9xl",
 		},
 		position: {
-			centered: "text-center xl:mx-auto",
+			centered: "text-center mx-auto",
 		},
 	},
 	defaultVariants: {

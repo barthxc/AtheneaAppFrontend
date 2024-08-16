@@ -4,7 +4,7 @@ import { Section } from "@/features/landing/components";
 //  https://api.whatsapp.com/send/?phone=34XXXXXX
 export const ContactPage = () => {
 	return (
-		<Section className="mt-20 flex flex-col-reverse xl:flex-row xl:justify-between xl:items-center gap-10 xl:gap-20 min-h-[800px] ">
+		<Section className="pt-[8.5rem] flex flex-col-reverse xl:flex-row xl:justify-between xl:items-center gap-10 xl:gap-20 min-h-[800px] ">
 			<div className="flex-1 flex flex-col gap-10 items-center justify-center">
 				<p className="text-3xl">También puedes contactar con nosotros por whatsapp haciendo click en la imagen</p>
 				<img

@@ -1,4 +1,7 @@
 export * from "./button/button.component";
+export * from "./carousel/carousel-buttons";
+export * from "./carousel/carousel.interface";
+export * from "./carousel/carousel";
 export * from "./heading/heading.component";
 export * from "./link/link.component";
 export * from "./logo/logo.component";

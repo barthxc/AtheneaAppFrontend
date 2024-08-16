@@ -41,3 +41,8 @@ export interface ButtonProps
 export interface SectionProps extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof sectionVariants> {
 	children?: React.ReactNode;
 }
+
+export interface CarouselButtonsProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	previous?: boolean;
+	next?: boolean;
+}
