@@ -218,4 +218,44 @@ export const ERROR_MESSAGES: ErrorMessages = {
       GENERIC: "Hubo un error al confirmar el pago. Intentelo de nuevo",
     },
   },
+  COLABORATORS: {
+    FIND_ALL: {
+      400: "Error al buscar las empresas colaboradores.",
+      401: "No tienes autorización para buscar colaboradores.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "No se encontraron colaboradores que coincidan con los criterios de búsqueda.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC:
+        "Ocurrió un error al buscar los colaboradores. Inténtalo de nuevo.",
+    },
+    REMOVE: {
+      400: "Error al eliminar el colaborador. Verifica el ID del colaborador.",
+      401: "No tienes autorización para eliminar el colaborador.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "No se pudo encontrar el colaborador con el ID proporcionado.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC:
+        "Ocurrió un error al eliminar el colaborador. Inténtalo de nuevo.",
+    },
+  },
+  INSTALLATIONS: {
+    FIND_ALL: {
+      400: "Error al buscar las instalaciones.",
+      401: "No tienes autorización para buscar instalaciones.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "No se encontraron instalaciones que coincidan con los criterios de búsqueda.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC:
+        "Ocurrió un error al buscar las instalaciones. Inténtalo de nuevo.",
+    },
+    REMOVE: {
+      400: "Error al eliminar la instalación. Verifica el ID de la instalación.",
+      401: "No tienes autorización para eliminar la instalación.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "No se pudo encontrar la instalación con el ID proporcionado.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC:
+        "Ocurrió un error al eliminar la instalación. Inténtalo de nuevo.",
+    },
+  },
 } as const;

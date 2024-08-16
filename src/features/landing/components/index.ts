@@ -7,3 +7,5 @@ export * from "./news.component";
 export * from "./achievement.component";
 export * from "./news.component";
 export * from "./card.component";
+export * from "./colaborators.component";
+export * from "./installations.component";
