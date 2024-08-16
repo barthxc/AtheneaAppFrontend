@@ -1,3 +1,5 @@
+export * from "./contact-form/contact-form.component";
+export * from "./contact-form/contact-form.interface";
 export * from "./footer/footer.component";
 export * from "./header/header-hero.component";
 export * from "./header/header.component";

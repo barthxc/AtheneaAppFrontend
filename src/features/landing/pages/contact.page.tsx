@@ -1,5 +1,4 @@
-import { EmailForm } from "@/features/email/components";
-import { Section } from "@/features/landing/components";
+import { ContactForm, Section } from "@/features/landing/components";
 
 //  https://api.whatsapp.com/send/?phone=34XXXXXX
 export const ContactPage = () => {
@@ -14,7 +13,7 @@ export const ContactPage = () => {
 				/>
 			</div>
 			<div className="flex-[2]">
-				<EmailForm emailType="communication" />
+				<ContactForm />
 			</div>
 		</Section>
 	);

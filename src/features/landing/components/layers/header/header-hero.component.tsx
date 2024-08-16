@@ -6,12 +6,12 @@ import { Heading, Link, Paragraph } from "@/features/landing/components";
 export const Hero = () => {
 	return (
 		<div className="flex flex-col-reverse xl:flex-row xl:justify-between xl:items-stretch [&>*]:pt-24 [&>*]:pb-20">
-			<section className="bg-transparent xl:bg-[#3BA6FF] text-white xl:text-inherit flex-1 flex flex-col gap-20 px-10 xl:px-14">
+			<section className="bg-transparent xl:bg-[#3BA6FF] text-white xl:text-[#0a1d2b] flex-1 flex flex-col gap-20 px-10 xl:px-14">
 				<div className="flex flex-col gap-10 xl:gap-14">
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
 							<Icons.donation size={80} />
-							<Heading as="h3" className="text-white xl:text-inherit">
+							<Heading as="h3" className="text-white xl:text-[#0a1d2b]">
 								Donar Ahora
 							</Heading>
 						</div>
@@ -29,7 +29,7 @@ export const Hero = () => {
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
 							<Icons.heartHandshake size={80} />
-							<Heading as="h3" className="text-white xl:text-inherit">
+							<Heading as="h3" className="text-white xl:text-[#0a1d2b]">
 								Conviértete en Socio
 							</Heading>
 						</div>
@@ -44,7 +44,7 @@ export const Hero = () => {
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
 							<Icons.smilePlus size={80} />
-							<Heading as="h3" className="text-white xl:text-inherit">
+							<Heading as="h3" className="text-white xl:text-[#0a1d2b]">
 								Conviértete en Voluntario
 							</Heading>
 						</div>

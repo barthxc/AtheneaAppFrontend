@@ -1,55 +1,90 @@
-import { Button, Form, Input, Textarea } from "@/features/core/components/ui";
-import { FormField } from "@/features/core/components";
+import { FormField, type FormFieldProps } from "@/features/core/components";
+import { Button, Form, Heading, type HeadingProps, Input, Textarea } from "@/features/core/components/ui";
+import { cn } from "@/features/core/lib/utils";
 
 import type { EmailFormViewProps } from "@/features/email/types";
+import { cloneElement } from "react";
 
-const EmailFormView = ({ loading, form, onSubmit, emailType }: EmailFormViewProps) => {
+const EmailFormView = ({ loading, form, onSubmit, emailType, render }: EmailFormViewProps) => {
 	return (
 		<>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-5xl space-y-8">
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-row gap-7 justify-between">
-							<p className="text-2xl font-bold ">
-								{emailType === "communication" ? "Formulario de contacto" : "Contactar con el Administrador"}
-							</p>
+							<EmailFormViewHeading
+								component={render?.heading}
+								title={emailType === "communication" ? "Formulario de contacto" : "Contactar con el Administrador"}
+								description=""
+							/>
 						</div>
 
 						{emailType === "communication" && (
 							<div className="gap-4 md:grid md:grid-cols-3">
-								<FormField
+								<EmailFormViewFormField
 									formControl={form.control}
 									name="from"
 									label="Email"
-									render={({ field }) => <Input disabled={loading} placeholder="Correo electrónico" {...field} />}
+									render={{
+										paragraph: render?.paragraph,
+										errorParagraph: render?.errorParagraph,
+										renderProp: ({ field }) => (
+											<EmailFormViewInput
+												loading={loading}
+												component={render?.input}
+												placeholder="Correo electrónico"
+												{...field}
+											/>
+										),
+									}}
 								/>
 							</div>
 						)}
 
 						<div className="gap-4 md:grid md:grid-cols-3">
-							<FormField
+							<EmailFormViewFormField
 								formControl={form.control}
 								name="title"
 								label="Título"
-								render={({ field }) => <Input disabled={loading} placeholder="Encabezado" {...field} />}
+								render={{
+									paragraph: render?.paragraph,
+									errorParagraph: render?.errorParagraph,
+									renderProp: ({ field }) => (
+										<EmailFormViewInput
+											loading={loading}
+											component={render?.input}
+											placeholder="Encabezado"
+											{...field}
+										/>
+									),
+								}}
 							/>
 						</div>
 					</div>
 
-					<div className="gap-4  max-w-7xl">
-						<FormField
+					<div className="gap-4 max-w-7xl">
+						<EmailFormViewFormField
 							formControl={form.control}
 							name="msg"
 							label="Mensaje"
-							render={({ field }) => (
-								<Textarea className="min-h-24" disabled={loading} placeholder="Mensaje" {...field} />
-							)}
+							render={{
+								paragraph: render?.paragraph,
+								errorParagraph: render?.errorParagraph,
+								renderProp: ({ field }) => (
+									<EmailFormViewTextarea
+										component={render?.textarea}
+										loading={loading}
+										placeholder="Mensaje"
+										{...field}
+									/>
+								),
+							}}
 						/>
 					</div>
 
-					<Button disabled={loading} className="ml-auto h-12 text-base" type="submit">
+					<EmailFormViewButton loading={loading} component={render?.button}>
 						Enviar
-					</Button>
+					</EmailFormViewButton>
 				</form>
 			</Form>
 		</>
@@ -57,3 +92,58 @@ const EmailFormView = ({ loading, form, onSubmit, emailType }: EmailFormViewProp
 };
 
 export default EmailFormView;
+
+interface EmailFormViewFieldProps {
+	component?: React.ReactElement;
+	loading: boolean;
+}
+
+interface EmailFormViewHeadingProps extends Omit<EmailFormViewFieldProps, "loading">, HeadingProps {}
+interface EmailFormViewInputProps extends EmailFormViewFieldProps {}
+interface EmailFormViewTextareaProps extends EmailFormViewFieldProps {}
+interface EmailFormViewButtonProps extends EmailFormViewFieldProps, React.PropsWithChildren {}
+interface EmailFormViewFormFieldProps extends FormFieldProps {}
+
+const EmailFormViewHeading = ({ component: Component, title, description, ...props }: EmailFormViewHeadingProps) => {
+	if (Component) {
+		return cloneElement(Component, props, title);
+	}
+
+	return <Heading title={title} description={description} {...props} />;
+};
+
+const EmailFormViewInput = ({ component: Component, loading, ...fieldProps }: EmailFormViewInputProps) => {
+	const props = { disabled: loading, ...fieldProps };
+	if (Component) {
+		return cloneElement(Component, props);
+	}
+
+	return <Input {...props} />;
+};
+
+const EmailFormViewTextarea = ({ component: Component, loading, ...fieldProps }: EmailFormViewTextareaProps) => {
+	const props = { disabled: loading, className: cn("min-h-24", Component?.props.className), ...fieldProps };
+	if (Component) {
+		return cloneElement(Component, props);
+	}
+
+	return <Textarea {...props} />;
+};
+
+const EmailFormViewButton = ({ component: Component, loading, children, ...fieldProps }: EmailFormViewButtonProps) => {
+	const props = {
+		disabled: loading,
+		className: cn("ml-auto h-12 text-base", Component?.props.className),
+		children,
+		...fieldProps,
+	};
+	if (Component) {
+		return cloneElement(Component, props);
+	}
+
+	return <Button type="submit" {...props} />;
+};
+
+const EmailFormViewFormField = ({ render, formControl, name, label, ...props }: EmailFormViewFormFieldProps) => {
+	return <FormField render={render} formControl={formControl} name={name} label={label} {...props} />;
+};

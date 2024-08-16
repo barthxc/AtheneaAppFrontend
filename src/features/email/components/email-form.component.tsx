@@ -6,16 +6,24 @@ import type { EmailComunicationFormValues, EmailLogFormValues } from "@/features
 import { emailComunicationFormSchema, emailLogFormSchema } from "@/features/email/schemas";
 import EmailFormView from "./email-form-view.component";
 import { useSendEmail } from "../hooks/hook";
+import { cn } from "@/features/core/lib/utils";
 
 export type EmailType = "log" | "communication";
 
-interface EmailFormComponentProps {
+export interface EmailFormComponentProps extends React.HTMLAttributes<HTMLElement> {
 	emailType: EmailType;
+	render?: {
+		heading?: React.ReactElement;
+		input?: React.ReactElement;
+		textarea?: React.ReactElement;
+		button?: React.ReactElement;
+		paragraph?: React.ReactElement;
+		errorParagraph?: React.ReactElement;
+	};
 }
 
-export const EmailForm = ({ emailType }: EmailFormComponentProps) => {
+export const EmailForm = ({ className, emailType, render }: EmailFormComponentProps) => {
 	const [showModal, setShowModal] = useState(false);
-
 	const { isPending, isSuccess, mutate: sendEmail } = useSendEmail();
 
 	const defaultLogValues: EmailLogFormValues = {
@@ -55,7 +63,7 @@ export const EmailForm = ({ emailType }: EmailFormComponentProps) => {
 
 	return (
 		<>
-			<div className="bg-white shadow-lg rounded-lg p-8">
+			<div className={cn("bg-white shadow-lg rounded-lg p-8", className)}>
 				<EmailFormView
 					initialData={{}}
 					onDelete={async () => {}}
@@ -66,6 +74,7 @@ export const EmailForm = ({ emailType }: EmailFormComponentProps) => {
 					form={form}
 					onSubmit={onSubmit}
 					emailType={emailType}
+					render={render}
 				/>
 				{isSuccess && <p className="text-center text-green-400 font-bold">¡Email enviado correctamente!</p>}
 			</div>

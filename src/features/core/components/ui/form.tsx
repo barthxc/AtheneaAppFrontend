@@ -1,7 +1,14 @@
 import * as React from "react";
-import * as LabelPrimitive from "@radix-ui/react-label";
+import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form";
+import {
+	Controller,
+	type ControllerProps,
+	type FieldPath,
+	type FieldValues,
+	FormProvider,
+	useFormContext,
+} from "react-hook-form";
 
 import { cn } from "@/features/core/lib/utils";
 import { Label } from "@/features/core/components/ui/label";
@@ -110,24 +117,37 @@ const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttribu
 );
 FormDescription.displayName = "FormDescription";
 
-const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-	({ className, children, ...props }, ref) => {
+interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+	component?: JSX.Element;
+}
+
+const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
+	({ component: Component, className, children, ...props }: FormMessageProps, ref) => {
 		const { error, formMessageId } = useFormField();
 		const body = error ? String(error?.message) : children;
+		// console.log(Component.props.className);
 
 		if (!body) {
 			return null;
 		}
 
-		return (
-			<p
-				ref={ref}
-				id={formMessageId}
-				className={cn("text-[0.8rem] font-medium text-destructive", className)}
-				{...props}>
-				{body}
-			</p>
-		);
+		const componentProps = {
+			ref,
+			id: formMessageId,
+			className: cn("text-[0.8rem] font-medium", className, Component?.props.className),
+			variant: "destructive",
+			...props,
+		};
+
+		if (!Component) {
+			return (
+				<p {...componentProps} className={cn("text-destructive", componentProps.className)}>
+					{body}
+				</p>
+			);
+		}
+
+		return React.cloneElement(Component, componentProps, body);
 	},
 );
 FormMessage.displayName = "FormMessage";
