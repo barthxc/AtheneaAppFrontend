@@ -17,7 +17,7 @@ export const NavbarMobileMenu = () => {
 
 	return (
 		<Sheet>
-			<SheetTrigger className="mr-12">
+			<SheetTrigger className="mr-10">
 				<Icons.menu color={isHome ? "black" : "white"} />
 			</SheetTrigger>
 			<SheetContent icon={Icons.close} includeCloseIcon={false} className="flex flex-col gap-10">

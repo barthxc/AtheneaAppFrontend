@@ -8,7 +8,7 @@ export function CalendarPage() {
 	const { isLoading, isFetching, calendar, isError } = useCalendar();
 
 	return (
-		<Section className="pt-[8.5rem]">
+		<Section className="!pt-[8.5rem]">
 			<Heading variant="display" size="xl" position="centered" className="mb-10">
 				Calendario de Eventos
 			</Heading>
