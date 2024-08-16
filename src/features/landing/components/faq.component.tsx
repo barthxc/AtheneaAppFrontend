@@ -11,7 +11,7 @@ export const Faq = () => {
     <Section
       variant="filled"
       className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-10 xl:gap-20">
-      <Heading variant="display" className="flex-1 max-w-2xl">
+      <Heading variant="display" className="flex-1" position="centered">
         Preguntas frecuentes
       </Heading>
       <Accordion
@@ -22,7 +22,7 @@ export const Faq = () => {
             ¿Qué es Athenea?
           </AccordionTrigger>
           <AccordionContent>
-            <Paragraph>
+            <Paragraph className="text-base xl:text-xl">
               Athenea es una asociación de discapacitados sin ánimo de lucro
               creada ___
             </Paragraph>
@@ -34,7 +34,7 @@ export const Faq = () => {
             ¿Qué se hace en la asociación?
           </AccordionTrigger>
           <AccordionContent>
-            <Paragraph>
+            <Paragraph className="text-base xl:text-xl">
               Athenea tiene un centro físico que ofrece servicios exlusivos o
               rebajados para los socios como cimnasio, aula de informática,
               manualidades o actividaeds para niños **** de X a X años
@@ -46,7 +46,7 @@ export const Faq = () => {
             ¿Debo tener una discapacidad para ser socio?
           </AccordionTrigger>
           <AccordionContent>
-            <Paragraph>No</Paragraph>
+            <Paragraph className="text-base xl:text-xl">No</Paragraph>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
@@ -54,7 +54,7 @@ export const Faq = () => {
             ¿Cómo puedo hacer una donación a la asociación?
           </AccordionTrigger>
           <AccordionContent>
-            <Paragraph>
+            <Paragraph className="text-base xl:text-xl">
               Puede hacer una donación a nuestra organización benéfica haciendo
               click en el botón de "Donar ahora" en nuestro sitio web.
             </Paragraph>

@@ -9,7 +9,7 @@ export const Achievement = () => {
             <Heading variant="display" className="text-white max-w-2xl">
               Mejoramos Vidas
             </Heading>
-            <Paragraph className="text-white">
+            <Paragraph className="text-base xl:text-xl text-white">
               A lo largo de los años, Athenea ha dejado una huella significativa
               en la vida de muchas personas y comunidades. A continuación,
               destacamos algunos de los logros más importantes de nuestro
@@ -22,7 +22,7 @@ export const Achievement = () => {
               <Heading as="h3" className="text-white">
                 Educación y Capacitación para Todos
               </Heading>
-              <Paragraph>
+              <Paragraph className="text-base xl:text-xl">
                 Hemos ofrecido clases de informática y talleres de manualidades
                 a personas con discapacidades, proporcionándoles nuevas
                 habilidades y oportunidades para su desarrollo personal y
@@ -33,7 +33,7 @@ export const Achievement = () => {
               <Heading as="h3" className="text-white">
                 Acceso a Terapias y Rehabilitación
               </Heading>
-              <Paragraph>
+              <Paragraph className="text-base xl:text-xl">
                 A través de nuestras sesiones de maderoterapia y la atención de
                 un fisioterapeuta especializado, hemos ayudado a mejorar la
                 calidad de vida de nuestros miembros, promoviendo su bienestar
@@ -44,7 +44,7 @@ export const Achievement = () => {
               <Heading as="h3" className="text-white">
                 Promoción de la Inclusión Social
               </Heading>
-              <Paragraph>
+              <Paragraph className="text-base xl:text-xl">
                 Con nuestras excursiones y actividades recreativas, hemos
                 fomentado la integración y la visibilidad de las personas con
                 discapacidades, creando espacios donde todos puedan disfrutar y
@@ -55,7 +55,7 @@ export const Achievement = () => {
               <Heading as="h3" className="text-white">
                 Fortalecimiento y Apoyo Continuo
               </Heading>
-              <Paragraph>
+              <Paragraph className="text-base xl:text-xl">
                 Ofrecemos un gimnasio adaptado para fortalecer la independencia
                 física y emocional de nuestros miembros, así como un entorno de
                 apoyo y comprensión para enfrentar los desafíos diarios.
