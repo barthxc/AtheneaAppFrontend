@@ -88,7 +88,9 @@ const AlertDialogCancel = React.forwardRef<
 		className={cn(buttonVariants({ variant: "outline" }), "mt-2 sm:mt-0", className)}
 		onClick={() =>
 			// yes, you have to set a timeout
-			setTimeout(() => (document.body.style.pointerEvents = ""), 100)
+			setTimeout(() => {
+				document.body.style.pointerEvents = "";
+			}, 100)
 		}
 		{...props}
 	/>

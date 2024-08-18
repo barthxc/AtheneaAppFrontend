@@ -1,2 +1,7 @@
-export * from "./calendar.interface";
-export * from "./calendar.type";
+export type {
+	Calendar,
+	CalendarFormViewProps,
+	CalendarResponse,
+	CalendarTableCellActionProps,
+} from "./calendar.interface";
+export type { CalendarFormValues } from "./calendar.type";

@@ -1,1 +1,1 @@
-export * from "./calendar.service";
+export { CalendarService } from "./calendar.service";

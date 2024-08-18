@@ -1,3 +1,4 @@
-export * from "./capitalizeString";
-export * from "./regex";
-export * from "./dateFormatter";
+export { capitalizeString } from "./capitalizeString";
+export { dateRegex } from "./regex";
+export { dateFormatter } from "./dateFormatter";
+export { reverseDate } from "./reverseDate";

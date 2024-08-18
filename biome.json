@@ -20,7 +20,9 @@
 				"noMultipleSpacesInRegularExpressionLiterals": "error",
 				"noUselessCatch": "error",
 				"noUselessTypeConstraint": "error",
-				"noWith": "error"
+				"noWith": "error",
+				"noStaticOnlyClass": "off",
+				"noForEach": "warn"
 			},
 			"correctness": {
 				"noConstAssign": "error",
@@ -50,7 +52,12 @@
 				"useValidForDirection": "error",
 				"useYield": "error"
 			},
-			"style": { "noNamespace": "error", "useAsConstAssertion": "error", "useImportType": "warn" },
+			"style": {
+				"noNamespace": "error",
+				"useAsConstAssertion": "error",
+				"useImportType": "warn",
+				"noUselessElse": "warn"
+			},
 			"suspicious": {
 				"noAsyncPromiseExecutor": "error",
 				"noCatchAssign": "error",

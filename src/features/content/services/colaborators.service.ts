@@ -25,42 +25,37 @@ import { atheneaApi } from "@/features/core/lib/api";
 // }
 
 export interface ColaboratorResponse {
-  id: string;
-  title: string;
-  imageUrl: string;
-  public_id: string;
+	id: string;
+	title: string;
+	imageUrl: string;
+	public_id: string;
 }
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class ColaboratorsService {
-  static create = async (event: any) => {
-    try {
-      const { data } = await atheneaApi.post("/colaborators", event);
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static create = async (event: any) => {
+		try {
+			const { data } = await atheneaApi.post("/colaborators", event);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static getColaborators = async () => {
-    try {
-      const { data } = await atheneaApi.get<ColaboratorResponse[]>(
-        "/colaborators"
-      );
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static getColaborators = async () => {
+		try {
+			const { data } = await atheneaApi.get<ColaboratorResponse[]>("/colaborators");
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static remove = async (id: string) => {
-    try {
-      const { data } = await atheneaApi.delete<ColaboratorResponse>(
-        `/colaborators/${id}`
-      );
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static remove = async (id: string) => {
+		try {
+			const { data } = await atheneaApi.delete<ColaboratorResponse>(`/colaborators/${id}`);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 }

@@ -1,1 +1,1 @@
-export * from "./calendar-form.schema";
+export { calendarFormSchema } from "./calendar-form.schema";

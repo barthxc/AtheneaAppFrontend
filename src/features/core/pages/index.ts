@@ -1,4 +1,4 @@
-export * from "./Home";
-export * from "./not-found";
-export * from "./unauthorized";
-export * from "./faq.page";
+export { HomePage } from "./home";
+export { NotFoundPage } from "./not-found";
+export { UnauthorizedPage } from "./unauthorized";
+export { FaqPage } from "./faq.page";

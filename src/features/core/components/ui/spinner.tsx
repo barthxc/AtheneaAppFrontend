@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 
 import { cn } from "@/features/core/lib/utils";
 
-const spinnerVariants = cva("flex-col items-center justify-center", {
+export const spinnerVariants = cva("flex-col items-center justify-center", {
 	variants: {
 		show: {
 			true: "flex",
@@ -16,7 +16,7 @@ const spinnerVariants = cva("flex-col items-center justify-center", {
 	},
 });
 
-const loaderVariants = cva("animate-spin text-primary", {
+export const loaderVariants = cva("animate-spin text-primary", {
 	variants: {
 		size: {
 			small: "size-6",
@@ -29,12 +29,12 @@ const loaderVariants = cva("animate-spin text-primary", {
 	},
 });
 
-interface SpinnerContentProps extends VariantProps<typeof spinnerVariants>, VariantProps<typeof loaderVariants> {
+export interface SpinnerContentProps extends VariantProps<typeof spinnerVariants>, VariantProps<typeof loaderVariants> {
 	className?: string;
 	children?: React.ReactNode;
 }
 
-export function Spinner({ size, show, children, className }: SpinnerContentProps) {
+export const Spinner = ({ size, show, children, className }: SpinnerContentProps) => {
 	return (
 		<div className="h-full grid place-content-center">
 			<span className={spinnerVariants({ show })}>
@@ -43,4 +43,4 @@ export function Spinner({ size, show, children, className }: SpinnerContentProps
 			</span>
 		</div>
 	);
-}
+};

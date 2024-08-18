@@ -5,146 +5,101 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  Toaster,
-  useToast,
+	Button,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+	Input,
+	Toaster,
+	useToast,
 } from "@/features/core/components/ui";
-
-import { useAuthStore } from "@/features/auth/stores";
-import { authSchema } from "@/features/auth/schemas";
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
+import { useAuthStore } from "@/features/auth/stores";
+import { authSchema } from "@/features/auth/schemas";
 
 type UserFormValue = z.infer<typeof authSchema>;
 
 export function AuthForm() {
-  const loginUser = useAuthStore((state) => state.loginUser);
-  const navigate = useNavigate();
-  const { toast } = useToast();
+	const [loading, setLoading] = useState(false);
+	const loginUser = useAuthStore((state) => state.loginUser);
+	const navigate = useNavigate();
+	const { toast } = useToast();
 
-  const [loading, setLoading] = useState(false);
-  //   const login = useAuthStore((state) => state.login);
-  const defaultValues = {
-    email: "",
-    password: "",
-  };
-  const form = useForm<UserFormValue>({
-    resolver: zodResolver(authSchema),
-    defaultValues,
-  });
+	const defaultValues = {
+		email: "",
+		password: "",
+	};
 
-  const onSubmit = async (data: UserFormValue) => {
-    const { email, password } = data;
-    setLoading(true);
-    try {
-      await loginUser(email, password);
-      navigate("/dashboard");
-    } catch (error: any) {
-      const errorMessage = ErrorService.handleError(
-        error.statusCode,
-        ERROR_MESSAGES.AUTH.LOGIN
-      );
-      /*
-        TODO: Show a descriptive error depending of the error message
-        ? Example: if the error isn't related with server, show something like 'Cannot find that user'
-        ? Otherwise, show something like 'Something went wrong, try again later'
-      */
-      toast({
-        variant: "destructive",
-        description: errorMessage,
-      });
-    }
-    setLoading(false);
-    // await login(data.email, data.password);
+	const form = useForm<UserFormValue>({
+		resolver: zodResolver(authSchema),
+		defaultValues,
+	});
 
-    // if (response.status === 23232) {
-    //   Toast;
-    // }
+	const onSubmit = async (data: UserFormValue) => {
+		const { email, password } = data;
+		setLoading(true);
+		try {
+			await loginUser(email, password);
+			navigate("/dashboard");
+		} catch (error: any) {
+			const errorMessage = ErrorService.handleError(error.statusCode, ERROR_MESSAGES.AUTH.LOGIN);
+			toast({
+				variant: "destructive",
+				description: errorMessage,
+			});
+		} finally {
+			setLoading(false);
+		}
+	};
 
-    // signIn('credentials', {
-    //   email: data.email,
-    //   password: data.password,
+	return (
+		<>
+			<Toaster />
+			<Button
+				type="button"
+				disabled={loading}
+				onClick={() => navigate("/")}
+				className="absolute right-8 top-8 md:right-8 md:top-8">
+				Volver
+			</Button>
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-2">
+					<FormField
+						control={form.control}
+						name="email"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Email</FormLabel>
+								<FormControl>
+									<Input type="email" placeholder="Introduce tu email..." disabled={loading} {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="password"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Contraseña</FormLabel>
+								<FormControl>
+									<Input type="password" placeholder="Introduce tu contraseña..." disabled={loading} {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 
-    //   callbackUrl: callbackUrl ?? '/dashboard'
-    // });
-  };
-
-  return (
-    <>
-      <Toaster />
-      <Button
-        type="button"
-        disabled={loading}
-        onClick={() => navigate("/")}
-        className="absolute right-8 top-8 md:right-8 md:top-8">
-        Volver
-      </Button>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-2">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="Introduce tu email..."
-                    disabled={loading}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Introduce tu contraseña..."
-                    disabled={loading}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Iniciar Sesión
-          </Button>
-        </form>
-      </Form>
-      {/*
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-       <GoogleSignInButton /> 
-      </div>
-       */}
-    </>
-  );
+					<Button disabled={loading} className="ml-auto w-full" type="submit">
+						Iniciar Sesión
+					</Button>
+				</form>
+			</Form>
+		</>
+	);
 }

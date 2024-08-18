@@ -1,1 +1,1 @@
-export * from "./auth-form.schema";
+export { authSchema } from "./auth-form.schema";

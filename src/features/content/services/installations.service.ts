@@ -25,42 +25,37 @@ import { atheneaApi } from "@/features/core/lib/api";
 // }
 
 export interface InstallationResponse {
-  id: string;
-  title: string;
-  imageUrl: string;
-  public_id: string;
+	id: string;
+	title: string;
+	imageUrl: string;
+	public_id: string;
 }
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class InstallationsService {
-  static create = async (event: any) => {
-    try {
-      const { data } = await atheneaApi.post("/installations", event);
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static create = async (event: any) => {
+		try {
+			const { data } = await atheneaApi.post("/installations", event);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static getInstallations = async () => {
-    try {
-      const { data } = await atheneaApi.get<InstallationResponse[]>(
-        "/installations"
-      );
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static getInstallations = async () => {
+		try {
+			const { data } = await atheneaApi.get<InstallationResponse[]>("/installations");
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static remove = async (id: string) => {
-    try {
-      const { data } = await atheneaApi.delete<InstallationResponse>(
-        `/installations/${id}`
-      );
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static remove = async (id: string) => {
+		try {
+			const { data } = await atheneaApi.delete<InstallationResponse>(`/installations/${id}`);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 }

@@ -1,8 +1,7 @@
-import { Section, Heading } from "@/features/landing/components";
-
 import { Spinner } from "@/features/core/components/ui";
-import { useCalendar } from "@/features/calendar/hooks/hook";
-import CalendarEvents from "@/features/calendar/components/calendar.component";
+import { Section, Heading } from "@/features/landing/components";
+import { useCalendar } from "@/features/calendar/hooks";
+import { CalendarEvents } from "@/features/calendar/components";
 
 export function CalendarPage() {
 	const { isLoading, isFetching, calendar, isError } = useCalendar();

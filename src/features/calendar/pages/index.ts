@@ -1,1 +1,1 @@
-export * from "./calendar-control.page";
+export { CalendarControlPage } from "./calendar-control.page";

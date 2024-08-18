@@ -125,7 +125,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
 	({ component: Component, className, children, ...props }: FormMessageProps, ref) => {
 		const { error, formMessageId } = useFormField();
 		const body = error ? String(error?.message) : children;
-		// console.log(Component.props.className);
 
 		if (!body) {
 			return null;
