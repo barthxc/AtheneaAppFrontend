@@ -41,6 +41,7 @@ import {
 	Menu,
 	HeartHandshake,
 	SmilePlus,
+	Grip,
 } from "lucide-react";
 
 import { cn } from "@/features/core/lib/utils";
@@ -139,4 +140,5 @@ export const Icons = {
 	),
 	heartHandshake: HeartHandshake,
 	smilePlus: SmilePlus,
+	drag: Grip,
 };

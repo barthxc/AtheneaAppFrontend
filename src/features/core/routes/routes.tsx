@@ -15,6 +15,7 @@ import { KanbanPage } from "@/features/kanban/pages";
 import { CalendarControlPage } from "@/features/calendar/pages";
 import { AuthPage } from "@/features/auth/pages";
 import { ValidRoles } from "@/features/auth/types";
+import { ContentPage } from "@/features/content/pages";
 import { AboutPage, DonationPage, LandingPage, ContactPage, CalendarPage } from "@/features/landing/pages";
 import { LandingLayout } from "@/features/landing/layout/landing-layout";
 
@@ -135,6 +136,14 @@ export const routes = createBrowserRouter([
 				element: (
 					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
 						<CalendarControlPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "content",
+				element: (
+					<ProtectedRoute allowedRoles={[ValidRoles.admin, ValidRoles.treasure, ValidRoles.president]}>
+						<ContentPage />
 					</ProtectedRoute>
 				),
 			},

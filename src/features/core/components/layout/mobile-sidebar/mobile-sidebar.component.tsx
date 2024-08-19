@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { MenuIcon } from "lucide-react";
 
-import { navItems, visitortNavItems } from "@/features/core/constants";
+import { navItems } from "@/features/core/constants";
 import { DashboardNav } from "@/features/core/components";
 import {
 	Separator,
@@ -16,9 +15,6 @@ import {
 } from "@/features/core/components/ui";
 
 export const MobileSidebar = () => {
-	const location = useLocation();
-	const path = location.pathname;
-	const isLanding = !path.startsWith("/dashboard");
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -36,7 +32,7 @@ export const MobileSidebar = () => {
 							<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Navegación</h2>
 							<Separator />
 							<div className="space-y-1">
-								<DashboardNav items={isLanding ? visitortNavItems : navItems} isMobileNav={true} setOpen={setOpen} />
+								<DashboardNav items={navItems} isMobileNav={true} setOpen={setOpen} />
 							</div>
 						</div>
 					</div>

@@ -1,2 +1,2 @@
 export { breakpoints } from "./breakpoints.constant";
-export { navItems, visitortNavItems } from "./data.constant";
+export { navItems } from "./data.constant";

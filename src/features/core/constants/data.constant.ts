@@ -53,6 +53,12 @@ export const navItems: NavItem[] = [
 		validRole: [ValidRoles.admin, ValidRoles.president, ValidRoles.treasure],
 	},
 	{
+		title: "Gestión de contenido",
+		href: "/dashboard/content",
+		icon: "calendar",
+		validRole: [ValidRoles.admin, ValidRoles.president, ValidRoles.treasure],
+	},
+	{
 		title: "Socios Banco",
 		href: "/dashboard/bank/pdf",
 		icon: "bank",
@@ -70,32 +76,5 @@ export const navItems: NavItem[] = [
 			// TODO: Show confirm dialog before logout
 			useAuthStore.getState().logoutUser();
 		},
-	},
-];
-
-export const visitortNavItems: NavItem[] = [
-	{
-		title: "Nosotros",
-		href: "/about",
-		icon: "about",
-		label: "About",
-	},
-	{
-		title: "Calendario",
-		href: "/calendar",
-		icon: "calendar",
-		label: "Calendar",
-	},
-	{
-		title: "Contacto",
-		href: "/contact",
-		icon: "contact",
-		label: "Contact",
-	},
-	{
-		title: "Donar",
-		href: "/donation",
-		icon: "donation",
-		label: "Donation",
 	},
 ];

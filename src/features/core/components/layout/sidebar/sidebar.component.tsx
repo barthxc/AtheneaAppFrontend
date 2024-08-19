@@ -3,15 +3,12 @@ import { ChevronLeft } from "lucide-react";
 
 import { cn } from "@/features/core/lib/utils";
 import { DashboardNav, type SidebarProps } from "@/features/core/components";
-import { navItems, visitortNavItems } from "@/features/core/constants";
+import { navItems } from "@/features/core/constants";
 import { useSidebar } from "@/features/core/hooks";
-import { useAuthStore } from "@/features/auth/stores";
 
 export const Sidebar = ({ className }: SidebarProps) => {
 	const { isMinimized, toggle } = useSidebar();
 	const [status, setStatus] = useState(false);
-	const userRole = useAuthStore((state) => state.userRole);
-	const isVisitor = userRole?.length === 0;
 
 	const handleToggle = () => {
 		setStatus(true);
@@ -36,7 +33,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
 			<div className="space-y-4 py-4">
 				<div className="px-3 py-2">
 					<div className="mt-3 space-y-1">
-						<DashboardNav items={isVisitor ? visitortNavItems : navItems} />
+						<DashboardNav items={navItems} />
 					</div>
 				</div>
 			</div>
