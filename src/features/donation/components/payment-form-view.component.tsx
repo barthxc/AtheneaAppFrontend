@@ -60,10 +60,12 @@ const PaymentFormView: React.FC<PaymentFormViewProps> = ({
         {success && (
           <>
             <ReactConfetti width={width - 15} height={height} />
-            <div className="mt-2 p-4">
+            <div className="mt-2 p- flex flex-col gap-5 text-center">
               <p className="text-green-500 font-bold text-2xl">
-                ¡Muchas gracias por tu generosa donación! Tu apoyo marca una
-                gran diferencia.
+                ¡Muchas gracias por tu generosa donación!
+              </p>
+              <p className="text-green-500 font-bold text-2xl">
+                Tu apoyo marca una gran diferencia.
               </p>
               <Link to="/">Volver</Link>
             </div>
