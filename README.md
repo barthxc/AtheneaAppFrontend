@@ -32,3 +32,7 @@ export default {
 Pre- production :
 
     "build": "tsc -b && vite build",
+
+CLI STRIPE:
+
+stripe listen --forward-to localhost:3000/api/webhook

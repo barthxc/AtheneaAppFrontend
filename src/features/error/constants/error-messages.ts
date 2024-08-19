@@ -208,14 +208,16 @@ export const ERROR_MESSAGES: ErrorMessages = {
   },
   DONATION: {
     CREATE_PAYMENT_INTENT: {
-      400: "CREATE PAYMENT INTENT 400",
-      500: "El servicio de donaciones no está disponible en este momento. Intentelo más tarde",
-      GENERIC: "Servicio de pago no está disponible en este momento",
+      400: "La solicitud de donación no es válida. Por favor, verifica los detalles e intenta nuevamente.",
+      500: "Estamos experimentando problemas técnicos. El servicio de donaciones no está disponible en este momento. Intenta más tarde.",
+      GENERIC:
+        "Hubo un problema al procesar tu donación. Por favor, inténtalo de nuevo más tarde.",
     },
     CONFIRM_PAYMENT: {
-      400: "CONFIRM PAYMENT 400",
-      500: "CONFIRM PAYMENT 500",
-      GENERIC: "Hubo un error al confirmar el pago. Intentelo de nuevo",
+      400: "La confirmación del pago falló. Asegúrate de que todos los detalles sean correctos e intenta nuevamente.",
+      500: "Estamos teniendo dificultades técnicas al confirmar tu pago. Por favor, intenta más tarde.",
+      GENERIC:
+        "No pudimos confirmar tu pago en este momento. Intenta de nuevo más tarde o contacta con soporte si el problema persiste.",
     },
   },
   COLABORATORS: {
