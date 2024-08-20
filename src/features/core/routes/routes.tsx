@@ -7,6 +7,7 @@ import {
   FaqPage,
 } from "@/features/core/pages";
 import { DashboardLayout, ProtectedRoute } from "@/features/core/components";
+import { ScrollRestoration } from "react-router-dom";
 import {
   MembersNoPayPage,
   MembersExituPage,
@@ -29,14 +30,13 @@ import {
   CalendarPage,
 } from "@/features/landing/pages";
 import { LandingLayout } from "@/features/landing/layout/landing-layout";
-import ScrollToTop from "../utils/ScrollToTop";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: (
       <>
-        <ScrollToTop />
+        <ScrollRestoration />
         <LandingLayout />
       </>
     ),
@@ -75,7 +75,7 @@ export const routes = createBrowserRouter([
     path: "/dashboard",
     element: (
       <>
-        <ScrollToTop />
+        <ScrollRestoration />
         <DashboardLayout />
       </>
     ),
