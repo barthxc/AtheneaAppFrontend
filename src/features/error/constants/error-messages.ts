@@ -230,7 +230,15 @@ export const ERROR_MESSAGES: ErrorMessages = {
       GENERIC:
         "Ocurrió un error al buscar los colaboradores. Inténtalo de nuevo.",
     },
-    REMOVE: {
+    CREATE: {
+      400: "Error al eliminar el colaborador. Verifica el ID del colaborador.",
+      401: "No tienes autorización para crear el colaborador.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "Error al crear el colaborador.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC: "Ocurrió un error al crear el colaborador. Inténtalo de nuevo.",
+    },
+    DELETE: {
       400: "Error al eliminar el colaborador. Verifica el ID del colaborador.",
       401: "No tienes autorización para eliminar el colaborador.",
       403: "No tienes permiso para realizar esta acción.",
@@ -249,6 +257,14 @@ export const ERROR_MESSAGES: ErrorMessages = {
       500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
       GENERIC:
         "Ocurrió un error al buscar las instalaciones. Inténtalo de nuevo.",
+    },
+    CREATE: {
+      400: "Error al crear la instalación. Verifica el ID de la instalación.",
+      401: "No tienes autorización para crear la instalación.",
+      403: "No tienes permiso para realizar esta acción.",
+      404: "Error al crear la instalación.",
+      500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+      GENERIC: "Ocurrió un error al crear la instalación. Inténtalo de nuevo.",
     },
     REMOVE: {
       400: "Error al eliminar la instalación. Verifica el ID de la instalación.",
