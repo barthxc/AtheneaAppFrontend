@@ -1,4 +1,4 @@
-import { useInstallations } from "@/features/content/hooks";
+import { useGetInstallations } from "@/features/content/hooks";
 import {
   Carousel,
   Heading,
@@ -7,7 +7,7 @@ import {
 } from "@/features/landing/components";
 
 export const Installations = () => {
-  const { data } = useInstallations();
+  const { data } = useGetInstallations();
 
   if (!data) {
     return null;

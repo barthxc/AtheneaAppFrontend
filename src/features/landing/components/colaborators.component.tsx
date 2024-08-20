@@ -1,8 +1,8 @@
-import { useColaborators } from "@/features/content/hooks";
+import { useGetColaborators } from "@/features/content/hooks";
 import { Carousel, Heading, Section } from "@/features/landing/components";
 
 export const Colaborators = () => {
-  const { data } = useColaborators();
+  const { data } = useGetColaborators();
 
   return (
     <Section variant="filled" className="flex flex-col gap-10 xl:gap-20">
