@@ -66,19 +66,19 @@ export const Achievement = () => {
 
         <div className="flex-1 flex flex-col gap-10">
           <img
-            src="/hero.jpg"
-            alt=""
+            src="crafting.webp"
+            alt="Imagen de Socios haciendo manualidades con objetos reciclados"
             className="h-96 xl:h-[450px] object-cover"
           />
           <div className="grid grid-cols-2 gap-10">
             <img
-              src="/hero.jpg"
-              alt=""
+              src="building.webp"
+              alt="Imagen de directiva y socios adornando arbol de navidad con manualidades"
               className="aspect-square object-cover"
             />
             <img
-              src="/hero.jpg"
-              alt=""
+              src="tree.webp"
+              alt="Imagen de Arbol de Navidad con manualidades recicladas y luces"
               className="aspect-square object-cover rounded-full"
             />
           </div>

@@ -68,9 +68,9 @@ export const Hero = () => {
           Diversidad que nos une
         </Heading>
         <img
-          src="/hero.jpg"
-          alt=""
-          className="w-full max-w-screen-md h-96 xl:h-[500px] object-cover"
+          src="/meet.webp"
+          alt="Fotografía de Directiva y algunos socios en una fiesta de convivencia"
+          className="w-full max-w-screen-md h-96 xl:h-[500px] object-cover brightness-125"
         />
       </section>
     </div>

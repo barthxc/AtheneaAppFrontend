@@ -14,8 +14,8 @@ export const About = () => {
       className="flex flex-col xl:flex-row xl:justify-between xl:items-center gap-10 xl:gap-20">
       <figure className="flex-1">
         <img
-          src="/hero.jpg"
-          alt=""
+          src="/about.webp"
+          alt="Imagen en evento de ventas de manualidades con la directora de la asociación y socios"
           className="w-full h-96 xl:h-[700px] object-cover"
         />
       </figure>

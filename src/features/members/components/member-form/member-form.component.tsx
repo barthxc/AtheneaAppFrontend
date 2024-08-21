@@ -14,7 +14,10 @@ import {
 import { MemberFormView } from "@/features/members/components";
 import { memberFormSchema } from "@/features/members/schemas";
 
-import { useDeleteMember, useUpdatePaymentDate } from "../../hooks/hook";
+import {
+  useDeleteMember,
+  useUpdatePaymentDate,
+} from "@/features/members/hooks";
 
 export const MemberForm: React.FC<MemberFormProps> = ({
   memberId,

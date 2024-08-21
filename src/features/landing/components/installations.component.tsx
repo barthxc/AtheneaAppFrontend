@@ -1,4 +1,5 @@
 import { useGetInstallations } from "@/features/content/hooks";
+import { Skeleton } from "@/features/core/components/ui";
 import {
   Carousel,
   Heading,
@@ -7,11 +8,7 @@ import {
 } from "@/features/landing/components";
 
 export const Installations = () => {
-  const { data } = useGetInstallations();
-
-  if (!data) {
-    return null;
-  }
+  const { data, isLoading } = useGetInstallations();
 
   return (
     <Section variant="filled" className="flex flex-col gap-10 xl:gap-20">
@@ -21,15 +18,21 @@ export const Installations = () => {
 
       <Carousel>
         <Carousel.Content>
-          {data?.map((instalation) => (
-            <Carousel.Item key={instalation.id}>
-              <img
-                src={instalation.imageUrl}
-                alt={`Imagen de la Instalación ${instalation.title}`}
-                className="w-full max-h-[600px] object-cover select-none"
-              />
+          {isLoading || !data ? (
+            <Carousel.Item>
+              <Skeleton className="w-full max-h-[600px] object-cover select-none" />
             </Carousel.Item>
-          ))}
+          ) : (
+            data?.map((instalation) => (
+              <Carousel.Item key={instalation.id}>
+                <img
+                  src={instalation.imageUrl}
+                  alt={`Imagen de la Instalación ${instalation.title}`}
+                  className="w-full max-h-[600px] object-cover select-none"
+                />
+              </Carousel.Item>
+            ))
+          )}
         </Carousel.Content>
       </Carousel>
 
