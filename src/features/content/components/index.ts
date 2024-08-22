@@ -1,1 +1,1 @@
-export { ColaboratorsTest } from "./colaborators.component";
+export { Collaborators } from "./collaborators.component";

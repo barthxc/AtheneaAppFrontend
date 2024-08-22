@@ -104,3 +104,11 @@ export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsib
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 export { reducer, toast, useToast } from "./use-toast";
 export { VisuallyHidden } from "./visually-hidden";
+export {
+	Gallery,
+	GalleryImage,
+	GalleryImageActions,
+	type GalleryImageActionsProps,
+	type GalleryImageProps,
+	type GalleryProps,
+} from "./gallery";
