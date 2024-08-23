@@ -86,38 +86,44 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="name"
                 label="Nombre"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Nombre del socio"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Nombre del socio"
+                      {...field}
+                    />
+                  ),
+                }}
               />
               <FormField
                 formControl={form.control}
                 name="lastName"
                 label="Apellidos"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Apellidos del socio"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Apellidos del socio"
+                      {...field}
+                    />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="identificationNumber"
                 label="DNI"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="DNI del socio"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="DNI del socio"
+                      {...field}
+                    />
+                  ),
+                }}
               />
             </div>
 
@@ -126,30 +132,40 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="phoneInfo.phone1"
                 label="Teléfono"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Teléfono" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Teléfono"
+                      {...field}
+                    />
+                  ),
+                }}
               />
               <FormField
                 formControl={form.control}
                 name="phoneInfo.phone2"
                 label="Teléfono 2"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Teléfono 2"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Teléfono 2"
+                      {...field}
+                    />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="email"
                 label="Email"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Email" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="Email" {...field} />
+                  ),
+                }}
               />
             </div>
             <div className="gap-4 md:grid md:grid-cols-4 max-w-lg">
@@ -157,82 +173,92 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="birthDate"
                 label="Fecha de Nac."
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="DD/MM/AAAA"
-                    value
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="DD/MM/AAAA"
+                      value
+                      {...field}
+                    />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="isDisabled"
                 label="Discapacidad"
-                render={{renderProp:({ field }) => (
-                  <Select
-                    disabled={loading}
-                    onValueChange={(value) => field.onChange(value === "true")}
-                    value={field.value ? "true" : "false"}
-                    defaultValue={field.value ? "true" : "false"}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value ? "true" : "false"}
-                          placeholder={field.value ? "Sí" : "No"}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem key="true" value="true">
-                        SI
-                      </SelectItem>
-                      <SelectItem key="false" value="false">
-                        NO
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Select
+                      disabled={loading}
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      }
+                      value={field.value ? "true" : "false"}
+                      defaultValue={field.value ? "true" : "false"}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value ? "true" : "false"}
+                            placeholder={field.value ? "Sí" : "No"}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem key="true" value="true">
+                          SI
+                        </SelectItem>
+                        <SelectItem key="false" value="false">
+                          NO
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="gradeDisability"
                 label="Grado"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="%" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="%" {...field} />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="status"
                 label="Estado"
-                render={{renderProp:({ field }) => (
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={MemberStatus.alta}
-                          placeholder={MemberStatus.alta.toUpperCase()}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {Object.values(MemberStatus).map((status) => (
-                        <SelectItem key={status} value={status}>
-                          {status.toUpperCase()}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={MemberStatus.alta}
+                            placeholder={MemberStatus.alta.toUpperCase()}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.values(MemberStatus).map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {status.toUpperCase()}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ),
+                }}
               />
             </div>
           </div>
@@ -245,60 +271,68 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="addressInfo.streetType"
                 label="Tipo de Domicilio"
-                render={{renderProp:({ field }) => (
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={MemberStreetType.calle}
-                          placeholder={MemberStreetType.calle.toUpperCase()}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {Object.values(MemberStreetType).map((streetType) => (
-                        <SelectItem key={streetType} value={streetType}>
-                          {streetType.toUpperCase()}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={MemberStreetType.calle}
+                            placeholder={MemberStreetType.calle.toUpperCase()}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.values(MemberStreetType).map((streetType) => (
+                          <SelectItem key={streetType} value={streetType}>
+                            {streetType.toUpperCase()}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="addressInfo.streetName"
                 label="Domicilio"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Domicilio"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Domicilio"
+                      {...field}
+                    />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="addressInfo.door"
                 label="Puerta"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Puerta" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="Puerta" {...field} />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="addressInfo.block"
                 label="Bloque"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Bloque" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="Bloque" {...field} />
+                  ),
+                }}
               />
             </div>
             <div className="gap-4 md:grid md:grid-cols-4 max-w-lg">
@@ -306,34 +340,40 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="addressInfo.location"
                 label="Localidad"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Localidad"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Localidad"
+                      {...field}
+                    />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="addressInfo.province"
                 label="Provincia"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Provincia"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Provincia"
+                      {...field}
+                    />
+                  ),
+                }}
               />
               <FormField
                 formControl={form.control}
                 name="addressInfo.postalCode"
                 label="CP"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="CP" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="CP" {...field} />
+                  ),
+                }}
               />
             </div>
           </div>
@@ -346,31 +386,35 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="bankInfo.paymentMethod"
                 label="Método de Pago"
-                render={{renderProp:({ field }) => (
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={MemberPaymentMethod.caja}
-                          placeholder={MemberPaymentMethod.caja.toUpperCase()}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {Object.values(MemberPaymentMethod).map(
-                        (paymentMethod) => (
-                          <SelectItem key={paymentMethod} value={paymentMethod}>
-                            {paymentMethod.toUpperCase()}
-                          </SelectItem>
-                        )
-                      )}
-                    </SelectContent>
-                  </Select>
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={MemberPaymentMethod.caja}
+                            placeholder={MemberPaymentMethod.caja.toUpperCase()}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.values(MemberPaymentMethod).map(
+                          (paymentMethod) => (
+                            <SelectItem
+                              key={paymentMethod}
+                              value={paymentMethod}>
+                              {paymentMethod.toUpperCase()}
+                            </SelectItem>
+                          )
+                        )}
+                      </SelectContent>
+                    </Select>
+                  ),
+                }}
               />
             </div>
             <div className="gap-4 md:grid md:grid-cols-3">
@@ -378,30 +422,36 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="bankInfo.name"
                 label="Nombre"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Nombre" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="Nombre" {...field} />
+                  ),
+                }}
               />
 
               <FormField
                 formControl={form.control}
                 name="bankInfo.lastName"
                 label="Apellidos"
-                render={{renderProp:({ field }) => (
-                  <Input
-                    disabled={loading}
-                    placeholder="Apellidos"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Apellidos"
+                      {...field}
+                    />
+                  ),
+                }}
               />
               <FormField
                 formControl={form.control}
                 name="bankInfo.identificationNumber"
                 label="DNI"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="DNI" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="DNI" {...field} />
+                  ),
+                }}
               />
             </div>
             <div className="gap-4 md:grid md:grid-cols-2">
@@ -409,17 +459,25 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="bankInfo.entity"
                 label="Entidad"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="Entidad" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={loading}
+                      placeholder="Entidad"
+                      {...field}
+                    />
+                  ),
+                }}
               />
               <FormField
                 formControl={form.control}
                 name="bankInfo.iban"
                 label="IBAN"
-                render={{renderProp:({ field }) => (
-                  <Input disabled={loading} placeholder="IBAN" {...field} />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input disabled={loading} placeholder="IBAN" {...field} />
+                  ),
+                }}
               />
             </div>
           </div>
@@ -433,14 +491,16 @@ export const MemberFormView = ({
                 formControl={form.control}
                 name="observations"
                 label="Observaciones"
-                render={{renderProp:({ field }) => (
-                  <Textarea
-                    className="min-h-24"
-                    disabled={loading}
-                    placeholder="Observaciones"
-                    {...field}
-                  />
-                )}}
+                render={{
+                  renderProp: ({ field }) => (
+                    <Textarea
+                      className="min-h-24"
+                      disabled={loading}
+                      placeholder="Observaciones"
+                      {...field}
+                    />
+                  ),
+                }}
               />
             </div>
           </div>

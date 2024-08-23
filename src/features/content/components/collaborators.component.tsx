@@ -1,38 +1,61 @@
 import { Button, Gallery, Input, Modal } from "@/features/core/components/ui";
-import { useGetContents } from "@/features/content/hooks";
+import { useGetColaborators } from "@/features/content/hooks";
+import { useState } from "react";
 
 export function Collaborators() {
-	const { data } = useGetContents();
+  const { data } = useGetColaborators();
 
-	console.log(data);
+  const [open, setOpen] = useState(false);
 
-	return (
-		<div className="flex flex-col items-start gap-10">
-			<div className="flex flex-wrap justify-end items-center gap-5 w-full">
-				<Button>Crear colaborador</Button>
-			</div>
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(e);
+  };
+  return (
+    <div className="flex flex-col items-start gap-10">
+      <div className="flex flex-wrap justify-end items-center gap-5 w-full">
+        <Button
+          onClick={() => {
+            setOpen(true);
+          }}>
+          Crear colaborador
+        </Button>
+      </div>
 
-			<Modal title="Agrega un colaborador" description="" isOpen={true} onClose={() => console.log("closing")}>
-				<Button>Agregar otro</Button>
-				<div className="flex justify-between items-center gap-5">
-					<Input placeholder="Título de la imagen" />
-					<Input type="file" />
-				</div>
-			</Modal>
+      <Modal
+        title="Agrega un colaborador"
+        description=""
+        isOpen={open}
+        onClose={() => setOpen(false)}>
+        <Button>Agregar otro</Button>
+        <div className="flex justify-between items-center gap-5">
+          <form onSubmit={handleSubmit}>
+            <Input placeholder="Título de la imagen" />
+            <Input type="file" />
 
-			<Gallery>
-				<Gallery.Image src="https://cdn2.thecatapi.com/images/776.jpg">
-					<Gallery.ImageHeading>Image #1</Gallery.ImageHeading>
-					<Gallery.ImageActions>
-						<button type="button" onClick={() => console.log("delete")}>
-							alskdjalks
-						</button>
-					</Gallery.ImageActions>
-				</Gallery.Image>
-				<Gallery.Image src="https://cdn2.thecatapi.com/images/776.jpg" />
-				<Gallery.Image src="https://cdn2.thecatapi.com/images/776.jpg" />
-				<Gallery.Image src="https://cdn2.thecatapi.com/images/776.jpg" />
-			</Gallery>
-		</div>
-	);
+            <Button type="submit">Crear</Button>
+          </form>
+        </div>
+      </Modal>
+
+      <Gallery>
+        {data?.map((item) => (
+          <Gallery.Image
+            key={item.id}
+            src={item.imageUrl}
+            alt={`Imagen del colaborador ${item.title}`}>
+            <Gallery.ImageHeading>{item.title}</Gallery.ImageHeading>
+            <Gallery.ImageActions>
+              <button
+                type="button"
+                className="hover:animate-pulse text-red-500 font-bold text-2xl"
+                onClick={() => console.log(`delete ${item.id}`)}>
+                X
+              </button>
+            </Gallery.ImageActions>
+          </Gallery.Image>
+        ))}
+      </Gallery>
+    </div>
+  );
 }

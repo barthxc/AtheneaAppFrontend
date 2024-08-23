@@ -4,7 +4,7 @@ export const Card = () => {
   return (
     <article className="grid [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))] xl:[grid-template-columns:repeat(auto-fit,350px)] place-items-center gap-10">
       <div className="border border-[#D5D3C8] hover:bg-white p-5 flex flex-col justify-center items-start gap-3">
-        <img src="/hero.jpg" alt="" className="w-full max-h-80 object-cover" />
+        <img src="/test.jpg" alt="" className="w-full max-h-80 object-cover" />
         <Heading as="h3">Título de la Noticia</Heading>
         <Paragraph>Descripción de la noticia cortada por puntos....</Paragraph>
 

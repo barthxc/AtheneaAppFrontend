@@ -24,6 +24,7 @@ import { ValidRoles } from "@/features/auth/types";
 import { ContentPage } from "@/features/content/pages";
 import {
   AboutPage,
+  NewsPage,
   DonationPage,
   LandingPage,
   ContactPage,
@@ -48,6 +49,10 @@ export const routes = createBrowserRouter([
       {
         path: "about",
         element: <AboutPage />,
+      },
+      {
+        path: "news",
+        element: <NewsPage />,
       },
       {
         path: "calendar",
