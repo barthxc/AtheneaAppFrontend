@@ -22,7 +22,7 @@ export interface MemberFormProps {
 	memberId?: string;
 	initialData: MemberFormValues | null;
 	isEdit: boolean;
-	onSubmit: (data: MemberFormValues, onSuccessAction: () => void) => void;
+	onSubmit: (data: MemberFormValues, onSuccessAction: (memberId: string) => void) => void;
 	isLoading?: boolean;
 	isPending: boolean;
 	isSuccess: boolean;
