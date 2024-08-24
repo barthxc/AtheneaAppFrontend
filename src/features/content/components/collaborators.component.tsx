@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { type FieldElement, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button, Gallery, Input, Modal, Form, Skeleton } from "@/features/core/components/ui";
+import { Button, Gallery, Input, Modal, Form } from "@/features/core/components/ui";
 import { useCreateColaborator, useGetColaborators } from "@/features/content/hooks";
 import { collaboratorsFormSchema } from "@/features/content/schemas";
-import type { ColaboratorFormValues } from "../types/colaborator.type";
+import type { CollaboratorsFormValues } from "@/features/content/types";
 import { FormField, Icons } from "@/features/core/components";
 
 // https://github.com/colinhacks/zod/issues/387#issuecomment-1191390673
@@ -27,13 +27,52 @@ export function Collaborators() {
 	const { data, isLoading } = useGetColaborators();
 	const { mutate: createColaborator, isPending } = useCreateColaborator();
 	const [open, setOpen] = useState(false);
+	// const [collaboratorsFields, setCollaboratorsField] = useState([{
+	// 	title: '',
+	// }])
 
-	const form = useForm<ColaboratorFormValues>({
+	const initialValues = {
+		collaboratorsFields: [
+			{
+				title: "",
+				// TODO: The default image must be something like `new File([], 'https://picsum.photos/100')`
+				// ? Example: https://stackblitz.com/edit/input-file-react-hook-form?file=src%2FForm.js
+				// TODO: Check collaboratorFormSchema, current image is nullable, but has a problem with the input value
+				image: null,
+			},
+		],
+	};
+
+	const form = useForm<CollaboratorsFormValues>({
 		resolver: zodResolver(collaboratorsFormSchema),
+		defaultValues: initialValues,
 	});
 
-	const handleSubmit = async (formData: ColaboratorFormValues) => {
-		console.log(formData);
+	const {
+		fields: collaboratorsFields,
+		append,
+		remove,
+	} = useFieldArray({
+		control: form.control,
+		name: "collaboratorsFields",
+	});
+
+	console.log({ collaboratorsFields });
+
+	const handleSubmit = async (formData: CollaboratorsFormValues) => {
+		console.log("FORM_DATA", formData.collaboratorsFields);
+	};
+
+	const addField = () => {
+		const maxFieldAmountAtOnce = 5;
+		if (collaboratorsFields.length >= maxFieldAmountAtOnce) return;
+		append(initialValues.collaboratorsFields[0]);
+	};
+
+	const removeField = (field: FieldElement) => {
+		if (collaboratorsFields.length === 1) return;
+		const fieldId = Number(field.name.split(".")[1]);
+		remove(fieldId);
 	};
 
 	return (
@@ -48,21 +87,16 @@ export function Collaborators() {
 			</div>
 
 			<Modal title="Agrega un colaborador" description="" isOpen={open} onClose={() => setOpen(false)}>
-				<Button>Agregar otro</Button>
-				<div className="flex justify-between items-center gap-5">
-					{/* <form onSubmit={handleSubmit}>
-            <Input placeholder="Título de la imagen" />
-            <Input type="file" />
-
-            <Button type="submit">Crear</Button>
-          </form> */}
-
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(handleSubmit)} className="w-full space-y-8">
-							<div className="gap-8 md:grid md:grid-cols-3 items-end">
+				<div className="flex items-start justify-end flex-wrap mb-5 gap-5">
+					<Button onClick={addField}>Agregar otro</Button>
+				</div>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(handleSubmit)} className="w-full space-y-8">
+						{collaboratorsFields.map((field, index) => (
+							<div className="flex flex-col md:flex-row items-start gap-5" key={field.id}>
 								<FormField
 									formControl={form.control}
-									name="title"
+									name={`collaboratorsFields.${index}.title`}
 									label="Título"
 									render={{
 										renderProp: ({ field }) => <Input disabled={isPending} placeholder="Título" {...field} />,
@@ -71,22 +105,31 @@ export function Collaborators() {
 
 								<FormField
 									formControl={form.control}
-									name="image"
+									name={`collaboratorsFields.${index}.image`}
 									label="Imagen"
 									render={{
 										renderProp: ({ field }) => (
-											<Input type="file" disabled={isPending} placeholder="Imagen" {...field} />
+											<div className="flex justify-between items-center gap-5">
+												<Input type="file" disabled={isPending} placeholder="Imagen" {...field} />
+												<Button
+													variant="destructive"
+													size="sm"
+													className="max-w-max"
+													onClick={() => removeField(field)}>
+													<Icons.trash size={20} />
+												</Button>
+											</div>
 										),
 									}}
 								/>
-
-								<Button disabled={isPending} className="mr-auto space-y-2" type="submit">
-									Crear
-								</Button>
 							</div>
-						</form>
-					</Form>
-				</div>
+						))}
+
+						<Button disabled={isPending} className="mr-auto space-y-2" type="submit">
+							Crear
+						</Button>
+					</form>
+				</Form>
 			</Modal>
 			<Gallery isLoading={isLoading}>
 				{data?.map((item) => (

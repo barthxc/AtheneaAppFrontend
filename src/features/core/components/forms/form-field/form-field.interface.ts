@@ -1,11 +1,23 @@
-import type { Control, FieldValues } from "react-hook-form";
+import type {
+	Control,
+	ControllerFieldState,
+	ControllerRenderProps,
+	FieldValues,
+	UseFormStateReturn,
+} from "react-hook-form";
+
+export interface RenderProps {
+	field: ControllerRenderProps<any, string>;
+	fieldState: ControllerFieldState;
+	formState: UseFormStateReturn<any>;
+}
 
 export interface FormFieldProps {
 	formControl: Control<any>;
 	name: keyof FieldValues;
 	label: string;
 	render: {
-		renderProp(renderProps: any): React.ReactNode;
+		renderProp(renderProps: RenderProps): React.ReactNode;
 		paragraph?: React.ReactElement;
 		errorParagraph?: React.ReactElement;
 	};
