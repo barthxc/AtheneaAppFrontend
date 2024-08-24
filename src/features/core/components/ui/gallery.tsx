@@ -1,16 +1,31 @@
 import { cn } from "@/features/core/lib/utils";
-import { Heading } from "./heading";
+import { Heading, Skeleton } from "@/features/core/components/ui";
 
-export interface GalleryProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface GalleryProps extends React.HTMLAttributes<HTMLDivElement> {
+	isLoading?: boolean;
+}
 
-export const Gallery = ({ className, children, ...props }: GalleryProps) => {
+export const Gallery = ({ isLoading, className, children, ...props }: GalleryProps) => {
 	return (
 		<div
 			className={cn("w-full grid [grid-template-columns:repeat(auto-fill,minmax(250px,1fr))] gap-10", className)}
 			{...props}>
-			{children}
+			{isLoading ? <Gallery.Skeleton /> : children}
 		</div>
 	);
+};
+
+interface GallerySkeletonProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const GallerySkeleton = ({ className, ...props }: GallerySkeletonProps) => {
+	return Array.from({ length: 3 }).map((_, index) => (
+		<div
+			key={Symbol(`gallery_skeleton_key_${index}`).description}
+			className={cn("flex items-center gap-5 w-full", className)}
+			{...props}>
+			<Skeleton className="w-full h-60" />
+		</div>
+	));
 };
 
 export interface GalleryImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
@@ -32,7 +47,7 @@ export const GalleryImage = ({
 				width={width}
 				height={height}
 				alt={alt}
-				className={cn("w-full object-cover rounded-lg select-none block max-w-full bg-white p-4", className)}
+				className={cn("w-full object-cover rounded-lg select-none block bg-white p-4", className)}
 			/>
 			{children}
 		</div>
@@ -61,6 +76,7 @@ export const GalleryImageHeading = ({ className, children, ...props }: GalleryIm
 	return <Heading className={cn("text-xl font-medium mt-2", className)} title={children} {...props} />;
 };
 
+Gallery.Skeleton = GallerySkeleton;
 Gallery.Image = GalleryImage;
 Gallery.ImageActions = GalleryImageActions;
 Gallery.ImageHeading = GalleryImageHeading;
