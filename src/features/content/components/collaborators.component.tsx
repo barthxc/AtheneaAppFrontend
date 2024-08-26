@@ -35,10 +35,7 @@ export function Collaborators() {
 		collaboratorsFields: [
 			{
 				title: "",
-				// TODO: The default image must be something like `new File([], 'https://picsum.photos/100')`
-				// ? Example: https://stackblitz.com/edit/input-file-react-hook-form?file=src%2FForm.js
-				// TODO: Check collaboratorFormSchema, current image is nullable, but has a problem with the input value
-				image: null,
+				image: new File([], ""),
 			},
 		],
 	};
@@ -59,8 +56,19 @@ export function Collaborators() {
 
 	console.log({ collaboratorsFields });
 
-	const handleSubmit = async (formData: CollaboratorsFormValues) => {
-		console.log("FORM_DATA", formData.collaboratorsFields);
+	const handleSubmit = async (data: CollaboratorsFormValues) => {
+		console.log("FORM_DATA", data.collaboratorsFields);
+		// TODO: Check what type of data the backend is expecting
+		// createColaborator(data.collaboratorsFields);
+	};
+
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const image = e.target.files?.[0];
+		if (!image) return;
+
+		const imageId = Number.parseInt(e.target.name.split(".")[1]);
+		form.setValue(`collaboratorsFields.${imageId}.image`, image);
+		console.log({ fieldName: `collaboratorsFields.${imageId}.image`, image });
 	};
 
 	const addField = () => {
@@ -71,7 +79,7 @@ export function Collaborators() {
 
 	const removeField = (field: FieldElement) => {
 		if (collaboratorsFields.length === 1) return;
-		const fieldId = Number(field.name.split(".")[1]);
+		const fieldId = Number.parseInt(field.name.split(".")[1]);
 		remove(fieldId);
 	};
 
@@ -110,7 +118,7 @@ export function Collaborators() {
 									render={{
 										renderProp: ({ field }) => (
 											<div className="flex justify-between items-center gap-5">
-												<Input type="file" disabled={isPending} placeholder="Imagen" {...field} />
+												<Input type="file" disabled={isPending} {...field} onChange={handleImageChange} />
 												<Button
 													variant="destructive"
 													size="sm"

@@ -17,7 +17,7 @@ export const Modal: React.FC<ModalProps> = ({ title, description, isOpen, onClos
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onChange}>
-			<DialogContent>
+			<DialogContent className="overflow-auto max-h-[90%]">
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
 					<DialogDescription>{description}</DialogDescription>
