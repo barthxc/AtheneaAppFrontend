@@ -1,163 +1,188 @@
-import { useState } from "react";
-import { type FieldElement, useFieldArray, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button, Gallery, Input, Modal, Form } from "@/features/core/components/ui";
-import { useCreateColaborator, useGetColaborators } from "@/features/content/hooks";
-import { collaboratorsFormSchema } from "@/features/content/schemas";
+import {
+  Button,
+  Gallery,
+  Input,
+  Modal,
+  Form,
+} from "@/features/core/components/ui";
+import {
+  useCreateColaborator,
+  useDeleteColaborator,
+  useGetColaborators,
+} from "@/features/content/hooks";
+import { collaboratorFormSchema } from "@/features/content/schemas";
 import type { CollaboratorsFormValues } from "@/features/content/types";
-import { FormField, Icons } from "@/features/core/components";
-
-// https://github.com/colinhacks/zod/issues/387#issuecomment-1191390673
-// const MAX_FILE_SIZE = 500000;
-// const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-
-// const RegistrationSchema = z.object({
-//   profileImage: z
-//     .any()
-//     .refine((files) => files?.length == 1, "Image is required.")
-//     .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
-//     .refine(
-//       (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-//       ".jpg, .jpeg, .png and .webp files are accepted."
-//     ),
-// });
+import { ConfirmModal, FormField, Icons } from "@/features/core/components";
 
 export function Collaborators() {
-	const { data, isLoading } = useGetColaborators();
-	const { mutate: createColaborator, isPending } = useCreateColaborator();
-	const [open, setOpen] = useState(false);
-	// const [collaboratorsFields, setCollaboratorsField] = useState([{
-	// 	title: '',
-	// }])
+  const { data, isLoading } = useGetColaborators();
+  const {
+    mutate: createColaborator,
+    isPending: isPendingCreate,
+    isError: isErrorCreate,
+    isSuccess: isSuccessCreate,
+  } = useCreateColaborator();
+  const {
+    mutate: deleteColaborator,
+    isPending: isPendingDelete,
+    isError: isErrorDelete,
+    isSuccess: isSuccessDelete,
+  } = useDeleteColaborator();
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState<string>("");
 
-	const initialValues = {
-		collaboratorsFields: [
-			{
-				title: "",
-				image: new File([], ""),
-			},
-		],
-	};
+  // const [collaboratorsFields, setCollaboratorsField] = useState([{
+  // 	title: '',
+  // }])
 
-	const form = useForm<CollaboratorsFormValues>({
-		resolver: zodResolver(collaboratorsFormSchema),
-		defaultValues: initialValues,
-	});
+  const initialValues = {
+    collaboratorsFields: {
+      title: "",
+      image: undefined,
+    },
+  };
 
-	const {
-		fields: collaboratorsFields,
-		append,
-		remove,
-	} = useFieldArray({
-		control: form.control,
-		name: "collaboratorsFields",
-	});
+  const form = useForm<CollaboratorsFormValues>({
+    resolver: zodResolver(collaboratorFormSchema),
+    defaultValues: initialValues,
+  });
 
-	console.log({ collaboratorsFields });
+  useEffect(() => {
+    if (isSuccessCreate) {
+      form.reset();
+    }
+    if (isErrorCreate || isSuccessCreate) {
+      setOpenCreate(false);
+    }
 
-	const handleSubmit = async (data: CollaboratorsFormValues) => {
-		console.log("FORM_DATA", data.collaboratorsFields);
-		// TODO: Check what type of data the backend is expecting
-		// createColaborator(data.collaboratorsFields);
-	};
+    if (isErrorDelete || isSuccessDelete) {
+      setOpenDelete(false);
+    }
+  }, [isErrorCreate, isErrorDelete, isSuccessCreate, isSuccessDelete, form]);
 
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const image = e.target.files?.[0];
-		if (!image) return;
+  const handleSubmit = async (data: CollaboratorsFormValues) => {
+    console.log("FORM_DATA", data);
 
-		const imageId = Number.parseInt(e.target.name.split(".")[1]);
-		form.setValue(`collaboratorsFields.${imageId}.image`, image);
-		console.log({ fieldName: `collaboratorsFields.${imageId}.image`, image });
-	};
+    // TODO: Check what type of data the backend is expecting
+    createColaborator(data);
+  };
 
-	const addField = () => {
-		const maxFieldAmountAtOnce = 5;
-		if (collaboratorsFields.length >= maxFieldAmountAtOnce) return;
-		append(initialValues.collaboratorsFields[0]);
-	};
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
+    const image = e.target.files?.[0];
+    if (!image) return;
+  };
 
-	const removeField = (field: FieldElement) => {
-		if (collaboratorsFields.length === 1) return;
-		const fieldId = Number.parseInt(field.name.split(".")[1]);
-		remove(fieldId);
-	};
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+    setOpenDelete(true);
+  };
 
-	return (
-		<div className="flex flex-col items-start gap-10">
-			<div className="flex flex-wrap justify-end items-center gap-5 w-full">
-				<Button
-					onClick={() => {
-						setOpen(true);
-					}}>
-					Crear colaborador
-				</Button>
-			</div>
+  return (
+    <div className="flex flex-col items-start gap-10">
+      <div className="flex flex-wrap justify-end items-center gap-5 w-full">
+        <Button
+          onClick={() => {
+            setOpenCreate(true);
+          }}>
+          Crear colaborador
+        </Button>
+      </div>
 
-			<Modal title="Agrega un colaborador" description="" isOpen={open} onClose={() => setOpen(false)}>
-				<div className="flex items-start justify-end flex-wrap mb-5 gap-5">
-					<Button onClick={addField}>Agregar otro</Button>
-				</div>
-				<Form {...form}>
-					<form onSubmit={form.handleSubmit(handleSubmit)} className="w-full space-y-8">
-						{collaboratorsFields.map((field, index) => (
-							<div className="flex flex-col md:flex-row items-start gap-5" key={field.id}>
-								<FormField
-									formControl={form.control}
-									name={`collaboratorsFields.${index}.title`}
-									label="Título"
-									render={{
-										renderProp: ({ field }) => <Input disabled={isPending} placeholder="Título" {...field} />,
-									}}
-								/>
+      <Modal
+        title="Agrega un colaborador"
+        description=""
+        isOpen={openCreate}
+        onClose={() => setOpenCreate(false)}>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="w-full space-y-8">
+            <div className="flex flex-col md:flex-row items-start gap-5">
+              <FormField
+                formControl={form.control}
+                name={"title"}
+                label="Título"
+                render={{
+                  renderProp: ({ field }) => (
+                    <Input
+                      disabled={isPendingCreate}
+                      placeholder="Título"
+                      {...field}
+                    />
+                  ),
+                }}
+              />
 
-								<FormField
-									formControl={form.control}
-									name={`collaboratorsFields.${index}.image`}
-									label="Imagen"
-									render={{
-										renderProp: ({ field }) => (
-											<div className="flex justify-between items-center gap-5">
-												<Input type="file" disabled={isPending} {...field} onChange={handleImageChange} />
-												<Button
-													variant="destructive"
-													size="sm"
-													className="max-w-max"
-													onClick={() => removeField(field)}>
-													<Icons.trash size={20} />
-												</Button>
-											</div>
-										),
-									}}
-								/>
-							</div>
-						))}
+              <FormField
+                formControl={form.control}
+                name={"image"}
+                label="Imagen"
+                render={{
+                  renderProp: ({ field }) => (
+                    <div className="flex justify-between items-center gap-5">
+                      <Input
+                        type="file"
+                        disabled={isPendingCreate}
+                        {...field}
+                        onChange={(e) => {
+                          handleImageChange(e);
+                          field.onChange(e.target.files?.[0] ?? null);
+                        }}
+                      />
+                    </div>
+                  ),
+                }}
+              />
+            </div>
 
-						<Button disabled={isPending} className="mr-auto space-y-2" type="submit">
-							Crear
-						</Button>
-					</form>
-				</Form>
-			</Modal>
-			<Gallery isLoading={isLoading}>
-				{data?.map((item) => (
-					<Gallery.Image
-						key={item.id}
-						src={item.imageUrl}
-						alt={`Imagen del colaborador ${item.title}`}
-						className="h-48 object-contain">
-						<Gallery.ImageHeading>{item.title}</Gallery.ImageHeading>
-						<Gallery.ImageActions>
-							<button
-								type="button"
-								className="hover:animate-pulse font-bold text-2xl"
-								onClick={() => console.log(`delete ${item.id}`)}>
-								<Icons.close />
-							</button>
-						</Gallery.ImageActions>
-					</Gallery.Image>
-				))}
-			</Gallery>
-		</div>
-	);
+            <Button
+              disabled={isPendingCreate}
+              className="mr-auto space-y-2"
+              type="submit">
+              Crear
+            </Button>
+          </form>
+        </Form>
+      </Modal>
+
+      <Gallery isLoading={isLoading}>
+        {data?.map((item) => (
+          <Gallery.Image
+            key={item.id}
+            src={item.imageUrl}
+            alt={`Imagen del colaborador ${item.title}`}
+            className="h-48 object-contain">
+            <Gallery.ImageHeading>{item.title}</Gallery.ImageHeading>
+            <Gallery.ImageActions>
+              <button
+                type="button"
+                className="hover:animate-pulse font-bold text-2xl"
+                onClick={() => handleDelete(item.id)}>
+                <Icons.close />
+              </button>
+            </Gallery.ImageActions>
+          </Gallery.Image>
+        ))}
+      </Gallery>
+
+      <ConfirmModal
+        title="¿Estás seguro que deseas eliminar esta imagen?"
+        description="Una vez eliminado no se puede recuperar."
+        confirmButtonLabel="Eliminar colaborador"
+        isOpen={openDelete}
+        onClose={() => setOpenDelete(false)}
+        onConfirm={() => {
+          deleteColaborator(deleteId);
+        }}
+        isDisabled={isPendingDelete}
+        variant="destructive"
+      />
+    </div>
+  );
 }

@@ -52,4 +52,6 @@ export class DonationService {
       throw error.response?.data;
     }
   };
+
+  static getPayments = async () => {};
 }
