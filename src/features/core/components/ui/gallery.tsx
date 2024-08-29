@@ -40,16 +40,16 @@ export const GalleryImage = ({
 	...props
 }: GalleryImageProps) => {
 	return (
-		<div className="relative">
+		<div className="rounded-lg bg-white p-4 pt-0">
+			{children}
 			<img
 				{...props}
 				src={src}
 				width={width}
 				height={height}
 				alt={alt}
-				className={cn("w-full object-cover rounded-lg select-none block bg-white p-4", className)}
+				className={cn("w-full object-cover select-none block h-48", className)}
 			/>
-			{children}
 		</div>
 	);
 };
@@ -58,9 +58,7 @@ export interface GalleryImageActionsProps extends React.HTMLAttributes<HTMLDivEl
 
 export const GalleryImageActions = ({ className, children, ...props }: GalleryImageActionsProps) => {
 	return (
-		<div
-			className={cn("absolute top-0 left-0 z-10 w-full h-auto flex justify-end items-center p-2", className)}
-			{...props}>
+		<div className={cn("flex justify-end items-center p-2", className)} {...props}>
 			{children}
 		</div>
 	);

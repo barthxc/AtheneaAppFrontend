@@ -31,16 +31,12 @@ export function Collaborators() {
 	const { imagePreview, setImagePreview, readImageFile } = useImagePreview();
 	const imageInputRef = useRef<HTMLInputElement>(null);
 
-	const initialValues = {
-		collaboratorsFields: {
+	const form = useForm<CollaboratorFormValues>({
+		resolver: zodResolver(collaboratorFormSchema),
+		defaultValues: {
 			title: "",
 			image: new File([], ""),
 		},
-	};
-
-	const form = useForm<CollaboratorFormValues>({
-		resolver: zodResolver(collaboratorFormSchema),
-		defaultValues: initialValues,
 	});
 
 	useEffect(() => {
@@ -147,7 +143,7 @@ export function Collaborators() {
 						key={item.id}
 						src={item.imageUrl}
 						alt={`Imagen del colaborador ${item.title}`}
-						className="h-48 object-contain">
+						className="object-contain">
 						<Gallery.ImageHeading>{item.title}</Gallery.ImageHeading>
 						<Gallery.ImageActions>
 							<button
