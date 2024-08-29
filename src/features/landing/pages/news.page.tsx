@@ -5,7 +5,7 @@ import { Skeleton } from "@/features/core/components/ui";
 export function NewsPage() {
 	const { data, isLoading } = useGetContents();
 	return (
-		<Section className="mt-20">
+		<Section className="!pt-[8.5rem]">
 			<Heading variant="display" position="centered" className="pb-20">
 				Noticias y Eventos
 			</Heading>

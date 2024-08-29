@@ -1,42 +1,46 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import { Icons } from "@/features/core/components";
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
 } from "@/features/core/components/ui";
-import { useIsHome } from "@/features/core/hooks";
 
 import { NavbarLinks } from "@/features/landing/components";
 
 export const NavbarMobileMenu = () => {
-  const isHome = useIsHome();
+	const [isOpen, setOpen] = useState<boolean>(false);
+	const pathname = useLocation().pathname;
 
-  return (
-    <Sheet>
-      <SheetTrigger className="mr-10">
-        <Icons.menu color={isHome ? "black" : "white"} />
-      </SheetTrigger>
-      <SheetContent
-        icon={Icons.close}
-        includeCloseIcon={false}
-        className="flex flex-col gap-10 bg-[#FAFAFA]">
-        <SheetHeader className="flex flex-row justify-between items-center">
-          <SheetTitle>Menu</SheetTitle>
-          <SheetClose className="!mt-0">
-            <Icons.close />
-          </SheetClose>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: It must set the state each time the user navigates
+	useEffect(() => setOpen(false), [pathname]);
 
-          <SheetDescription className="sr-only">
-            Navigation menu
-          </SheetDescription>
-        </SheetHeader>
+	return (
+		<Sheet onOpenChange={setOpen} open={isOpen}>
+			<SheetTrigger className="mr-10">
+				<Icons.menu color="white" />
+			</SheetTrigger>
+			<SheetContent
+				icon={Icons.close}
+				includeCloseIcon={false}
+				className="flex flex-col gap-10 bg-[#FAFAFA] h-full overflow-auto">
+				<SheetHeader className="flex flex-row justify-between items-center">
+					<SheetTitle>Menú</SheetTitle>
+					<SheetClose className="!mt-0">
+						<Icons.close />
+					</SheetClose>
 
-        <NavbarLinks isMobile />
-      </SheetContent>
-    </Sheet>
-  );
+					<SheetDescription className="sr-only">Menú de navegación</SheetDescription>
+				</SheetHeader>
+
+				<NavbarLinks isMobile />
+			</SheetContent>
+		</Sheet>
+	);
 };
