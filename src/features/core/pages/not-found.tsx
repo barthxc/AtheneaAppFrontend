@@ -28,7 +28,7 @@ export function NotFoundPage() {
         404
       </span>
       <h2 className="font-heading my-2 text-2xl font-bold">
-        HOLA USUARIO QUE NO SE HA LOGEADO! OuO
+        TODO LANGING STYLES
       </h2>
       <p>
         Lo siento, la página que estás buscando no existe o ha sido alterada.
