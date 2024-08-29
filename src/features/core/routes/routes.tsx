@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
 
 import {
   HomePage,
@@ -7,7 +7,6 @@ import {
   FaqPage,
 } from "@/features/core/pages";
 import { DashboardLayout, ProtectedRoute } from "@/features/core/components";
-import { ScrollRestoration } from "react-router-dom";
 import {
   MembersNoPayPage,
   MembersExituPage,

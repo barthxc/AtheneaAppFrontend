@@ -1,3 +1,4 @@
 export interface NavigationButtonsProps {
-	pdf?: boolean;
+  pdf?: boolean;
+  isLogged?: boolean;
 }
