@@ -1,1 +1,1 @@
-export { collaboratorFormSchema, collaboratorsFormSchema } from "./collaborators-form.schema";
+export { collaboratorFormSchema } from "./collaborator-form.schema";

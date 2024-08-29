@@ -1,1 +1,1 @@
-export type { CollaboratorsFormValues } from "./collaborators.type";
+export type { CollaboratorFormValues } from "./collaborator.type";
