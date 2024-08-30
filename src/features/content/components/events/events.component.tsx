@@ -1,5 +1,5 @@
-import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { useEffect } from "react";
+import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 
 import { dateFormatter } from "@/features/core/utils";
 import { Icons } from "@/features/core/components";
@@ -8,13 +8,12 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-	Button,
-	Gallery,
 	Heading,
 	Skeleton,
 } from "@/features/core/components/ui";
 import { useGetContents } from "@/features/content/hooks";
-import type { ContentResponse, ImageResponse } from "@/features/content/services";
+import { EventsContent, EventsImages } from "@/features/content/components";
+import type { ContentResponse } from "@/features/content/types";
 
 export function Events() {
 	const { data: events, isLoading } = useGetContents();
@@ -58,60 +57,16 @@ export function Events() {
 							</div>
 						</div>
 						<AccordionContent className="[&_h2]:text-lg flex flex-col gap-5">
-							{event.images.length > 0 && <EventImages images={event.images} />}
-
-							<section>
-								<div>
-									<Heading title="Título" />
-									<span className="text-lg font-medium pl-5">{event.title}</span>
-								</div>
-							</section>
-
-							<section>
-								<div>
-									<Heading title="Fecha" />
-									<span className="text-md pl-5">{dateFormatter(new Date(event.date))}</span>
-								</div>
-							</section>
-
-							<section>
-								<div>
-									<Heading title="Descripción" />
-									<span className="text-md pl-5">{event.description}</span>
-								</div>
-							</section>
+							{event.images.length > 0 && <EventsImages images={event.images} />}
+							<EventsContent
+								contentId={event.id}
+								title={event.title}
+								date={event.date}
+								description={event.description}
+							/>
 						</AccordionContent>
 					</AccordionItem>
 				))}
 		</Accordion>
 	);
 }
-
-interface EventImagesProps {
-	images: ImageResponse[];
-}
-
-const EventImages = ({ images }: EventImagesProps) => {
-	console.log(images);
-	return (
-		<section>
-			<div className="flex justify-start items-center gap-2 mb-2">
-				<Heading title="Imágenes" />
-				<Button size="icon" aria-label="Subir nueva imagen">
-					<Icons.add />
-				</Button>
-			</div>
-			<Gallery>
-				{images.map((image) => (
-					<Gallery.Image key={image.id} src={image.url}>
-						<Gallery.ImageActions>
-							<button type="button" className="hover:animate-pulse font-bold text-2xl">
-								<Icons.close />
-							</button>
-						</Gallery.ImageActions>
-					</Gallery.Image>
-				))}
-			</Gallery>
-		</section>
-	);
-};

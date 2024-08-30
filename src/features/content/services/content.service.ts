@@ -1,29 +1,6 @@
 import { atheneaApi } from "@/features/core/lib/api";
 import { createFormData } from "@/features/core/utils";
-
-export interface ImageResponse {
-	id: string;
-	url: string;
-	public_id: string;
-}
-
-export interface ContentResponse extends Content {
-	id: string;
-}
-
-export interface Content {
-	title: string;
-	description: string;
-	date: Date;
-	position: number;
-	typeContent: string;
-	images: ImageResponse[];
-}
-
-// TODO: Check if this is still valid
-export interface CreateContent extends Content {
-	image: File[];
-}
+import type { Content, ContentResponse, CreateContent } from "@/features/content/types";
 
 export class ContentService {
 	static createContent = async (content: CreateContent) => {
