@@ -1,7 +1,7 @@
 "use client";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/features/core/components/ui";
 
-interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string;
 	description: string;
 	isOpen: boolean;

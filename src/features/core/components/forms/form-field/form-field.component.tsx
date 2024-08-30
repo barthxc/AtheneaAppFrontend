@@ -16,7 +16,11 @@ export const FormField = ({ formControl, name, label, render, ...props }: FormFi
 			name={name}
 			render={(renderProps) => (
 				<FormItem>
-					{Paragraph ? cloneElement(Paragraph, labelProps, label) : <FormLabel {...labelProps}>{label}</FormLabel>}
+					{label && (
+						<>
+							{Paragraph ? cloneElement(Paragraph, labelProps, label) : <FormLabel {...labelProps}>{label}</FormLabel>}
+						</>
+					)}
 					<FormControl>{renderProp(renderProps)}</FormControl>
 					<FormMessage className="text-sm" component={ErrorParagraph} />
 				</FormItem>

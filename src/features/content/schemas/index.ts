@@ -1,2 +1,2 @@
 export { collaboratorFormSchema } from "./collaborator-form.schema";
-export { contentFormSchema } from "./content.schema";
+export { contentFormSchema, contentImageFormSchema } from "./content.schema";
