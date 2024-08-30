@@ -1,9 +1,10 @@
-import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { useEffect } from "react";
+import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 
 import { dateFormatter } from "@/features/core/utils";
 import { Icons } from "@/features/core/components";
 import {
+<<<<<<< HEAD
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -18,6 +19,18 @@ import type {
   ContentResponse,
   ImageResponse,
 } from "@/features/content/services";
+=======
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+	Heading,
+	Skeleton,
+} from "@/features/core/components/ui";
+import { useGetContents } from "@/features/content/hooks";
+import { EventsContent, EventsImages } from "@/features/content/components";
+import type { ContentResponse } from "@/features/content/types";
+>>>>>>> cf8c1df4d32347ce2318c6064096ac8c2f6a534f
 
 export function Events() {
   const { data: events, isLoading } = useGetContents();
@@ -52,6 +65,7 @@ export function Events() {
     ));
   }
 
+<<<<<<< HEAD
   return (
     <Accordion
       ref={eventList}
@@ -140,3 +154,36 @@ const EventImages = ({ images }: EventImagesProps) => {
     </section>
   );
 };
+=======
+	return (
+		<Accordion ref={eventList} type="single" collapsible className="flex flex-col gap-5">
+			{eventContent.length > 0 &&
+				eventContent.map((event) => (
+					<AccordionItem key={event.id} value={event.id} className="bg-secondary px-5 rounded-lg max-w-2xl">
+						<div className="flex justify-start items-center gap-5">
+							<Icons.drag className="cursor-move drag-handler" />
+							<div className="w-full">
+								<AccordionTrigger className="flex justify-between items-center">
+									<div className="flex justify-start items-center gap-5">
+										<Heading title={event.title} className="text-xl" />
+										{/* // TODO: Use a valid date */}
+										<span>{dateFormatter(new Date(event.date))}</span>
+									</div>
+								</AccordionTrigger>
+							</div>
+						</div>
+						<AccordionContent className="[&_h2]:text-lg flex flex-col gap-5">
+							{event.images.length > 0 && <EventsImages images={event.images} />}
+							<EventsContent
+								contentId={event.id}
+								title={event.title}
+								date={event.date}
+								description={event.description}
+							/>
+						</AccordionContent>
+					</AccordionItem>
+				))}
+		</Accordion>
+	);
+}
+>>>>>>> cf8c1df4d32347ce2318c6064096ac8c2f6a534f
