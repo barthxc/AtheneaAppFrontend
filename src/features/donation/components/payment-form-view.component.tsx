@@ -18,7 +18,7 @@ import type { FormViewProps } from "@/features/core/types";
 import type { DonationFormValues } from "../types/donation.type";
 import type { StripeCardElementChangeEvent } from "@stripe/stripe-js";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/features/landing/components";
 
 const PaymentFormView: React.FC<PaymentFormViewProps> = ({
   onSubmit,
@@ -67,7 +67,11 @@ const PaymentFormView: React.FC<PaymentFormViewProps> = ({
               <p className="text-green-500 font-bold text-2xl">
                 Tu apoyo marca una gran diferencia.
               </p>
-              <Link to="/">Volver</Link>
+              <Link
+                className="text-xl py-2 bg-primary text-primary-foreground shadow hover:bg-primary/90 rounded"
+                to="/">
+                Volver
+              </Link>
             </div>
           </>
         )}

@@ -1,5 +1,5 @@
 import { useToast } from "@/features/core/components/ui";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   type ConfirmCardPaymentParams,
   type CreatePaymentIntentParams,
@@ -7,6 +7,31 @@ import {
 } from "../services/donation.service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import { ErrorService } from "@/features/error/service";
+import { PaymentApiFactory } from "@/features/donation/hooks/payment.factory";
+
+const useGetPayments = () => {
+  const { data, isError, isFetching, isLoading, error } = useQuery({
+    ...PaymentApiFactory.getPayments(),
+    staleTime: 1000 * 60 * 60 * 3,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const errorMessage =
+    isError &&
+    ErrorService.handleError(
+      (error as any)?.statusCode,
+      ERROR_MESSAGES.DONATION.FIND_ALL
+    );
+
+  return {
+    data,
+    isError,
+    isLoading,
+    errorMessage,
+    isFetching,
+  };
+};
 
 const useClientSecret = () => {
   const { toast } = useToast();
@@ -71,4 +96,4 @@ const useConfirmCardPayment = () => {
   };
 };
 
-export { useClientSecret, useConfirmCardPayment };
+export { useClientSecret, useConfirmCardPayment, useGetPayments };

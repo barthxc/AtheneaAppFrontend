@@ -16,6 +16,14 @@ export interface ConfirmCardPaymentParams {
   name?: string;
 }
 
+export interface PaymentResponse {
+  id: string;
+  amount: number;
+  createdAt: Date;
+  name: string;
+  paymentType: string;
+  referenceId: string;
+}
 export class DonationService {
   static createPaymentIntent = async (info: CreatePaymentIntentParams) => {
     try {
@@ -53,5 +61,12 @@ export class DonationService {
     }
   };
 
-  static getPayments = async () => {};
+  static getPayments = async () => {
+    try {
+      const { data } = await atheneaApi.get<PaymentResponse[]>("/payment");
+      return data;
+    } catch (error: any) {
+      throw error.response?.data;
+    }
+  };
 }

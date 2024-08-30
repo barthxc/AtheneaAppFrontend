@@ -207,6 +207,12 @@ export const ERROR_MESSAGES: ErrorMessages = {
     },
   },
   DONATION: {
+    FIND_ALL: {
+      400: "Error al mostrar las donaciones. Contacta con el admininistrador",
+      500: "Error al mostrar las donaciones. Contacta con el admininistrador",
+      GENERIC:
+        "Hubo un problema al mostrar las donaciones. Por favor, inténtalo de nuevo más tarde.",
+    },
     CREATE_PAYMENT_INTENT: {
       400: "La solicitud de donación no es válida. Por favor, verifica los detalles e intenta nuevamente.",
       500: "Estamos experimentando problemas técnicos. El servicio de donaciones no está disponible en este momento. Intenta más tarde.",
