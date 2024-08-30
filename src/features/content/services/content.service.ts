@@ -42,7 +42,7 @@ export class ContentService {
 
 	static deleteImageContent = async (contentId: string, imageId: string) => {
 		try {
-			const { data } = await atheneaApi.patch(`/content/${contentId}/image/${imageId}`);
+			const { data } = await atheneaApi.delete(`/content/${contentId}/image/${imageId}`);
 			return data;
 		} catch (error: any) {
 			throw error.response?.data;
@@ -51,7 +51,11 @@ export class ContentService {
 
 	static addImageContent = async (contentId: string, images: File[]) => {
 		try {
-			const formData = createFormData(images);
+			const formData = new FormData();
+			for (const image of images) {
+				formData.append("image", image);
+			}
+
 			const { data } = await atheneaApi.post(`/content/${contentId}/image`, formData);
 			return data;
 		} catch (error: any) {

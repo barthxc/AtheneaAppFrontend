@@ -158,7 +158,7 @@ export function Collaborators() {
 			</Gallery>
 
 			<ConfirmModal
-				title="¿Estás seguro que deseas eliminar esta imagen?"
+				title="¿Estás seguro que deseas eliminar este colaborador?"
 				description="Una vez eliminado no se puede recuperar."
 				confirmButtonLabel="Eliminar colaborador"
 				isOpen={openDelete}

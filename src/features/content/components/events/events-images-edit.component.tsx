@@ -8,7 +8,7 @@ import { UploadImageModal } from "@/features/core/components/modal";
 
 import type { ContentImageFormValues } from "@/features/content/types";
 import { contentImageFormSchema } from "@/features/content/schemas";
-import { useCreateContent } from "@/features/content/hooks";
+import { useAddImageContent } from "@/features/content/hooks";
 
 export interface EventsImagesEditProps {
 	contentId: string;
@@ -16,7 +16,7 @@ export interface EventsImagesEditProps {
 
 export const EventsImagesEdit = ({ contentId }: EventsImagesEditProps) => {
 	const [editing, setEditing] = useState<boolean>(false);
-	const { mutate: createContent, isPending, isSuccess } = useCreateContent();
+	const { mutate: addImage, isPending, isSuccess } = useAddImageContent();
 
 	const form = useForm<ContentImageFormValues>({
 		resolver: zodResolver(contentImageFormSchema),
@@ -28,7 +28,7 @@ export const EventsImagesEdit = ({ contentId }: EventsImagesEditProps) => {
 	const handleSubmit = (data: ContentImageFormValues) => {
 		console.log({ imageContentData: data });
 		// TODO: Check what type of data the backend is expecting
-		createContent([contentId, { images: [data.image] }], { onSuccess: closeEditModal });
+		addImage([contentId, [data.image]], { onSuccess: closeEditModal });
 	};
 
 	const openEditModal = () => setEditing(true);

@@ -16,8 +16,7 @@ const useGetContents = () => {
 		refetchOnWindowFocus: false,
 	});
 
-	const errorMessage =
-		isError && ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.FIND_ALL);
+	const errorMessage = isError && ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.FIND_ALL);
 
 	return {
 		data,
@@ -46,15 +45,14 @@ const useCreateContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.CREATE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.CREATE),
 	};
 };
 
@@ -76,15 +74,14 @@ const useDeleteContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.DELETE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.DELETE),
 	};
 };
 
@@ -106,15 +103,14 @@ const useUpdateContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.UPDATE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.UPDATE),
 	};
 };
 
@@ -136,15 +132,14 @@ const useDeleteImageContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.REMOVE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.REMOVE),
 	};
 };
 
@@ -166,15 +161,14 @@ const useAddImageContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.CREATE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.CREATE),
 	};
 };
 
@@ -196,15 +190,14 @@ const useReorderContent = () => {
 		onError: (error) => {
 			toast({
 				variant: "destructive",
-				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.CONTENT.UPDATE),
 			});
 		},
 	});
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError &&
-			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.COLABORATORS.CREATE),
+			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.CONTENT.UPDATE),
 	};
 };
 
