@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 
 import { dateFormatter } from "@/features/core/utils";
-import { Icons } from "@/features/core/components";
+import { ConfirmModal, Icons } from "@/features/core/components";
 import {
 	Accordion,
 	AccordionContent,
@@ -17,7 +17,9 @@ import type { ContentResponse } from "@/features/content/types";
 
 export function Events() {
 	const { data: events, isLoading } = useGetContents();
-	const { mutate: deleteContent } = useDeleteContent();
+	const { mutate: deleteEvent, isPending: isPendingDelete } = useDeleteContent();
+	const [deleting, setDeleting] = useState<boolean>(false);
+	const [deleteId, setDeleteId] = useState<string>();
 
 	const [eventList, eventContent, setEvents] = useDragAndDrop<HTMLDivElement, ContentResponse>(events ?? [], {
 		group: "eventList",
@@ -35,14 +37,16 @@ export function Events() {
 	}, [events, setEvents]);
 
 	const handleDeleteEvent = (eventId: string) => {
-		console.log(`DELETING EVENT WITH ID ${eventId}`);
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// ! BE CAREFUL, IT WILL DELETE THE EVENT WITHOUT A CONFIRM DIALOG
-		// deleteContent(eventId);
+		setDeleting(true);
+		setDeleteId(eventId);
+	};
+
+	const doDelete = () => {
+		if (!deleteId) {
+			console.error("No delete ID provided");
+			return;
+		}
+		deleteEvent(deleteId, { onSuccess: () => setDeleting(false) });
 	};
 
 	if (isLoading) {
@@ -90,6 +94,17 @@ export function Events() {
 						</AccordionItem>
 					))}
 			</Accordion>
+
+			<ConfirmModal
+				title="¿Estás seguro que deseas eliminar este evento?"
+				description="Una vez eliminado no se puede recuperar."
+				confirmButtonLabel="Eliminar evento"
+				isOpen={deleting}
+				onClose={() => setDeleting(false)}
+				onConfirm={doDelete}
+				isDisabled={isPendingDelete}
+				variant="destructive"
+			/>
 		</>
 	);
 }
