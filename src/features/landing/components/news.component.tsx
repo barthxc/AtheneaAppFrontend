@@ -5,8 +5,11 @@ import {
   Section,
   Card,
 } from "@/features/landing/components";
+import { useGetContents } from "@/features/content/hooks";
 
 export const News = () => {
+  const { data, isLoading } = useGetContents();
+  //TODO
   return (
     <Section variant="filled" className="flex flex-col gap-10 xl:gap-20">
       <Heading variant="display" position="centered">
