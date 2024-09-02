@@ -6,5 +6,8 @@ export interface UploadImageModalProps<TFieldValues extends FieldValues> extends
 	handleSubmit: (data: TFieldValues) => any;
 	isLoading: boolean;
 	isSuccess: boolean;
-	aditionalFields?: React.ReactNode;
+	customElements?: {
+		additionalFields?: React.ReactNode;
+		fieldsContainer?: (children: React.ReactNode) => React.ReactNode;
+	};
 }

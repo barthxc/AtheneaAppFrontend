@@ -12,7 +12,7 @@ import {
 	Skeleton,
 } from "@/features/core/components/ui";
 import { useDeleteContent, useGetContents } from "@/features/content/hooks";
-import { EventsContent, EventsImages } from "@/features/content/components";
+import { EventsContent, EventsCreate, EventsImages } from "@/features/content/components";
 import type { ContentResponse } from "@/features/content/types";
 
 export function Events() {
@@ -52,38 +52,44 @@ export function Events() {
 	}
 
 	return (
-		<Accordion ref={eventList} type="single" collapsible className="flex flex-col gap-5">
-			{eventContent.length > 0 &&
-				eventContent.map((event) => (
-					<AccordionItem key={event.id} value={event.id} className="bg-secondary rounded-lg overflow-hidden max-w-2xl">
-						<div className="flex justify-end items-center gap-5 w-full bg-primary">
-							<button type="button" className="p-px" onClick={() => handleDeleteEvent(event.id)}>
-								<Icons.close className="text-white" />
-							</button>
-						</div>
-						<div className="flex justify-start items-center gap-5 px-5">
-							<Icons.drag className="cursor-move drag-handler" />
-							<div className="w-full">
-								<AccordionTrigger className="flex justify-between items-center">
-									<div className="flex justify-start items-center gap-5">
-										<Heading title={event.title} className="text-xl" />
-										{/* // TODO: Use a valid date */}
-										<span>{dateFormatter(new Date(event.date))}</span>
-									</div>
-								</AccordionTrigger>
+		<>
+			<EventsCreate />
+			<Accordion ref={eventList} type="single" collapsible className="flex flex-col gap-5">
+				{eventContent.length > 0 &&
+					eventContent.map((event) => (
+						<AccordionItem
+							key={event.id}
+							value={event.id}
+							className="bg-secondary rounded-lg overflow-hidden max-w-2xl">
+							<div className="flex justify-end items-center gap-5 w-full bg-primary">
+								<button type="button" className="p-px" onClick={() => handleDeleteEvent(event.id)}>
+									<Icons.close className="text-white" />
+								</button>
 							</div>
-						</div>
-						<AccordionContent className="[&_h2]:text-lg flex flex-col gap-5 px-5">
-							<EventsImages contentId={event.id} images={event.images} />
-							<EventsContent
-								contentId={event.id}
-								title={event.title}
-								date={event.date}
-								description={event.description}
-							/>
-						</AccordionContent>
-					</AccordionItem>
-				))}
-		</Accordion>
+							<div className="flex justify-start items-center gap-5 px-5">
+								<Icons.drag className="cursor-move drag-handler" />
+								<div className="w-full">
+									<AccordionTrigger className="flex justify-between items-center">
+										<div className="flex justify-start items-center gap-5">
+											<Heading title={event.title} className="text-xl" />
+											{/* // TODO: Use a valid date */}
+											<span>{dateFormatter(new Date(event.date))}</span>
+										</div>
+									</AccordionTrigger>
+								</div>
+							</div>
+							<AccordionContent className="[&_h2]:text-lg flex flex-col gap-5 px-5">
+								<EventsImages contentId={event.id} images={event.images} />
+								<EventsContent
+									contentId={event.id}
+									title={event.title}
+									date={event.date}
+									description={event.description}
+								/>
+							</AccordionContent>
+						</AccordionItem>
+					))}
+			</Accordion>
+		</>
 	);
 }

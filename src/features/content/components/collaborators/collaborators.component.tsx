@@ -103,7 +103,7 @@ export function Collaborators() {
 								label="Imagen"
 								render={{
 									renderProp: ({ field }) => (
-										<div className="flex flex-col justify-between items-center gap-5">
+										<div className="flex flex-col justify-center gap-5">
 											<Button onClick={triggerImageInput}>Selecciona una imagen</Button>
 											<Input
 												className="hidden"
