@@ -27,6 +27,7 @@ export function NotFoundPage() {
       <span className="bg-gradient-to-b from-foreground to-transparent bg-clip-text text-[10rem] font-extrabold leading-none text-transparent">
         404
       </span>
+      {/* TODO!! */}
       <h2 className="font-heading my-2 text-2xl font-bold">
         TODO LANGING STYLES
       </h2>
