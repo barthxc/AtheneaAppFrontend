@@ -44,18 +44,6 @@ export const navItems: NavItem[] = [
     validRole: [ValidRoles.admin, ValidRoles.treasure],
   },
   {
-    title: "Tareas",
-    href: "/dashboard/kanban",
-    icon: "kanban",
-    label: "kanban",
-    validRole: [
-      ValidRoles.admin,
-      ValidRoles.treasure,
-      ValidRoles.president,
-      ValidRoles.user,
-    ],
-  },
-  {
     title: "Gestión de Calendario",
     href: "/dashboard/calendar",
     icon: "calendar",
@@ -65,7 +53,7 @@ export const navItems: NavItem[] = [
   {
     title: "Gestión de Contenido",
     href: "/dashboard/content",
-    icon: "calendar",
+    icon: "content",
     validRole: [ValidRoles.admin, ValidRoles.president, ValidRoles.treasure],
   },
   {

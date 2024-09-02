@@ -16,7 +16,6 @@ import {
   MemberNewPage,
   MembersPage,
 } from "@/features/members/pages";
-import { KanbanPage } from "@/features/kanban/pages";
 import { CalendarControlPage } from "@/features/calendar/pages";
 import { AuthPage } from "@/features/auth/pages";
 import { ValidRoles } from "@/features/auth/types";
@@ -158,21 +157,6 @@ export const routes = createBrowserRouter([
           <ProtectedRoute
             allowedRoles={[ValidRoles.admin, ValidRoles.president]}>
             <MemberPdfBankPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "kanban",
-
-        element: (
-          <ProtectedRoute
-            allowedRoles={[
-              ValidRoles.admin,
-              ValidRoles.treasure,
-              ValidRoles.president,
-              ValidRoles.user,
-            ]}>
-            <KanbanPage />
           </ProtectedRoute>
         ),
       },
