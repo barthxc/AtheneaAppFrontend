@@ -143,10 +143,7 @@ export const memberFormSchema = z
       iban: z.union([
         z
           .string()
-          .regex(
-            /^ES\d{2}\s?\d{4}\s?\d{4}\s?\d{2}\s?\d{10}$/,
-            "Ingresa un IBAN válido"
-          )
+          .regex(/^ES\d{2}(?: ?\d{4}){5}$/, "Ingresa un IBAN válido")
           .nullable()
           .optional(),
         z.literal(""),
