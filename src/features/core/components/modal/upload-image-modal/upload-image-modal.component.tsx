@@ -13,11 +13,35 @@ export const UploadImageModal = <TFieldValues extends FieldValues>({
 	isSuccess,
 	onClose,
 	form,
-	aditionalFields,
+	customElements,
 	handleSubmit,
 	isLoading,
 	...props
 }: UploadImageModalProps<TFieldValues>) => {
+	return (
+		<Modal title={title} description={description} isOpen={isOpen} onClose={onClose} {...props}>
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(handleSubmit)} className="w-full space-y-8">
+					{customElements?.fieldsContainer?.(
+						<Fields form={form} isLoading={isLoading} isSuccess={isSuccess} customElements={customElements} />,
+					) ?? (
+						<div className="flex flex-col md:flex-row items-start gap-5">
+							<Fields form={form} isLoading={isLoading} isSuccess={isSuccess} customElements={customElements} />
+						</div>
+					)}
+
+					<Button disabled={isLoading} className="mr-auto space-y-2" type="submit">
+						Crear
+					</Button>
+				</form>
+			</Form>
+		</Modal>
+	);
+};
+
+interface FieldsProps extends Pick<UploadImageModalProps<any>, "form" | "customElements" | "isLoading" | "isSuccess"> {}
+
+const Fields = ({ form, customElements, isLoading, isSuccess }: FieldsProps) => {
 	const [showImagePreview, setShowImagePreview] = useState<boolean>(true);
 	const { imagePreview, setImagePreview, readImageFile } = useImagePreview();
 	const imageInputRef = useRef<HTMLInputElement>(null);
@@ -45,48 +69,36 @@ export const UploadImageModal = <TFieldValues extends FieldValues>({
 	};
 
 	return (
-		<Modal title={title} description={description} isOpen={isOpen} onClose={onClose} {...props}>
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(handleSubmit)} className="w-full space-y-8">
-					<div className="flex flex-col md:flex-row items-start gap-5">
-						{aditionalFields && aditionalFields}
+		<>
+			{customElements?.additionalFields}
 
-						<FormField
-							formControl={form.control}
-							name="image"
-							label={aditionalFields ? "Imagen" : null}
-							render={{
-								renderProp: ({ field }) => (
-									<div className="flex flex-col justify-center items-start gap-5">
-										<Button onClick={triggerImageInput}>Selecciona una imagen</Button>
-										<Input
-											className="hidden"
-											type="file"
-											disabled={isLoading}
-											{...field}
-											ref={imageInputRef}
-											onChange={(e) => handleImageChange(e, field)}
-										/>
-										{imagePreview && (
-											<label className="flex justify-start items-center gap-1">
-												<input type="checkbox" defaultChecked={showImagePreview} onChange={toggleImagePreview} />
-												<span className="text-sm">Mostrar previsualización</span>
-											</label>
-										)}
-										{showImagePreview && imagePreview ? (
-											<img src={imagePreview} alt="" width={150} height={150} />
-										) : null}
-									</div>
-								),
-							}}
-						/>
-					</div>
-
-					<Button disabled={isLoading} className="mr-auto space-y-2" type="submit">
-						Crear
-					</Button>
-				</form>
-			</Form>
-		</Modal>
+			<FormField
+				formControl={form.control}
+				name="image"
+				label={customElements?.additionalFields ? "Imagen" : null}
+				render={{
+					renderProp: ({ field }) => (
+						<div className="flex flex-col justify-center items-start gap-5">
+							<Button onClick={triggerImageInput}>Selecciona una imagen</Button>
+							<Input
+								className="hidden"
+								type="file"
+								disabled={isLoading}
+								{...field}
+								ref={imageInputRef}
+								onChange={(e) => handleImageChange(e, field)}
+							/>
+							{imagePreview && (
+								<label className="flex justify-start items-center gap-1">
+									<input type="checkbox" defaultChecked={showImagePreview} onChange={toggleImagePreview} />
+									<span className="text-sm">Mostrar previsualización</span>
+								</label>
+							)}
+							{showImagePreview && imagePreview ? <img src={imagePreview} alt="" width={150} height={150} /> : null}
+						</div>
+					),
+				}}
+			/>
+		</>
 	);
 };
