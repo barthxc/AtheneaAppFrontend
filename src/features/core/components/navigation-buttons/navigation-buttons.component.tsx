@@ -2,11 +2,16 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/features/core/components/ui";
 import type { NavigationButtonsProps } from "@/features/core/components";
+import { useAuthStore } from "@/features/auth/stores";
 
 export const NavigationButtons: React.FC<NavigationButtonsProps> = ({
   pdf,
-  isLogged,
 }) => {
+  const { status } = useAuthStore((state) => ({
+    status: state.status,
+  }));
+
+  const isLogged = status === "authorized";
   const navigate = useNavigate();
 
   return (

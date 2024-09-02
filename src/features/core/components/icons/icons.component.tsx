@@ -43,6 +43,7 @@ import {
   SmilePlus,
   Grip,
   LayoutPanelTop,
+  ArrowRightLeft,
 } from "lucide-react";
 
 import { cn } from "@/features/core/lib/utils";
@@ -143,4 +144,5 @@ export const Icons = {
   smilePlus: SmilePlus,
   drag: Grip,
   content: LayoutPanelTop,
+  assigments: ArrowRightLeft,
 };

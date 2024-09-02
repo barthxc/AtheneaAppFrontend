@@ -4,15 +4,14 @@ import { dateFormatter } from "@/features/core/utils";
 
 export const RecentSales = () => {
   const { data, isLoading } = useGetPayments();
-  console.log(data);
   return isLoading ? (
     <Spinner />
   ) : (
     <div className="space-y-8">
       <div className="max-h-96 overflow-y-auto space-y-2">
         {data?.map((donation) => (
-          <>
-            <div key={donation.id} className="flex items-center">
+          <div key={donation.id}>
+            <div className="flex items-center">
               <div className="ml-4 space-y-1">
                 <p className="text-sm font-medium leading-none">
                   {donation.name}
@@ -26,7 +25,7 @@ export const RecentSales = () => {
               </div>
             </div>
             <Separator key={donation.id} className="bg-gray-400" />
-          </>
+          </div>
         ))}
       </div>
     </div>

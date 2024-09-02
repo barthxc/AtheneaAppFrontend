@@ -49,9 +49,6 @@ const MembersInfo = () => {
               {isLoading || isPending ? <Spinner /> : data?.totalMembers}
               {isError && !data?.membersPerYears && "NULL"}
             </div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
@@ -79,9 +76,6 @@ const MembersInfo = () => {
               {isLoading || isPending ? <Spinner /> : data?.activeMembers}
               {isError && !data?.membersPerYears && "NULL"}
             </div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
@@ -108,9 +102,6 @@ const MembersInfo = () => {
               {isLoading || isPending ? <Spinner /> : data?.membersNoPay}
               {isError && !data?.membersNoPay && "NULL"}
             </div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
@@ -136,9 +127,6 @@ const MembersInfo = () => {
               {isLoading || isPending ? <Spinner /> : data?.membersPerYears}
               {isError && !data?.membersPerYears && "NULL"}
             </div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
           </CardContent>
         </Card>
       </div>

@@ -33,15 +33,6 @@ export const Sidebar = ({ className }: SidebarProps) => {
         !isMinimized ? "w-72" : "w-[72px]",
         className
       )}>
-      <ConfirmModal
-        title="¿Estás seguro que deseas eliminar este evento?"
-        description="Una vez eliminado no se puede recuperar."
-        confirmButtonLabel="Eliminar fecha"
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={handleLogout}
-        variant="destructive"
-      />
       <ChevronLeft
         className={cn(
           "absolute -right-3 top-20 cursor-pointer rounded-full border bg-background text-3xl text-foreground",

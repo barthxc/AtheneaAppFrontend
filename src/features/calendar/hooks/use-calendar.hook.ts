@@ -3,8 +3,8 @@ import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import type { Calendar } from "@/features/calendar/types";
 import { useToast } from "@/features/core/components/ui";
-import { CalendarService } from "../services/calendar.service";
-import { CalendarApiFactory } from "./calendar.factory";
+import { CalendarService } from "@/features/calendar/services";
+import { CalendarApiFactory } from "@/features/calendar/hooks";
 
 const useCalendar = () => {
   const { data, isError, isFetching, isLoading, error } = useQuery({
@@ -18,7 +18,7 @@ const useCalendar = () => {
     isError &&
     ErrorService.handleError(
       (error as any)?.statusCode,
-      ERROR_MESSAGES.MEMBER.FIND_ALL
+      ERROR_MESSAGES.CALENDAR.FIND_ALL
     );
 
   return {

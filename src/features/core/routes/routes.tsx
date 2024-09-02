@@ -29,7 +29,7 @@ import {
   CalendarPage,
 } from "@/features/landing/pages";
 import { LandingLayout } from "@/features/landing/layout/landing-layout";
-
+import { AssigmentsPage, AssigmentPdfPage } from "@/features/assigments/pages";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -179,6 +179,28 @@ export const routes = createBrowserRouter([
               ValidRoles.president,
             ]}>
             <ContentPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "assigments",
+        element: (
+          <ProtectedRoute
+            allowedRoles={[
+              ValidRoles.admin,
+              ValidRoles.treasure,
+              ValidRoles.president,
+            ]}>
+            <AssigmentsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "assigment/pdf/:id",
+        element: (
+          <ProtectedRoute
+            allowedRoles={[ValidRoles.admin, ValidRoles.treasure]}>
+            <AssigmentPdfPage />
           </ProtectedRoute>
         ),
       },

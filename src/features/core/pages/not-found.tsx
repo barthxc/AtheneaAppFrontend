@@ -34,7 +34,7 @@ export function NotFoundPage() {
         Lo siento, la página que estás buscando no existe o ha sido alterada.
         Contacta con el desarrollador.
       </p>
-      <NavigationButtons pdf={false} isLogged={isLogged} />
+      <NavigationButtons pdf={false} />
     </div>
   );
 }

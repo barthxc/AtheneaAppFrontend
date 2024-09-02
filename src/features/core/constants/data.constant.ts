@@ -51,6 +51,13 @@ export const navItems: NavItem[] = [
     validRole: [ValidRoles.admin, ValidRoles.president, ValidRoles.treasure],
   },
   {
+    title: "Cesiones",
+    href: "/dashboard/assigments",
+    icon: "assigments",
+    label: "assigments",
+    validRole: [ValidRoles.admin, ValidRoles.president],
+  },
+  {
     title: "Gestión de Contenido",
     href: "/dashboard/content",
     icon: "content",
@@ -63,7 +70,6 @@ export const navItems: NavItem[] = [
     label: "bank",
     validRole: [ValidRoles.admin, ValidRoles.president],
   },
-
   {
     title: "Salir",
     icon: "login",
@@ -74,10 +80,5 @@ export const navItems: NavItem[] = [
       ValidRoles.president,
       ValidRoles.user,
     ],
-    onClick: (e) => {
-      e.preventDefault();
-      // TODO: Show confirm dialog before logout
-      useAuthStore.getState().logoutUser();
-    },
   },
 ];
