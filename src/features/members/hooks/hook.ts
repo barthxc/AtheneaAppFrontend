@@ -199,7 +199,8 @@ const useCreateMember = () => {
 	return {
 		...mutation,
 		errorMessage:
-			mutation.isError && ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.MEMBER.CREATE),
+			mutation.isError &&
+			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.MEMBER.CREATE_MEMBER),
 	};
 };
 

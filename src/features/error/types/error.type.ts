@@ -1,12 +1,9 @@
-type ErrorMessage = {
-  [statusCode: number]: string;
-  GENERIC: string;
+export type ErrorCode = 400 | 401 | 403 | 404 | 500;
+
+export type MappedErrorMessage = {
+	[code in ErrorCode]?: string;
 };
 
-type ErrorMessagesSection = {
-  [action: string]: ErrorMessage;
-};
-
-export type ErrorMessages = {
-  [section: string]: ErrorMessagesSection;
-};
+export type ErrorMessage = {
+	GENERIC: string;
+} & MappedErrorMessage;
