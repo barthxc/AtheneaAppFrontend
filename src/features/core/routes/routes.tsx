@@ -27,6 +27,7 @@ import {
   LandingPage,
   ContactPage,
   CalendarPage,
+  TermsConditionPage,
 } from "@/features/landing/pages";
 import { LandingLayout } from "@/features/landing/layout/landing-layout";
 import { AssigmentsPage, AssigmentPdfPage } from "@/features/assigments/pages";
@@ -63,6 +64,10 @@ export const routes = createBrowserRouter([
       {
         path: "donation",
         element: <DonationPage />,
+      },
+      {
+        path: "terms-conditions",
+        element: <TermsConditionPage />,
       },
       {
         path: "faq",

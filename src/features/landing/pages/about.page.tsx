@@ -15,37 +15,40 @@ export function AboutPage() {
         <article className="flex items-center justify-center flex-col gap-20 xl:flex-row">
           <div className="flex-1">
             <Paragraph className="text-xl xl:text-3xl">
-              Título 15/03/2005
+              Fundación y Comienzos
             </Paragraph>
             <Paragraph className="text-base xl:text-xl">
-              La Asociación de Apoyo a Personas con Discapacidad (AAPD) se fundó
-              en 2005 con el objetivo de promover la inclusión y mejorar la
-              calidad de vida de las personas con discapacidad en nuestra
-              comunidad. Desde sus inicios, hemos trabajado incansablemente para
-              ofrecer servicios y programas que aborden las necesidades y los
-              desafíos que enfrentan las personas con discapacidad.
+              Desde su creación en 2006, Athenea Cuenca Minera ha sido un pilar
+              fundamental en la lucha por la inclusión y el bienestar de las
+              personas con discapacidad en nuestra comunidad. Inicialmente, la
+              asociación comenzó sus operaciones en una pequeña oficina
+              compartida, con recursos limitados pero con un compromiso
+              inquebrantable hacia nuestra misión. Desde el primer día, nuestra
+              visión ha sido clara: promover la igualdad de oportunidades,
+              garantizar los derechos y mejorar la calidad de vida de las
+              personas con discapacidad.
             </Paragraph>
           </div>
           <Carousel className="flex-[2]">
             <Carousel.Content>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-2.webp"
+                  alt="Imagen de antigua presidenta"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-1.webp"
+                  alt="Imagen de Socio encargado de la gestión de la asociación"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-3.webp"
+                  alt="Imagen de Formación sobre el uso del Cuero"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>
@@ -55,38 +58,35 @@ export function AboutPage() {
         <article className="flex items-center justify-center flex-col gap-20 xl:flex-row-reverse">
           <div className="flex-1">
             <Paragraph className="text-xl xl:text-3xl">
-              Título 23/02/1995
+              Crecimiento y Expansión
             </Paragraph>
             <Paragraph className="text-base xl:text-xl">
-              Con el paso de los años, la AAPD ha experimentado un crecimiento
-              significativo, ampliando nuestros servicios y fortaleciendo
-              nuestras alianzas con otras organizaciones y entidades
-              gubernamentales. Hemos trabajado arduamente para aumentar la
-              conciencia pública sobre los problemas que enfrentan las personas
-              con discapacidad y abogar por políticas y prácticas que promuevan
-              la igualdad de oportunidades para todos.
+              A lo largo de los años, Athenea Cuenca Minera ha experimentado un
+              notable crecimiento. Gracias al esfuerzo colectivo de nuestros
+              miembros, voluntarios y colaboradores, hemos podido expandir
+              nuestros servicios y recursos. Este crecimiento nos permitió
+              trasladarnos a unas instalaciones más amplias, que fueron
+              completamente reacondicionadas y mejoradas por nuestra asociación
+              para ofrecer un entorno adaptado y moderno. Esto nos ha permitido
+              ofrecer una gama completa de programas y servicios que abordan las
+              diversas necesidades de las personas con discapacidad, reflejando
+              nuestro compromiso continuo con la comunidad. Así, llegamos a un
+              mayor número de personas y brindamos un apoyo más especializado.
             </Paragraph>
           </div>
           <Carousel className="flex-[2]">
             <Carousel.Content>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-4.webp"
+                  alt="Imagen de Aula de Informática"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
-                  className="w-full  object-cover select-none"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-5.webp"
+                  alt="Imagen de Aula de Fisoterapeuta Acondicionada"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>
@@ -96,36 +96,29 @@ export function AboutPage() {
         <article className="flex items-center justify-center flex-col gap-20 xl:flex-row">
           <div className="flex-1">
             <Paragraph className="text-xl xl:text-3xl">
-              Título 23/02/1995
+              Impacto y Progreso Actual
             </Paragraph>
             <Paragraph className="text-base xl:text-xl">
-              A lo largo de los años, la AAPD ha tenido un impacto profundo en
-              la comunidad, brindando apoyo integral a miles de personas con
-              discapacidad y sus familias. Hemos creado programas innovadores
-              que fomentan la autonomía, la participación social y el acceso
-              equitativo a la educación, el empleo y los servicios de salud.
+              Hoy en día, Athenea Cuenca Minera es reconocida como una de las
+              principales organizaciones sin ánimo de lucro en la región,
+              dedicada al apoyo integral de las personas con discapacidad.
+              Nuestro impacto se refleja en las vidas que hemos tocado y en las
+              historias de éxito de aquellos a quienes hemos asistido. Aunque
+              contamos con profesionales capacitados, es fundamental destacar
+              que el corazón de nuestra asociación son nuestros socios, quienes
+              de manera completamente altruista hacen posible nuestro
+              funcionamiento diario. Con un enfoque en la inclusión, la
+              participación social y el acceso a servicios esenciales, seguimos
+              siendo un faro de esperanza y un motor de cambio positivo en
+              nuestra comunidad.
             </Paragraph>
           </div>
           <Carousel className="flex-[2]">
             <Carousel.Content>
               <Carousel.Item>
                 <img
-                  src="/test.jpg"
-                  alt=""
-                  className="w-full  object-cover select-none"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  src="/test.jpg"
-                  alt=""
-                  className="w-full  object-cover select-none"
-                />
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  src="/test.jpg"
-                  alt=""
+                  src="/about-6.webp"
+                  alt="Imagen de Tarde de Convivencia con los socios de Athenea Cuenca Minera"
                   className="w-full  object-cover select-none"
                 />
               </Carousel.Item>

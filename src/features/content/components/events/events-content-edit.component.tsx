@@ -47,7 +47,6 @@ export const EventsContentEdit = ({
       });
       return;
     }
-    console.log({ defaultValues, contentData: data });
     editContent([contentId, data], { onSuccess: closeEditModal });
   };
 

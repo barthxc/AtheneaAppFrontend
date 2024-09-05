@@ -21,10 +21,6 @@ export const Sidebar = ({ className }: SidebarProps) => {
     setTimeout(() => setStatus(false), 500);
   };
 
-  const handleLogout = async () => {
-    console.log("logout");
-  };
-
   return (
     <nav
       className={cn(

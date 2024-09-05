@@ -68,13 +68,10 @@ export const Footer = () => {
               </Heading>
               <ul className="flex flex-col gap-3 xl:gap-5 text-lg">
                 <li>
-                  <Link to="#">Términos y condiciones</Link>
+                  <Link to="terms-conditions">Términos y condiciones</Link>
                 </li>
                 <li>
                   <Link to="#">Política de privacidad</Link>
-                </li>
-                <li>
-                  <Link to="#">Preferencias de cookies</Link>
                 </li>
               </ul>
             </article>

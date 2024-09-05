@@ -21,7 +21,7 @@ export function AssigmentsPage() {
         <Link
           to="/dashboard/members"
           className={cn(buttonVariants({ variant: "default" }))}>
-          <Plus className="mr-2 h-4 w-4" /> Crear Socio
+          <Plus className="mr-2 h-4 w-4" /> Crear Cesión
         </Link>
       </div>
       <Separator />

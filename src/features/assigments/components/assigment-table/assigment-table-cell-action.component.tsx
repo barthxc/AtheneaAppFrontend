@@ -39,8 +39,6 @@ export const AssigmentTableCellAction: React.FC<
     setOpen(false);
   }, [toast, isSuccess]);
 
-  console.log(data);
-
   return (
     <>
       <ConfirmModal

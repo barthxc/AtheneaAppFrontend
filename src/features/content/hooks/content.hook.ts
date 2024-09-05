@@ -88,7 +88,7 @@ const useDeleteContent = () => {
         variant: "destructive",
         description: ErrorService.handleError(
           (error as any)?.statusCode,
-          ERROR_MESSAGES.CONTENT.DELETE
+          ERROR_MESSAGES.CONTENT.REMOVE
         ),
       });
     },
@@ -99,7 +99,7 @@ const useDeleteContent = () => {
       mutation.isError &&
       ErrorService.handleError(
         (mutation.error as any)?.statusCode,
-        ERROR_MESSAGES.CONTENT.DELETE
+        ERROR_MESSAGES.CONTENT.REMOVE
       ),
   };
 };

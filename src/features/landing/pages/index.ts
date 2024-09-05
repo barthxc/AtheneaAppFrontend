@@ -4,3 +4,4 @@ export * from "./landing.page";
 export * from "./contact.page";
 export * from "./calendar.page";
 export * from "./news.page";
+export * from "./terms-conditions.page";

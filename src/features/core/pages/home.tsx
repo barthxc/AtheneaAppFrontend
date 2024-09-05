@@ -52,14 +52,15 @@ export function HomePage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
-                <CardTitle>
-                  {isLoading || isFetching ? (
-                    <Spinner className="h-[75vh]" />
-                  ) : (
-                    <CalendarEvents events={events} />
-                  )}
-                </CardTitle>
+                <CardTitle>Cesiones</CardTitle>
               </CardHeader>
+              <CardContent>
+                {isLoading || isFetching ? (
+                  <Spinner className="h-[75vh]" />
+                ) : (
+                  <CalendarEvents events={events} />
+                )}
+              </CardContent>
               <CardContent className="pl-2">{/* <Overview /> */}</CardContent>
             </Card>
             <Card className="col-span-4 md:col-span-3">
