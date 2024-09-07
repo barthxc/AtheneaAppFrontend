@@ -31,7 +31,6 @@ export function MembersNoPayPage() {
 	const {
 		members,
 		totalPages,
-		currentPage: page,
 		hasPreviousPage,
 		hasNextPage,
 		isError,
@@ -56,7 +55,7 @@ export function MembersNoPayPage() {
 	return (
 		<section>
 			<div className="flex items-start justify-between">
-				<Heading title={"Socios sin pagar"} description="Consulta la lista de socios sin pagar" />
+				<Heading title="Socios sin pagar" description="Consulta la lista de socios sin pagar" />
 
 				<Link to="/dashboard/members/new" className={cn(buttonVariants({ variant: "default" }))}>
 					<Plus className="mr-2 h-4 w-4" /> Crear Socio
@@ -64,37 +63,37 @@ export function MembersNoPayPage() {
 			</div>
 			<Separator className="my-4" />
 
-			<div className="flex flex-row gap-5 items-center mb-5">
+			<div className="flex flex-row flex-wrap items-center gap-5 mb-5 w-full">
 				<Input
 					name="name"
 					placeholder="Nombre"
 					value={filters.name || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded w-44"
+					className="border p-2 rounded max-w-44"
 				/>
 				<Input
 					name="lastName"
 					placeholder="Apellido"
 					value={filters.lastName || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded w-44"
+					className="border p-2 rounded max-w-44"
 				/>
 				<Input
 					name="identificationNumber"
 					placeholder="DNI"
 					value={filters.identificationNumber || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded w-44"
+					className="border p-2 rounded max-w-44"
 				/>
 				<Input
 					name="memberNumber"
 					placeholder="Número de Socio"
 					value={filters.memberNumber || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded w-44"
+					className="border p-2 rounded max-w-44"
 				/>
 				<Select name="status" value={filters.status} onValueChange={handleSelectChange}>
-					<SelectTrigger className="w-28">
+					<SelectTrigger className="max-w-28">
 						<SelectValue placeholder="Estado" />
 					</SelectTrigger>
 					<SelectContent>

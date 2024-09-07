@@ -7,7 +7,7 @@ export const Header = () => {
 	return (
 		<div className="supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur">
 			<nav className="flex h-20 items-center justify-start gap-10 px-4">
-				<div className={cn("block lg:!hidden")}>
+				<div className={cn("block md:!hidden")}>
 					<MobileSidebar />
 				</div>
 

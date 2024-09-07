@@ -46,6 +46,14 @@ export function AuthForm() {
 			await loginUser(email, password);
 			navigate("/dashboard");
 		} catch (error: any) {
+			if (!error?.statusCode) {
+				toast({
+					variant: "destructive",
+					description: ErrorService.handleError("GENERIC", null),
+				});
+				return;
+			}
+
 			const errorMessage = ErrorService.handleError(error.statusCode, ERROR_MESSAGES.AUTH.LOGIN);
 			toast({
 				variant: "destructive",

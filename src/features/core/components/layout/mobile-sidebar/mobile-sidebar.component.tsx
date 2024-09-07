@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { MenuIcon } from "lucide-react";
 
@@ -23,7 +22,7 @@ export const MobileSidebar = () => {
 				<SheetTrigger asChild>
 					<MenuIcon />
 				</SheetTrigger>
-				<SheetContent side="left" className="!px-0" aria-describedby={undefined}>
+				<SheetContent side="left" className="!p-0 overflow-auto" aria-describedby={undefined}>
 					<VisuallyHidden>
 						<SheetTitle>Navegación</SheetTitle>
 					</VisuallyHidden>
@@ -32,7 +31,7 @@ export const MobileSidebar = () => {
 							<h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Navegación</h2>
 							<Separator />
 							<div className="space-y-1">
-								<DashboardNav items={navItems} isMobileNav={true} setOpen={setOpen} />
+								<DashboardNav items={navItems} isMobileNav={true} />
 							</div>
 						</div>
 					</div>

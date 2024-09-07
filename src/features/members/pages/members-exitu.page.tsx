@@ -13,20 +13,16 @@ import {
 } from "@/features/core/components/ui";
 import { MemberTable } from "@/features/members/components";
 
-import { usePaginatedMembersExitu } from "@/features/members/hooks";
+import { useMemberPaginationInfo, useMemberTableMethods, usePaginatedMembersExitu } from "@/features/members/hooks";
 
 export function MembersExituPage() {
-  const [filters, setFilters] = useState<Record<string, string>>({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchFilters, setSearchFilters] = useState<Record<string, string>>(
-    {}
-  );
-  const [searchTrigger, setSearchTrigger] = useState(false);
+  const { toast } = useToast();
+	const { filters, currentPage, handleFiltersChange, handlePageChange, handleSearch } =
+  useMemberTableMethods();
 
   const {
     members,
     totalPages,
-    currentPage: page,
     hasNextPage,
     hasPreviousPage,
     isError,
@@ -34,36 +30,12 @@ export function MembersExituPage() {
     errorMessage,
     isFetching,
   } = usePaginatedMembersExitu({
-    filters: searchFilters,
+    filters,
     currentPage,
   });
 
-  const { toast } = useToast();
+	const { isPreviousDisabled, isNextDisabled } = useMemberPaginationInfo({ members, hasPreviousPage, hasNextPage });
 
-  const handleFiltersChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({
-      ...filters,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSearch = () => {
-    setSearchFilters(filters);
-    setCurrentPage(1);
-    setSearchTrigger(true);
-  };
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage === currentPage || newPage < 1 || newPage > totalPages) return;
-
-    setCurrentPage(newPage);
-  };
-
-  useEffect(() => {
-    if (searchTrigger) {
-      setSearchTrigger(false);
-    }
-  }, [searchTrigger]);
 
   useEffect(() => {
     if (isError && errorMessage) {
@@ -74,17 +46,12 @@ export function MembersExituPage() {
     }
   }, [isError, errorMessage, toast]);
 
-  const isEmptyData = members.length === 0;
-
-  const isPreviousDisabled = !hasPreviousPage || isEmptyData;
-  const isNextDisabled = !hasNextPage || isEmptyData;
-
   return (
     <section>
       <div className="flex items-start justify-between">
         <Heading
-          title={"Socios sin pagar"}
-          description="Consulta la lista de socios sin pagar"
+          title="Socios en exitus"
+          description="Consulta la lista de socios dados con exitus"
         />
 
         <Link
@@ -95,36 +62,35 @@ export function MembersExituPage() {
       </div>
       <Separator className="my-4" />
 
-      <div className="flex flex-row gap-5 items-center mb-5">
+			<div className="flex flex-row flex-wrap items-center gap-5 mb-5 w-full">
         <Input
           name="name"
           placeholder="Nombre"
           value={filters.name || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded w-44"
+          className="border p-2 rounded max-w-44"
         />
         <Input
           name="lastName"
           placeholder="Apellido"
           value={filters.lastName || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded w-44"
+          className="border p-2 rounded max-w-44"
         />
         <Input
           name="identificationNumber"
           placeholder="DNI"
           value={filters.identificationNumber || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded w-44"
+          className="border p-2 rounded max-w-44"
         />
         <Input
           name="memberNumber"
           placeholder="Número de Socio"
           value={filters.memberNumber || ""}
           onChange={handleFiltersChange}
-          className="border p-2 rounded w-44"
+          className="border p-2 rounded max-w-44"
         />
-        {/* //TODO shadCN component, using a empty option */}
 
         <Button onClick={handleSearch}>Buscar</Button>
       </div>
@@ -132,7 +98,7 @@ export function MembersExituPage() {
       <LoadingView isLoading={isLoading && !members.length}>
         <MemberTable
           data={members}
-          onPageChange={handlePageChange}
+					onPageChange={(newPage) => handlePageChange(newPage, totalPages)}
           currentPage={currentPage}
           hasNextPage={hasNextPage}
           isFetchingNextPage={isFetching}
