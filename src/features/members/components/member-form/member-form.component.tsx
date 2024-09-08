@@ -123,13 +123,15 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 				<div className="flex flex-row justify-around">
 					<Button
 						disabled={isLoading || isPendingUpdatePaymentDate || isPendingDeleteMember}
-						className="h-12 text-base"
+						className="text-base"
+						size="lg"
 						type="button">
 						<Link to={`/dashboard/members/pdf/${memberId}`}>Ficha de Socio</Link>
 					</Button>
 					<Button
 						disabled={isLoading || isPendingUpdatePaymentDate || isPendingDeleteMember}
-						className=" h-12 text-base"
+						className="text-base"
+						size="lg"
 						type="button"
 						onClick={onUpdatePaymentDate}>
 						Actualizar fecha pago

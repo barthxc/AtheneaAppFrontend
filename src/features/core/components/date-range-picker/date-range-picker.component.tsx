@@ -21,7 +21,7 @@ export const CalendarDateRangePicker = ({ className, onChangeDateRage, currentDa
 							// Desabilitado porque trigerea la petición
 							disabled={true}
 							className={cn(
-								"w-[260px] justify-start text-left font-normal text-base flex h-12 rounded-md border border-input bg-muted/50 mt-2",
+								"w-[260px] justify-start text-left font-normal text-base flex h-12 rounded-lg border border-input bg-muted/50 mt-2",
 								!currentDate && "text-muted-foreground",
 							)}>
 							<CalendarIcon className="mr-2 h-4 w-4" />
