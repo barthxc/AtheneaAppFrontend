@@ -10,7 +10,7 @@ export const Hero = () => {
 				<div className="flex flex-col gap-10 xl:gap-14">
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
-							<Icons.donation size={80} />
+							<Icons.donation size={80} className="text-[#0a1d2b]" />
 							<Heading as="h3" className="text-[#0a1d2b]">
 								Donar Ahora
 							</Heading>
@@ -19,7 +19,7 @@ export const Hero = () => {
 							Tu aporte financiero puede marcar una gran diferencia. Cada donación se destina directamente a nuestros
 							proyectos, ayudándonos a construir un futuro mejor para todos.
 						</Paragraph>
-						<Link to="/donation" className="font-medium text-base">
+						<Link to="/donation" className="font-medium text-base text-[#0a1d2b]">
 							Comienza Ahora
 						</Link>
 					</article>
@@ -28,7 +28,7 @@ export const Hero = () => {
 
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
-							<Icons.heartHandshake size={80} />
+							<Icons.heartHandshake size={80} className="text-[#0a1d2b]" />
 							<Heading as="h3" className=" xl:text-[#0a1d2b]">
 								Conviértete en Socio
 							</Heading>
@@ -37,7 +37,7 @@ export const Hero = () => {
 							Forma parte de nuestra comunidad y participa activamente en nuestros proyectos y actividades. Tu
 							compromiso es clave para lograr nuestros objetivos.
 						</Paragraph>
-						<Link to="/contact" className="font-medium text-base">
+						<Link to="/contact" className="font-medium text-base text-[#0a1d2b]">
 							Comienza Ahora
 						</Link>
 					</article>
@@ -45,7 +45,7 @@ export const Hero = () => {
 
 					<article className="flex flex-col gap-4">
 						<div className="flex justify-start gap-5 items-center">
-							<Icons.smilePlus size={80} />
+							<Icons.smilePlus size={80} className="text-[#0a1d2b]" />
 							<Heading as="h3" className="text-[#0a1d2b]">
 								Conviértete en Voluntario
 							</Heading>
@@ -53,7 +53,7 @@ export const Hero = () => {
 						<Paragraph className="text-base xl:text-xl">
 							Únete a nuestro equipo de voluntarios apasionados y marca la diferencia con tu tiempo y habilidades.
 						</Paragraph>
-						<Link to="/contact" className="font-medium text-base">
+						<Link to="/contact" className="font-medium text-base text-[#0a1d2b]">
 							Contáctanos
 						</Link>
 					</article>

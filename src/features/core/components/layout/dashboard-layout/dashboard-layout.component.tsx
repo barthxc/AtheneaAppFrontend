@@ -25,6 +25,7 @@ export const DashboardLayout = () => {
 			<Header />
 			<div className="flex justify-between items-start h-screen">
 				<Sidebar />
+				{/* 100% - sidebar width */}
 				<main className={cn("pt-20 flex-1 w-full", isMinimized ? "md:w-[calc(100%-5rem)]" : "md:w-[calc(100%-18rem)]")}>
 					{/* viewport height - navbar height */}
 					<div className="space-y-4 p-8">

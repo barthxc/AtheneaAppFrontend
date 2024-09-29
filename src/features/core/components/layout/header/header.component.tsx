@@ -14,7 +14,7 @@ export const Header = () => {
 				<Link
 					to="/"
 					className={cn(
-						" items-center gap-2 overflow-hidden rounded-md py-2 text-2xl font-medium   transparent transform hover:rotate-3 transition duration-300",
+						" items-center gap-2 overflow-hidden rounded-lg py-2 text-2xl font-medium   transparent transform hover:rotate-3 transition duration-300",
 					)}>
 					<img src="https://athenea.netlify.app/Logo.png" width={50} alt="" />
 				</Link>

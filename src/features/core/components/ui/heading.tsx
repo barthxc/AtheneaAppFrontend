@@ -8,8 +8,8 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 export const Heading: React.FC<HeadingProps> = ({ title, description, className }) => {
 	return (
 		<div>
-			<h2 className={cn("text-3xl font-bold tracking-tight", className)}>{title}</h2>
-			{description && <p className="text-sm text-muted-foreground">{description}</p>}
+			<h2 className={cn("text-3xl text-foreground font-bold tracking-tight", className)}>{title}</h2>
+			{description && <p className="text-muted-foreground">{description}</p>}
 		</div>
 	);
 };

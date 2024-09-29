@@ -1,9 +1,9 @@
+import { type default as React, cloneElement } from "react";
 import { FormField, type FormFieldProps } from "@/features/core/components";
 import { Button, Form, Heading, type HeadingProps, Input, Textarea } from "@/features/core/components/ui";
 import { cn } from "@/features/core/lib/utils";
 
 import type { EmailFormViewProps } from "@/features/email/types";
-import { cloneElement } from "react";
 
 const EmailFormView = ({ loading, form, onSubmit, emailType, render }: EmailFormViewProps) => {
 	return (
@@ -98,10 +98,18 @@ interface EmailFormViewFieldProps {
 	loading: boolean;
 }
 
-interface EmailFormViewHeadingProps extends Omit<EmailFormViewFieldProps, "loading">, HeadingProps {}
-interface EmailFormViewInputProps extends EmailFormViewFieldProps {}
-interface EmailFormViewTextareaProps extends EmailFormViewFieldProps {}
-interface EmailFormViewButtonProps extends EmailFormViewFieldProps, React.PropsWithChildren {}
+interface EmailFormViewHeadingProps
+	extends Omit<EmailFormViewFieldProps, "loading">,
+		Pick<HeadingProps, "title" | "description">,
+		Omit<React.HTMLAttributes<HTMLHeadingElement>, "title"> {}
+interface EmailFormViewInputProps extends EmailFormViewFieldProps, React.InputHTMLAttributes<HTMLInputElement> {}
+interface EmailFormViewTextareaProps
+	extends EmailFormViewFieldProps,
+		React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+interface EmailFormViewButtonProps
+	extends EmailFormViewFieldProps,
+		React.ButtonHTMLAttributes<HTMLButtonElement>,
+		React.PropsWithChildren {}
 interface EmailFormViewFormFieldProps extends FormFieldProps {}
 
 const EmailFormViewHeading = ({ component: Component, title, description, ...props }: EmailFormViewHeadingProps) => {
@@ -133,7 +141,8 @@ const EmailFormViewTextarea = ({ component: Component, loading, ...fieldProps }:
 const EmailFormViewButton = ({ component: Component, loading, children, ...fieldProps }: EmailFormViewButtonProps) => {
 	const props = {
 		disabled: loading,
-		className: cn("ml-auto h-12 text-base", Component?.props.className),
+		className: cn("ml-auto text-base", Component?.props.className),
+		size: "lg" as const,
 		children,
 		...fieldProps,
 	};

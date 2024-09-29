@@ -19,7 +19,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
 	return (
 		<nav
 			className={cn(
-				"relative hidden h-screen flex-none border-r z-10 bg-white pt-20 md:block",
+				"relative hidden h-screen flex-none border-r z-10 bg-[#F8F8F9] pt-20 md:block",
 				status && "duration-500",
 				isMinimized ? "w-20" : "w-72",
 				className,
