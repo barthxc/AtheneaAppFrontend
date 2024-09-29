@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({ table, columns, includePagination }: DataTableProps<TData, TValue>) {
 	return (
 		<>
-			<ScrollArea className="rounded-md border">
+			<ScrollArea className="rounded-lg border">
 				<Table className="relative">
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (

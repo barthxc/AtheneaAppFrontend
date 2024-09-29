@@ -83,7 +83,7 @@ export function AuthForm() {
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
-									<Input type="email" placeholder="Introduce tu email..." disabled={loading} {...field} />
+									<Input type="email" placeholder="ejemplo@correo.com" disabled={loading} {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>

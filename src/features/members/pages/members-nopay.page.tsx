@@ -28,19 +28,11 @@ export function MembersNoPayPage() {
 	const { filters, currentPage, handleFiltersChange, handleSelectChange, handlePageChange, handleSearch } =
 		useMemberTableMethods();
 
-	const {
-		members,
-		totalPages,
-		hasPreviousPage,
-		hasNextPage,
-		isError,
-		isLoading,
-		errorMessage,
-		isFetching,
-	} = usePaginatedMembersNoPay({
-		filters,
-		currentPage,
-	});
+	const { members, totalPages, hasPreviousPage, hasNextPage, isError, isLoading, errorMessage, isFetching } =
+		usePaginatedMembersNoPay({
+			filters,
+			currentPage,
+		});
 	const { isPreviousDisabled, isNextDisabled } = useMemberPaginationInfo({ members, hasPreviousPage, hasNextPage });
 
 	useEffect(() => {
@@ -69,28 +61,28 @@ export function MembersNoPayPage() {
 					placeholder="Nombre"
 					value={filters.name || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded max-w-44"
+					className="max-w-44"
 				/>
 				<Input
 					name="lastName"
 					placeholder="Apellido"
 					value={filters.lastName || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded max-w-44"
+					className="max-w-44"
 				/>
 				<Input
 					name="identificationNumber"
 					placeholder="DNI"
 					value={filters.identificationNumber || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded max-w-44"
+					className="max-w-44"
 				/>
 				<Input
 					name="memberNumber"
 					placeholder="Número de Socio"
 					value={filters.memberNumber || ""}
 					onChange={handleFiltersChange}
-					className="border p-2 rounded max-w-44"
+					className="max-w-44"
 				/>
 				<Select name="status" value={filters.status} onValueChange={handleSelectChange}>
 					<SelectTrigger className="max-w-28">
