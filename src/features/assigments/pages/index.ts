@@ -1,2 +1,3 @@
-export { AssigmentsPage } from "./assigments.page";
-export { AssigmentPdfPage } from "./assigment-pdf.page";
+export { AssignmentsPage } from "./assignments.page";
+export { AssignmentsPdfPage } from "./assignments-pdf.page";
+export { AssignmentsGivePage } from "./assignments-give.page";

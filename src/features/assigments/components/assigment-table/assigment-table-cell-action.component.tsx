@@ -50,7 +50,7 @@ export const AssigmentTableCellAction: React.FC<AssigmentTableCellActionProps> =
 				<Button onClick={() => navigate(`/dashboard/members/${data.id}/edit`)}>
 					<Edit className="h-4 w-4" />
 				</Button>
-				<Button onClick={() => navigate(`/dashboard/assigment/pdf/${data.id}`)} variant="secondary">
+				<Button onClick={() => navigate(`/dashboard/assignments/${data.id}/pdf`)} variant="secondary">
 					<Eye className="h-4 w-4" />
 				</Button>
 				<Button variant="destructive" onClick={() => setOpen(true)}>

@@ -1,1 +1,1 @@
-export { AssigmentPdf } from "./assigment-pdf.component";
+export { AssignmentPdf } from "./assigment-pdf.component";
