@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ErrorService } from "@/features/error/service";
 import { ERROR_MESSAGES } from "@/features/error/constants";
 import { AssigmentApiFactory } from "@/features/assigments/hooks";
+import { useToast } from "@/features/core/components/ui";
+import { AssigmentService, Assignment } from "../services";
 
 const useGetAssigment = () => {
 	const { data, isError, isFetching, isLoading, error } = useQuery({
@@ -23,4 +25,31 @@ const useGetAssigment = () => {
 	};
 };
 
-export { useGetAssigment };
+const useCreateAssignment = () => {
+	const queryClient = useQueryClient();
+	const { toast } = useToast();
+
+	const mutation = useMutation({
+		mutationFn: async (assignment: Assignment) => await AssigmentService.create(assignment),
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: AssigmentApiFactory.getAssigments._def,
+			});
+		},
+		onError: (error) => {
+			toast({
+				variant: "destructive",
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.ASSIGNMENT.CREATE),
+			});
+		},
+	});
+
+	return {
+		...mutation,
+		errorMessage:
+			mutation.isError &&
+			ErrorService.handleError((mutation.error as any)?.statusCode, ERROR_MESSAGES.ASSIGNMENT.CREATE),
+	};
+};
+
+export { useGetAssigment, useCreateAssignment };

@@ -6,14 +6,19 @@ import { cn } from "@/features/core/lib/utils";
 import type { CalendarDateRangePickerProps } from "@/features/core/components";
 import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "@/features/core/components/ui";
 
-export const CalendarDateRangePicker = ({ className, onChangeDateRage, currentDate }: CalendarDateRangePickerProps) => {
+export const CalendarDateRangePicker = ({
+	label = "Selecciona un rango de fechas",
+	className,
+	onChangeDateRage,
+	currentDate,
+}: CalendarDateRangePickerProps) => {
 	return (
 		<div className={cn("grid gap-2", className)}>
 			<Popover>
 				<PopoverTrigger asChild>
 					<div>
 						<label className="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base">
-							Selecciona un rango de fechas
+							{label}
 						</label>
 						<Button
 							id="date"

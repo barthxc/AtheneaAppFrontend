@@ -14,7 +14,7 @@ export interface RenderProps {
 
 export interface FormFieldProps {
 	formControl: Control<any>;
-	name: keyof FieldValues;
+	name: keyof FieldValues | null;
 	label: string | null;
 	render: {
 		renderProp(renderProps: RenderProps): React.ReactNode;

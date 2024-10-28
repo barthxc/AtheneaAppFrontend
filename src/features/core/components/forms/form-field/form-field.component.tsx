@@ -13,7 +13,7 @@ export const FormField = ({ formControl, name, label, render, ...props }: FormFi
 	return (
 		<FormFieldUI
 			control={formControl}
-			name={name}
+			name={name ?? ""}
 			render={(renderProps) => (
 				<FormItem>
 					{label && (

@@ -1,3 +1,2 @@
-export { useGetAssigment } from "./hook";
-
+export * from "./hook";
 export * from "./assigments.factory";

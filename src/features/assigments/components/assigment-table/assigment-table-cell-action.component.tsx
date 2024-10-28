@@ -6,10 +6,10 @@ import { ConfirmModal } from "@/features/core/components/modal";
 import { Button, useToast } from "@/features/core/components/ui";
 
 import { useDeleteEventCaldendar } from "@/features/calendar/hooks";
-import type { AssigmentResponse } from "../../services";
+import type { AssignmentResponse } from "../../services";
 
 export interface AssigmentTableCellActionProps {
-	data: AssigmentResponse;
+	data: AssignmentResponse;
 }
 
 export const AssigmentTableCellAction: React.FC<AssigmentTableCellActionProps> = ({ data }) => {
