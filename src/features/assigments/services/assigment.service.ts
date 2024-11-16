@@ -1,59 +1,60 @@
 import { atheneaApi } from "@/features/core/lib/api";
 
-export interface AssigmentDetails {
-  itemName: string;
-  quantity: number;
-  id: string;
+export interface Assignment {
+	from: Date;
+	to: Date;
+	details: AssignmentDetails[];
+	member: string;
 }
 
-export interface MemberAssigment {
-  id: string;
-  memberNumber: string;
-  identificationNumber: string;
-  name: string;
-  lastName: string;
+export interface AssignmentDetails {
+	itemName: string;
+	quantity: number;
+	id: string;
 }
 
-export interface AssigmentResponse {
-  id: string;
-  from: Date;
-  to: Date;
-  defails: AssigmentDetails[];
-  member: MemberAssigment;
-  createdAt: Date;
-  updateAt: Date;
+export interface AssignmentResponse extends Assignment {
+	id: string;
+	createdAt: Date;
+	updateAt: Date;
 }
 
 export class AssigmentService {
-  static create = async (assigment: any) => {
-    try {
-      const { data } = await atheneaApi.post<AssigmentResponse>(
-        "/assigments",
-        assigment
-      );
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static create = async (assigment: Assignment) => {
+		try {
+			const { data } = await atheneaApi.post<AssignmentResponse>("/assigments", assigment);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static getAssigments = async () => {
-    try {
-      const { data } = await atheneaApi.get<AssigmentResponse[]>("/assigments");
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static remove = async (id: string) => {
+		try {
+			const { data } = await atheneaApi.delete<AssignmentResponse>(`/assigments/${id}`);
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 
-  static getPDFAssigment = async (id: string) => {
-    try {
-      const { data } = await atheneaApi.get(`/assigments/pdf/${id}`, {
-        responseType: "blob",
-      });
-      return data;
-    } catch (error: any) {
-      throw error.response?.data;
-    }
-  };
+	static getAssigments = async () => {
+		try {
+			const { data } = await atheneaApi.get<AssignmentResponse[]>("/assigments");
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
+
+	static getPDFAssigment = async (id: string) => {
+		try {
+			const { data } = await atheneaApi.get(`/assigments/pdf/${id}`, {
+				responseType: "blob",
+			});
+			return data;
+		} catch (error: any) {
+			throw error.response?.data;
+		}
+	};
 }
