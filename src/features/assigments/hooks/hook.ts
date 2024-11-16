@@ -52,4 +52,31 @@ const useCreateAssignment = () => {
 	};
 };
 
-export { useGetAssigment, useCreateAssignment };
+const useDeleteAssignment = () => {
+	const queryClient = useQueryClient();
+	const { toast } = useToast();
+
+	const mutation = useMutation({
+		mutationFn: (id: string) => AssigmentService.remove(id),
+		onSuccess: () => {
+			toast({
+				description: "Cesión eliminada correctamente.",
+			});
+			queryClient.invalidateQueries({
+				queryKey: AssigmentApiFactory.getAssigments._def,
+			});
+		},
+		onError: (error) => {
+			toast({
+				variant: "destructive",
+				description: ErrorService.handleError((error as any)?.statusCode, ERROR_MESSAGES.ASSIGNMENT.REMOVE),
+			});
+		},
+	});
+
+	return {
+		...mutation,
+	};
+};
+
+export { useGetAssigment, useCreateAssignment, useDeleteAssignment };

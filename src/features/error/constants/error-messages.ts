@@ -327,5 +327,13 @@ export const ERROR_MESSAGES: ErrorMessages = {
 			500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
 			GENERIC: "Ocurrió un error al crear la cesión. Inténtalo de nuevo.",
 		},
+		REMOVE: {
+			400: "Error al eliminar la cesión. Verifica los datos proporcionados.",
+			401: "No tienes autorización para eliminar una cesión.",
+			403: "No tienes permiso para realizar esta acción.",
+			404: "No se pudo encontrar el recurso solicitado.",
+			500: "Ocurrió un error interno en el servidor. Inténtalo de nuevo más tarde.",
+			GENERIC: "Ocurrió un error al eliminar la cesión. Inténtalo de nuevo.",
+		},
 	},
 };

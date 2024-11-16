@@ -63,5 +63,6 @@ export interface ErrorMessages {
 	};
 	ASSIGNMENT: {
 		CREATE: ErrorMessage;
+		REMOVE: ErrorMessage;
 	};
 }
