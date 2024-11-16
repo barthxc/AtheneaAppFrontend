@@ -1,7 +1,5 @@
 export interface AssignmentField {
-	itemName: string;
-	quantity?: number;
-	from: Date;
-	to: Date;
-	id: number;
+  itemName: string;
+  quantity?: number;
+  id: number | string;
 }
