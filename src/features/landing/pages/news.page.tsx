@@ -51,7 +51,7 @@ export function NewsPage() {
                     <img
                       src={image.url}
                       alt={`Imágenes de la noticia ${item.title}`}
-                      className="w-full aspect-video	object-cover select-none"
+                      className="w-full aspect-video	object-scale-down	select-none"
                     />
                   </Carousel.Item>
                 ))}
