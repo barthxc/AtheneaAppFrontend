@@ -73,10 +73,18 @@ export const MemberFormView = ({
                     <b className="font-semibold">SOCIO: </b>
                     {initialData.memberNumber}
                   </p>
-                  <p>
-                    <b className="font-semibold">ANTIGÜEDAD: </b>
-                    {initialData.createdAt}
-                  </p>
+<p>
+  <b className="font-semibold">ANTIGÜEDAD: </b>
+  {new Date(initialData.createdAt).toLocaleDateString("es-ES", {
+    timeZone: "Europe/Madrid",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })}
+</p>
+
                   <p>
                     <b className="font-semibold">PAGO: </b>
                     {initialData.bankInfo.paymentDate}
