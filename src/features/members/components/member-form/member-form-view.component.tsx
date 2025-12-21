@@ -74,6 +74,10 @@ export const MemberFormView = ({
                     {initialData.memberNumber}
                   </p>
                   <p>
+                    <b className="font-semibold">ANTIGÜEDAD: </b>
+                    {initialData.createdAt}
+                  </p>
+                  <p>
                     <b className="font-semibold">PAGO: </b>
                     {initialData.bankInfo.paymentDate}
                   </p>
